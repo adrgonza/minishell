@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/05 17:32:53 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/06 23:09:35 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_init(int argc, char **argv, char **envp)
-{
-	if (argc != 1) /* check there is only an argument */
-		return (0);
-	return (1);
-}
+t_state g_state;
 
 int main(int argc, char **argv, char **envp)
 {
@@ -26,3 +21,4 @@ int main(int argc, char **argv, char **envp)
 	prompt(envp); /* execute prompt */
 	return (0);
 }
+
