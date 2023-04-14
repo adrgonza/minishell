@@ -1,50 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   init_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/06 18:33:45 by amejia           ###   ########.fr       */
+/*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
+/*   Updated: 2023/04/06 23:13:46 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_count_commands(char *command)
+int ft_init(int argc, char **argv, char **envp)
 {
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (command[i])
-	{
-		while (command[i] == ' ')
-			i++;
-		if (command[i] == '|')
-		i++;
-	}
+	if (argc != 1) /* check there is only an argument */
+		return (0);
+	split_cpy(&g_state.envp,envp); /* copy the external env */
+	return (1);
 }
 
-void	ft_free_command(char *command)
+void ft_exit(void)
 {
-	return ;
-}
-
-t_token	*ft_parsing(char *command)
-{
-	int nb;
-
-
-	// nb = ft_count_commands(command); /* count how many commands  */
-	// while (nb)
-	// {
-
-	// 	ft_get_type()
-	// 	ft_get_args()
-	// 	nb--;
-	// }
-	return (NULL);
+	ft_free_split(g_state.envp);
+	exit(0);
 }

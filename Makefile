@@ -3,26 +3,49 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
+#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/05 17:30:26 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/04/06 23:13:12 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = mix/main.c mix/prompt.c argv_generator.c ft_execchar.c\
-CC = gcc
+MAIN = mix/main.c
+TESTMAIN = testmain.c
+NAME_DEBUG = minishell_debug
+
+SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c parsing/parsing.c \
+exec/ft_executer.c mix/init_exit.c
+
+NAMETEST = testout
+
+CC = cc
 OBJS = ${SRCS:.c=.o}
+MAINOBJ = ${MAIN:.c=.o}
+TESTOBJ = ${TESTMAIN:.c=.o}
 
 #CFLAGS = -Wall -Werror -Wextra
-READLINE_FLAGS = -lreadline #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
+READLINE_FLAGS = -lreadline  #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
+
+
+
 
 all: $(NAME)
 
-$(NAME): $(OBJS) libft/libft.a
-	$(CC) $(CFLAGS) $(READLINE_FLAGS) $(OBJS) libft/libft.a -o $@
+ $(NAME): $(OBJS) $(MAINOBJ) libft/libft.a
+	$(CC) $(CFLAGS) $(OBJS) $(MAINOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
+
+
+
+$(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
+	$(CC) $(CFLAGS)  $(OBJS) $(TESTOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
+
+
+$(NAME_DEBUG): $(SRCS) $(TESTMAIN) libft/libft.a
+	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(TESTMAIN) $(READLINE_FLAGS) libft/libft.a -o $@
+
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -31,13 +54,17 @@ libft/libft.a:
 	make -C libft
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(MAINOBJ) $(TESTOBJ)
 	make -C libft clean
 
 fclean: clean
-	rm -f $(NAME) $(NAME_DEBUG) $(NAME_CHECKER)
+	rm -f $(NAME) $(TEST)
 	make -C libft fclean
+
+test: $(NAMETEST)
+
+VS_debug: $(NAME_DEBUG)
 
 re: fclean all
 
-.PHONY: all clean fclean re debug bonus
+.PHONY: all clean fclean re bonus

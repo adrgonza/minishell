@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_execchar.c                                      :+:      :+:    :+:   */
+/*   ft_executer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:37:04 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/14 13:52:00 by amejia           ###   ########.fr       */
+/*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
+/*   Updated: 2023/04/06 22:19:44 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
+
+void	ft_executer(t_token *ẗoken)
+{
+	return ;	
+}
 
 char	*find_path2(char *command, char **envpaths)
 {
@@ -23,11 +28,11 @@ char	*find_path2(char *command, char **envpaths)
 	{
 		path = ft_strjoin(envpaths[ct], "/");
 		if (path == 0)
-			exit (2);
+			exit (EXIT_FAILURE);
 		temp = path;
 		path = ft_strjoin(path, command);
 		if (path == 0)
-			exit (2);
+			exit (EXIT_FAILURE);
 		free(temp);
 		if (!access(path, F_OK))
 			return (free(command), ft_free_split(envpaths), path);
@@ -68,21 +73,19 @@ char	*find_path(char *command, char **envp)
 	while (envp[++c] != NULL && !ft_strnstr(envp[c], "PATH", 4))
 		;
 	if (envp[c] == NULL)
-		exit (1);
+		exit (EXIT_FAILURE);
 	temp = ft_split(envp[c], '=');
 	envpaths = ft_split(temp[1], ':');
 	ft_free_split(temp);
 	return (find_path2(command, envpaths));
 }
 
-int	ft_execchar(char *command, char **envp)
+int	ft_exectkn(t_token *token)
 {
 	char	*path_to_exec;
-	char	**new_argv;
-
-	path_to_exec = find_path(command, envp);
-	new_argv = argv_generator(command);
-	if (execve(path_to_exec, new_argv, envp) == -1)
-		return (127);
+	
+	path_to_exec = find_path((token->args)[0], g_state.envp);
+	if (execve(path_to_exec, token->args, g_state.envp) == -1)
+		exit (EXIT_FAILURE);
 	return (0);
 }
