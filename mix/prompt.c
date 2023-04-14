@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/06 18:12:38 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/14 17:22:50 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void	prompt(char **envp)
 		if (command == NULL)
 			break ;
 		add_history(command);
-		tokens = ft_parsing(command);
-		ft_executer(tokens);
+		tokens = parsing(command);
+		if (tokens)
+			ft_executer(tokens);
 		ft_tknclear(&tokens);
 		free(command);
 	}
+	//rl_clear_history();
 }

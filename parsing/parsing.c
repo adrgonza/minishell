@@ -3,48 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/06 18:33:45 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/14 17:23:43 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_count_commands(char *command)
+char	*p_get_type(char *command, int i)
+{
+	if (command[i] == '|')
+		return("PIPE");
+	if (command[i] == '<')
+	{
+		if (command[++i] == '<')
+			return ("LESSLESS");
+		return ("LESS");
+	}
+	if (command[i] == '>')
+	{
+		if (command[++i] == '>')
+			return ("GREATGREAT");
+		return ("GREAT");
+	}
+	if (command[i] == ';')
+		return ("SEMICOLON");
+	return ("COMMAND");
+}
+
+int p_check_quotes(char *command)
 {
 	int i;
-	int count;
+	int count_q;
+	int count_simple_q;
 
-	i = 0;
-	count = 0;
-	while (command[i])
+	count_q = 0;
+	count_simple_q = 0;
+	i = -1;
+	while (command[++i])
 	{
-		while (command[i] == ' ')
-			i++;
-		if (command[i] == '|')
-		i++;
+		if (command[i] == '"' && (count_simple_q % 2 == 0))
+			if (i == 0 || (command[i - 1] != '\\' || command[i - 2] == '\\'))
+				count_q++;
+		if (command[i] == '\'' && (count_q % 2 == 0))
+			if (i == 0 || (command[i - 1] != '\\' || command[i - 2] == '\\'))
+				count_simple_q++;
 	}
+	if (count_q % 2 != 0 || count_simple_q % 2 != 0) /* checks if quotes nb is not pair */
+		return (printf("Error, cierra las comillas!!\n"), 0);
+	return (1);
 }
 
-void	ft_free_command(char *command)
+t_token	*parsing(char *command)
 {
-	return ;
-}
+	t_token *token = NULL;
+	char	**args;
+	char	*type;
+	int i;
 
-t_token	*ft_parsing(char *command)
-{
-	int nb;
-
-
-	// nb = ft_count_commands(command); /* count how many commands  */
-	// while (nb)
-	// {
-
-	// 	ft_get_type()
-	// 	ft_get_args()
-	// 	nb--;
-	// }
-	return (NULL);
+	if (!p_check_quotes(command)) /* Checks if there is not open quotes. */
+		return (token);
+	/*ft_tkn_new();
+	i = -1;
+	while (command[++i])
+	{
+		while (command[i] == ' ')  jump spaces
+			i++;
+		type = ft_get_type(command, i);  gets de type of the fisrt token
+		args
+		ft_tkn_add_back(token, ft_tkn_new(type, args));
+	}*/
+	return (token);
 }
