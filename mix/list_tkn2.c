@@ -6,21 +6,24 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:01 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/06 17:39:07 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:55:23 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_tknnew(char *type, char **args)
+t_token	*ft_tknnew(int type, char **args)
 {
 	t_token	*to_return;
 
 	to_return = (t_token *)malloc(sizeof(t_token));
 	if (to_return == 0)
 		return (0);
-	ft_strlcpy(to_return->type, type, 9);
-	split_cpy(&(to_return->args), args);
+	to_return->type = type;
+	if (args != NULL)
+		split_cpy(&(to_return->args), args);
+	else
+		to_return->args == NULL;
 	to_return->next = NULL;
 	to_return->last = NULL;
 	return (to_return);

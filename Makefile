@@ -6,7 +6,7 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/06 23:13:12 by amejia           ###   ########.fr        #
+#    Updated: 2023/04/20 22:18:26 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,10 @@ MAIN = mix/main.c
 TESTMAIN = testmain.c
 NAME_DEBUG = minishell_debug
 
-SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c parsing/parsing.c \
-exec/ft_executer.c mix/init_exit.c
+SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
+mix/list_env.c mix/list_env2.c \
+parsing/parsing.c \
+exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c
 
 NAMETEST = testout
 
@@ -28,9 +30,6 @@ TESTOBJ = ${TESTMAIN:.c=.o}
 
 #CFLAGS = -Wall -Werror -Wextra
 READLINE_FLAGS = -lreadline  #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
-
-
-
 
 all: $(NAME)
 
@@ -43,8 +42,8 @@ $(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
 	$(CC) $(CFLAGS)  $(OBJS) $(TESTOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
 
 
-$(NAME_DEBUG): $(SRCS) $(TESTMAIN) libft/libft.a
-	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(TESTMAIN) $(READLINE_FLAGS) libft/libft.a -o $@
+$(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
+	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(MAINOBJ) $(READLINE_FLAGS) libft/libft.a -o $@
 
 
 %.o: %.c

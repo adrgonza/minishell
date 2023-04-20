@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/14 17:22:50 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/19 16:53:52 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,22 @@ void	prompt(char **envp)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = readline("(>\'-\')> ");
+		//command = readline("(>^-^)> ");
+		command = ft_strdup("ls -l");
 		if (command == NULL)
 			break ;
 		add_history(command);
-		tokens = parsing(command);
+		tokens = NULL;
+		ft_tknadd_back(&tokens,ft_tknnew(T_STDIN, ft_split("testmain.c", ' ')));
+		ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("ls", ' ')));
+		//ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("ls", ' ')));
+		ft_tknadd_back(&tokens,ft_tknnew(T_GREAT, ft_split("out", ' ')));
+		//tokens = parsing(command);
 		if (tokens)
 			ft_executer(tokens);
 		ft_tknclear(&tokens);
 		free(command);
+		command = NULL;
 	}
 	//rl_clear_history();
 }
