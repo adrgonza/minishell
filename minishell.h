@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/14 17:24:28 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/18 01:11:47 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,27 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define    T_STDOUT        1
+# define    T_STDIN         2
+# define    T_COMMAND       3
+# define    T_PIPE          4
+# define    T_SEMICOLON     5
+# define    T_LESS          6
+# define    T_LESSLESS      7
+# define    T_GREAT         8
+# define    T_GREATGREAT    9
+
 typedef struct s_state {
-	char	**envp;
-	int		last_return;
-}	t_state;
+    char    **envp;
+    int     last_return;
+}   t_state;
 
 typedef struct s_token{
-	char			type[10];
-	char			**args;
-	struct s_token	*last;
-	struct s_token	*next;
-}	t_token;
+    int             type;
+    char            **args;
+    struct s_token  *last;
+    struct s_token  *next;
+}   t_token;
 
 /* mix */
 void	ft_tknadd_back(t_token **lst, t_token *new);
@@ -48,6 +58,11 @@ int		ft_init(int argc, char **argv, char **envp);
 /* parsing */
 
 t_token	*parsing(char *command);
+int		p_get_type(char *command, int i);
+char	**get_cmd_args(char *command, int i);
+int		count_letters(char *cmd, int i);
+int		count_words(char *cmd, int i);
+void 	ft_free_args(char **args);
 
 
 /* executing*/

@@ -6,34 +6,74 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/14 17:23:43 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:04:34 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*p_get_type(char *command, int i)
+int	p_get_type(char *command, int i) //finish
 {
 	if (command[i] == '|')
-		return("PIPE");
+		return(T_PIPE);
+	if (command[i] == ';')
+		return (T_SEMICOLON);
 	if (command[i] == '<')
 	{
 		if (command[++i] == '<')
-			return ("LESSLESS");
-		return ("LESS");
+			return (T_LESSLESS);
+		return (T_LESS);
 	}
 	if (command[i] == '>')
 	{
 		if (command[++i] == '>')
-			return ("GREATGREAT");
-		return ("GREAT");
+			return (T_GREATGREAT);
+		return (T_GREAT);
 	}
-	if (command[i] == ';')
-		return ("SEMICOLON");
-	return ("COMMAND");
+	return (T_COMMAND);
 }
 
-int p_check_quotes(char *command)
+char **get_args(int	type, char *command, int i)
+{
+	char **args;
+
+	if (type == T_COMMAND)
+		return (args = get_cmd_args(command, i));
+	if (type == T_SEMICOLON || type == T_PIPE)
+		return (NULL);
+	if (type == T_LESS || T_GREAT)
+	{
+		args[0] = &command[i];
+		args[1] = NULL;
+	}
+	if (type == T_LESSLESS || type == T_GREATGREAT)
+	{
+		args[0] = &command[i];
+		args[1] = NULL;
+	}
+	return (args);
+}
+
+int next_arg(int type, char *cmd, int i) //finish
+{
+	if (type == T_COMMAND)
+	{
+		while (cmd[i])
+		{
+			if (cmd[i] == ';' || cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>')
+				return (i);
+			i++;
+		}
+		return (i);
+	}
+	if (type == T_SEMICOLON || type == T_PIPE || type == T_LESS || type == T_GREAT)
+		return (i + 1);
+	if (type == T_LESSLESS || type == T_GREATGREAT)
+		return (i + 2);
+	return (i);
+}
+
+int p_check_quotes(char *command) //finish
 {
 	int i;
 	int count_q;
@@ -60,20 +100,33 @@ t_token	*parsing(char *command)
 {
 	t_token *token = NULL;
 	char	**args;
-	char	*type;
-	int i;
+	int		type;
+	int		i;
 
 	if (!p_check_quotes(command)) /* Checks if there is not open quotes. */
 		return (token);
-	/*ft_tkn_new();
-	i = -1;
-	while (command[++i])
+	i = 0;
+	while (command[i])
 	{
-		while (command[i] == ' ')  jump spaces
+		while (command[i] == ' ' || command[i] == '\t')
 			i++;
-		type = ft_get_type(command, i);  gets de type of the fisrt token
-		args
-		ft_tkn_add_back(token, ft_tkn_new(type, args));
-	}*/
+		type = p_get_type(command, i);
+		args = get_args(type, command, i);
+		printf("type:--%d--\n", type);
+		if (type == T_PIPE || type == T_SEMICOLON)
+			printf("args:[%s]\n", args);
+		else
+		{
+			printf("args:[%s]\n", args[0]);
+			printf("args:[%s]\n", args[1]);
+			//printf("args:[%s]\n", args[2]);
+		}
+		//ft_tknadd_back(token, ft_tknnew(type, args));
+		i = next_arg(type, command, i);
+		ft_free_args(args);
+		if (type == T_SEMICOLON)
+			exit(0);
+	}
 	return (token);
 }
+

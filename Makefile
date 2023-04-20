@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
+#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/06 23:13:12 by amejia           ###   ########.fr        #
+#    Updated: 2023/04/18 00:31:56 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ TESTMAIN = testmain.c
 NAME_DEBUG = minishell_debug
 
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c parsing/parsing.c \
-exec/ft_executer.c mix/init_exit.c
+exec/ft_executer.c mix/init_exit.c parsing/get_args.c parsing/args_tools.c \
 
 NAMETEST = testout
 
