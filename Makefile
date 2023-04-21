@@ -6,7 +6,7 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/20 22:18:26 by amejia           ###   ########.fr        #
+#    Updated: 2023/04/21 16:00:51 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME_DEBUG = minishell_debug
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
 mix/list_env.c mix/list_env2.c \
 parsing/parsing.c \
-exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c
+exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c parsing/get_args.c parsing/args_tools.c \
 
 NAMETEST = testout
 

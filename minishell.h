@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/20 22:47:18 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/21 16:05:45 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ void	here_doc_prompt(int *pip, t_token *token);
 /* parsing */
 
 t_token	*parsing(char *command);
+int		p_get_type(char *command, int i);
+char	**get_cmd_args(char *command, int i);
+int		count_letters(char *cmd, int i);
+int		count_words(char *cmd, int i);
+void 	ft_free_args(char **args);
 
 /* executing*/
 void	ft_executer(t_token *ẗoken);
