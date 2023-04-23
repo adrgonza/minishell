@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/18 11:04:34 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:15:54 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ t_token	*parsing(char *command)
 		args = get_args(type, command, i);
 		printf("type:--%d--\n", type);
 		if (type == T_PIPE || type == T_SEMICOLON)
-			printf("args:[%s]\n", args);
+			printf("args:[%p]\n", args);
 		else
 		{
 			printf("args:[%s]\n", args[0]);
 			printf("args:[%s]\n", args[1]);
 			//printf("args:[%s]\n", args[2]);
 		}
-		//ft_tknadd_back(token, ft_tknnew(type, args));
+		ft_tknadd_back(token, ft_tknnew(type, args));
 		i = next_arg(type, command, i);
 		ft_free_args(args);
 		if (type == T_SEMICOLON)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/18 01:15:59 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/23 14:54:12 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void leaks()
 
 int main(int argc, char **argv, char **envp)
 {
-	atexit(leaks);
+	//atexit(leaks);
 	if (!ft_init(argc, argv, envp)) /* inicializate args */
 		return (0);
 	prompt(envp); /* execute prompt */

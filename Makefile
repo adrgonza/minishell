@@ -6,7 +6,7 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/21 16:00:51 by amejia           ###   ########.fr        #
+#    Updated: 2023/04/23 14:35:23 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ $(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
 
 
 $(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
-	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(MAINOBJ) $(READLINE_FLAGS) libft/libft.a -o $@
+	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(READLINE_FLAGS) libft/libft.a -o $@
 
 
 %.o: %.c

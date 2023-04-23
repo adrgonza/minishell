@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/20 22:50:15 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/23 14:19:01 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void ft_executer3(int *id, int *ct, int **pip, t_token *token)
 	}
 	free (pip);
 	free (id);
-	g_state.last_return = ct[3];
+	g_state.last_return = WEXITSTATUS(ct[3]);
 }
 
 void	ft_executer(t_token *token)
@@ -67,11 +67,11 @@ void	ft_executer(t_token *token)
 	ft_bzero(ct, 3 * sizeof(int));
 	ct[2] = pipe_counter(token);
 	pip = pipe_generator(ct[2]);
-	if (pip == NULL)
-		malloc_fail_proc();
+//	if (pip == NULL)
+//		malloc_fail_proc();
 	id = ft_calloc(ct[2] + 1, sizeof(int));
-	if (id == NULL)
-		malloc_fail_proc();
+//	if (id == NULL)
+//		malloc_fail_proc();
 	ft_executer2(id, ct, pip, token);
 	ft_executer3(id, ct, pip, token);	
 	// add status to global WEXITSTATUS(ct[3]);

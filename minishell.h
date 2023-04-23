@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/21 16:13:39 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/23 14:07:36 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@
 typedef struct s_env{
 	char			*name;
 	char			*args;
-	struct s_token	*last;
-	struct s_token	*next;
+	struct s_env	*last;
+	struct s_env	*next;
 }	t_env;
 
-typedef struct s_state {
+typedef struct s_state{
 	t_env	*envp;
 	int		last_return;
 }	t_state;
