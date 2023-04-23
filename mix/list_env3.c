@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 22:27:07 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/23 16:53:36 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/23 22:23:50 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,8 @@ void ft_envunset(t_env *token)
 //export
 void ft_envset(t_env *token)
 {
-	t_env	*added;
-
 	ft_envunset(token);
-	added = ft_envnew(token->name,token->args);
-	if (added == NULL)
-	{
-		ft_printf("Memory Error");
-		return ;
-	}
-	ft_envadd_back(&g_state.envp, added);
+	ft_envadd_back(&g_state.envp, token);
 }
 
 //env

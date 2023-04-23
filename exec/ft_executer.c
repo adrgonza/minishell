@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/23 14:19:01 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/23 22:00:11 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void ft_executer2(int *id, int *ct, int **pip, t_token *token)
 	pipe_con_before_forks(token, pip, ct[2]);
 	while (token != NULL)
 	{
-		if (token->type == T_COMMAND)
+		if (token->type == T_COMMAND && check_builtin(token->args) == 0)
 		{
 			id[ct[1]] = fork();
 			if (id[ct[1]] == 0)
@@ -32,6 +32,8 @@ void ft_executer2(int *id, int *ct, int **pip, t_token *token)
 			}
 			ct[1]++;
 		}
+		else if (token->type == T_COMMAND)
+			ft_builtinexec(token);
 		token = token->next;
 		ct[0]++;
 	}

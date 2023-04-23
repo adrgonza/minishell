@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/23 16:38:05 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/23 21:41:52 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <linux/limits.h> //change to mac on campus
 
 
 # define	T_STDOUT		1
@@ -42,6 +43,7 @@ typedef struct s_env{
 typedef struct s_state{
 	t_env	*envp;
 	int		last_return;
+	int		exit;
 }	t_state;
 
 typedef struct s_token{
