@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/23 14:37:42 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/23 16:35:47 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 
 int	ft_init(int argc, char **argv, char **envp)
 {
+	t_env *envt;
+	
 	if (argc != 1) /* check there is only an argument */
 	{
 		return (0);
 	}
 	g_state.envp = env_split_to_list(envp); /* copy the external env */
+	envt = ft_envnew("SHELL","minishell"); //Needs update
+	if (envt == NULL)
+	{
+		ft_printf("Memory problem");
+		exit (EXIT_FAILURE);
+	}
+	ft_envset(envt);
+	ft_envprint();
 	return (1);
 }
 

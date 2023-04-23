@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/23 16:15:54 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/23 16:26:30 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_token	*parsing(char *command)
 			printf("args:[%s]\n", args[1]);
 			//printf("args:[%s]\n", args[2]);
 		}
-		ft_tknadd_back(token, ft_tknnew(type, args));
+		ft_tknadd_back(&token, ft_tknnew(type, args));
 		i = next_arg(type, command, i);
 		ft_free_args(args);
 		if (type == T_SEMICOLON)
