@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_tkn2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:01 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 13:49:04 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:58:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*ft_tknnew(int type, char **args)
 	if (args != NULL)
 		split_cpy(&(to_return->args), args);
 	else
-		to_return->args = NULL;
+		to_return->args == NULL;
 	to_return->next = NULL;
 	to_return->last = NULL;
 	return (to_return);

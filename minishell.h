@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 13:54:22 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:55:40 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <limits.h> //change to mac on campus
 
 
 # define	T_STDOUT		1
@@ -39,9 +40,10 @@ typedef struct s_env{
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_state {
+typedef struct s_state{
 	t_env	*envp;
 	int		last_return;
+	int		exit;
 }	t_state;
 
 typedef struct s_token{
@@ -65,10 +67,11 @@ void	ft_envadd_front(t_env **lst, t_env *new);
 void	ft_envclear(t_env **lst);
 void	ft_envdelone(t_env *lst);
 t_env	*ft_envlast(t_env *lst);
-t_env 	*ft_envfind(t_env *token, char *name);
-void 	ft_unsetkn(t_token *token);
-void 	ft_settoken(t_token *token);
+t_env 	*ft_envfind(char *name);
+void 	ft_envunse(t_env *token);
+void 	ft_envset(t_env *token);
 t_env	*ft_envnew(char *name, char *args);
+void 	ft_envprint(void);
 int	ft_envsize(t_env *lst);
 t_env *env_split_to_list(char **env);
 char **env_list_to_split(t_env *token);

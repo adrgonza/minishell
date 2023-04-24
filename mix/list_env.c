@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:25:18 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/20 22:23:14 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/24 14:57:11 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	ft_envdelone(t_env *lst)
 		free (lst->name);
 	if (lst->args != NULL)
 		free (lst->args);
-	free(lst);
 	if (lst->next != NULL)
 		lst->next->last = lst->last;
 	if (lst->last != NULL)
 		lst->last->next = lst->next;
+	free(lst);
 }
 
 t_env	*ft_envlast(t_env *lst)
