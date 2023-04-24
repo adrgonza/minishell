@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
+#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/24 13:46:09 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/04/24 15:11:43 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,10 @@ TESTMAIN = testmain.c
 NAME_DEBUG = minishell_debug
 
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
-mix/list_env.c mix/list_env2.c \
-parsing/parsing.c parsing/check_std.c \
-exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c parsing/get_args.c parsing/args_tools.c \
+mix/list_env.c mix/list_env2.c mix/list_env3.c \
+parsing/parsing.c parsing/check_std.c  parsing/get_args.c parsing/args_tools.c\
+exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c exec/builtin.c \
+exec/builtin2.c
 
 NAMETEST = testout
 
@@ -43,7 +44,7 @@ $(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
 
 
 $(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
-	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(MAINOBJ) $(READLINE_FLAGS) libft/libft.a -o $@
+	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(READLINE_FLAGS) libft/libft.a -o $@
 
 
 %.o: %.c
