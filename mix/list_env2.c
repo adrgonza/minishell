@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:01 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 15:03:11 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/24 15:14:01 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_env	*ft_envnew(char *name, char *args)
 	if (args != NULL)
 		to_return->args = ft_strdup(args);
 	else
-		to_return->args == NULL;
+		to_return->args = NULL;
 	if (args != NULL && to_return->args == NULL)
 	{
 		free(to_return->name);

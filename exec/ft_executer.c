@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 14:56:36 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/24 15:22:05 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void ft_executer2(int *id, int *ct, int **pip, t_token *token)
 	pipe_con_before_forks(token, pip, ct[2]);
 	while (token != NULL)
 	{
-		if (token->type == T_COMMAND && check_builtin(token->args) == 0)
+		if (token->type == T_COMMAND && check_builtin(token) == 0)
 		{
 			id[ct[1]] = fork();
 			if (id[ct[1]] == 0)

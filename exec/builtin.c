@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 15:07:45 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/24 15:25:51 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_cd(t_token *token)
 	t_env	*direnv;
 
 	error = chdir(token->args[0]);
-	if (error = -1)
+	if (error == -1)
 	{
 		ft_printf("could not change dirs");
 		g_state.last_return = 1;
@@ -59,11 +59,11 @@ int	builtin_export(t_token *token)
 	ct = 1;
 	while (token->args[ct] != NULL)
 	{
-		localsplit = ft_split(token->args[ct], "=");
+		localsplit = ft_split(token->args[ct], '=');
 		env = ft_envnew(localsplit[0],localsplit[1]);
 		if (env == NULL)
 			exit(EXIT_FAILURE);
-		ft_envset(token);
+		ft_envset(env);
 		ft_free_split(localsplit);
 		ct++;
 	}
@@ -79,11 +79,11 @@ int	builtin_unset(t_token *token)
 	ct = 1;
 	while (token->args[ct] != NULL)
 	{
-		localsplit = ft_split(token->args[ct], "=");
+		localsplit = ft_split(token->args[ct], '=');
 		env = ft_envnew(localsplit[0],localsplit[1]);
 		if (env == NULL)
 			exit(EXIT_FAILURE);
-		ft_envunset(token);
+		ft_envunset(env);
 		ft_free_split(localsplit);
 		ft_envdelone(env);
 		ct++;
