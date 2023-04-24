@@ -3,89 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/06 22:19:44 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/24 14:05:23 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_executer(t_token *ẗoken)
+void ft_executer2(int *id, int *ct, int **pip, t_token *token)
 {
-	return ;	
-}
-
-char	*find_path2(char *command, char **envpaths)
-{
-	int		ct;
-	char	*path;
-	char	*temp;
-
-	ct = 0;
-	while (envpaths[ct] != NULL)
+	pipe_con_before_forks(token, pip, ct[2]);
+	while (token != NULL)
 	{
-		path = ft_strjoin(envpaths[ct], "/");
-		if (path == 0)
-			exit (EXIT_FAILURE);
-		temp = path;
-		path = ft_strjoin(path, command);
-		if (path == 0)
-			exit (EXIT_FAILURE);
-		free(temp);
-		if (!access(path, F_OK))
-			return (free(command), ft_free_split(envpaths), path);
-		ct++;
+		if (token->type == T_COMMAND)
+		{
+			id[ct[1]] = fork();
+			if (id[ct[1]] == 0)
+			{
+				close(pip[ct[0] - 1][1]);
+				close(pip[ct[0]][0]);
+				dup2(pip[ct[0] - 1][0], STDIN_FILENO);
+				dup2(pip[ct[0]][1], STDOUT_FILENO);
+				close(pip[ct[0] - 1][0]);
+				close(pip[ct[0]][0]);
+				ft_exectkn(token);
+			}
+			ct[1]++;
+		}
+		token = token->next;
+		ct[0]++;
 	}
-	return (free(command), ft_free_split(envpaths), NULL);
 }
 
-char	*separate_program_name(char *command)
+void ft_executer3(int *id, int *ct, int **pip, t_token *token)
 {
-	if (ft_strchr(command, ' ') != 0)
-		command = ft_substr(command, 0, ft_strchr(command, ' ') - command);
-	else
-		command = ft_substr(command, 0, ft_strlen(command));
-	return (command);
+
+	ct[0] = 0;
+	while (ct[0] < ct[2])
+	{
+		close(pip[ct[0]][1]);
+		close(pip[ct[0]][0]);
+		ct[0]++;
+	}
+	ct[0] = 0;
+	while (ct[0] < ct[1])
+	{
+		waitpid(id[ct[0]], &ct[3], 0);
+		ct[0]++;
+	}
+	free (pip);
+	free (id);
+	g_state.last_return = ct[3];
 }
 
-//this function mallocs its result
-char	*find_path(char *command, char **envp)
+void	ft_executer(t_token *token)
 {
-	char	*path;
-	char	**temp;
-	char	**envpaths;
-	int		c;
+	int **pip;
+	int *id;
+	int ct[4];
 
-	command = separate_program_name(command);
-	if (command == 0)
-		return (0);
-	if (!access(command, X_OK))
-		return (command);
-	path = ft_strjoin("./", command);
-	if (path != 0 && !access(path, X_OK))
-		return (free(command), path);
-	else if (path == 0)
-		return (free(command), NULL);
-	free(path);
-	c = -1;
-	while (envp[++c] != NULL && !ft_strnstr(envp[c], "PATH", 4))
-		;
-	if (envp[c] == NULL)
-		exit (EXIT_FAILURE);
-	temp = ft_split(envp[c], '=');
-	envpaths = ft_split(temp[1], ':');
-	ft_free_split(temp);
-	return (find_path2(command, envpaths));
+	printf("hola\n");
+	ft_bzero(ct, 3 * sizeof(int));
+	ct[2] = pipe_counter(token);
+	pip = pipe_generator(ct[2]);
+	if (pip == NULL)
+		malloc_fail_proc();
+	id = ft_calloc(ct[2] + 1, sizeof(int));
+	if (id == NULL)
+		malloc_fail_proc();
+	ft_executer2(id, ct, pip, token);
+	ft_executer3(id, ct, pip, token);
+	// add status to global WEXITSTATUS(ct[3]);
 }
 
-int	ft_exectkn(t_token *token)
-{
-	char	*path_to_exec;
-	
-	path_to_exec = find_path((token->args)[0], g_state.envp);
-	if (execve(path_to_exec, token->args, g_state.envp) == -1)
-		exit (EXIT_FAILURE);
-	return (0);
-}
+

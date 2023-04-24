@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_tkn.c                                         :+:      :+:    :+:   */
+/*   list_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:25:18 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/17 19:21:41 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/20 22:23:14 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_tknadd_back(t_token **lst, t_token *new)
+void	ft_envadd_back(t_env **lst, t_env *new)
 {
-	t_token	*mover;
+	t_env	*mover;
 
 	if (*lst == NULL)
 	{
@@ -28,33 +28,39 @@ void	ft_tknadd_back(t_token **lst, t_token *new)
 	new->last = mover;
 }
 
-void	ft_tknadd_front(t_token **lst, t_token *new)
+void	ft_envadd_front(t_env **lst, t_env *new)
 {
 	(*lst)->last = new;
 	new->next = *lst;
 	*lst = new;
 }
 
-void	ft_tknclear(t_token **lst)
+void	ft_envclear(t_env **lst)
 {
 	if (*lst == 0)
 		return ;
 	if ((*lst)->next != 0)
-		ft_tknclear(&((*lst)->next));
-	ft_tkndelone(*lst);
+		ft_envclear(&((*lst)->next));
+	ft_envdelone(*lst);
 	*lst = 0;
 }
 
-void	ft_tkndelone(t_token *lst)
+void	ft_envdelone(t_env *lst)
 {
 	if (lst == 0)
 		return ;
+	if (lst->name != NULL)
+		free (lst->name);
 	if (lst->args != NULL)
-		ft_free_split(lst->args);
+		free (lst->args);
 	free(lst);
+	if (lst->next != NULL)
+		lst->next->last = lst->last;
+	if (lst->last != NULL)
+		lst->last->next = lst->next;
 }
 
-t_token	*ft_tknlast(t_token *lst)
+t_env	*ft_envlast(t_env *lst)
 {
 	if (lst == NULL)
 		return (0);
