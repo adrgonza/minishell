@@ -6,18 +6,18 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 22:27:07 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 14:59:56 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/25 16:37:14 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env *ft_envfind(char *name)
+t_env	*ft_envfind(char *name)
 {
 	t_env	*token;
 
 	token = g_state.envp;
-	while(token != NULL && name != NULL)
+	while (token != NULL && name != NULL)
 	{
 		if (ft_strncmp(token->name, name, -1) == 0)
 			return (token);
@@ -25,8 +25,9 @@ t_env *ft_envfind(char *name)
 	}
 	return (NULL);
 }
+
 //unset
-void ft_envunset(t_env *token)
+void	ft_envunset(t_env *token)
 {
 	t_env	*result;
 	t_env	*next;
@@ -45,22 +46,21 @@ void ft_envunset(t_env *token)
 }
 
 //export
-void ft_envset(t_env *token)
+void	ft_envset(t_env *token)
 {
 	ft_envunset(token);
 	ft_envadd_back(&g_state.envp, token);
 }
 
 //env
-void ft_envprint(void)
+void	ft_envprint(void)
 {
 	t_env	*env;
 
 	env = g_state.envp;
 	while (env != NULL)
 	{
-		ft_printf("%s=%s\n",env->name,env->args);
-		env = env->next;	
+		ft_printf("%s=%s\n", env->name, env->args);
+		env = env->next;
 	}
 }
-

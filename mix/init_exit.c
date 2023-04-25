@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 15:00:14 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/25 16:50:57 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void ft_exit(void)
 //Function to deal with failed mallocs. To be filled.
 void malloc_fail_proc(void)
 {
+	ft_envclear(&g_state.envp);
 	return ;
 }

@@ -38,14 +38,12 @@ all: $(NAME)
  $(NAME): $(OBJS) $(MAINOBJ) libft/libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(MAINOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
 
-
-
 $(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
 	$(CC) $(CFLAGS)  $(OBJS) $(TESTOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
 
 
 $(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
-	$(CC) $(CFLAGS) -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(READLINE_FLAGS) libft/libft.a -o $@
+	$(CC) $(CFLAGS) -D DEBUG=1 -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(READLINE_FLAGS) libft/libft.a -o $@
 
 
 %.o: %.c

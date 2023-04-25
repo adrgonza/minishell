@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 14:54:20 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/24 18:32:17 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int main(int argc, char **argv, char **envp)
 {
 	if (!ft_init(argc, argv, envp)) /* inicializate args */
 		return (0);
-	prompt(envp); /* execute prompt */
+	if (DEBUG != 1)
+		prompt(); /* execute prompt */
+	else
+		prompt_debug();
 	return (0);
 }
 
