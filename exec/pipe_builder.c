@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/19 16:57:37 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/25 16:54:33 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,25 @@ int	**pipe_generator(int npipes)
 
 int	pipe_counter(t_token *token)
 {
-	int c;
-	
+	int	c;
+
 	c = 0;
 	while (token != NULL)
 	{
 		if (token->type == T_LESS || token->type == T_LESSLESS || \
 			token->type == T_GREAT || token->type == T_GREATGREAT || \
-			token->type == T_COMMAND ||	token->type == T_STDIN || \
-			token->type ==T_STDOUT) 
+			token->type == T_COMMAND || token->type == T_STDIN || \
+			token->type == T_STDOUT)
 			c++;
-		token = token->next; 	
+		token = token->next;
 	}
-	return(ft_max(c - 1, 0));	
+	return (ft_max(c - 1, 0));
 }
 
 void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes)
 {
-	t_token *end;
-	
+	t_token	*end;
+
 	end = token;
 	while (end->next != NULL)
 		end = end->next;
@@ -69,15 +69,15 @@ void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes)
 	else if (token->type == T_LESSLESS)
 		here_doc_prompt(pip[0], token);
 	else if (token->type == T_STDIN)
-		dup2(STDIN_FILENO, pip[0][0]);
+		pip[0][0] = dup(STDIN_FILENO);
 	if (end->type == T_GREAT)
-	 	pip[n_pipes - 1][1] = open(end->args[0], \
+		pip[n_pipes - 1][1] = open(end->args[0], \
 			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (end->type == T_GREATGREAT)
-	 	pip[n_pipes - 1][1] = open(end->args[0], \
-		O_WRONLY | O_APPEND | O_CREAT , 0644);
+		pip[n_pipes - 1][1] = open(end->args[0], \
+		O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else if (end->type == T_STDOUT)
-	 	dup2(STDOUT_FILENO, pip[n_pipes - 1][1]);
+	 	pip[n_pipes - 1][1] = dup(STDOUT_FILENO);
 }
 
 void	here_doc_prompt(int *pip, t_token *token)
@@ -90,9 +90,9 @@ void	here_doc_prompt(int *pip, t_token *token)
 		if (command == NULL)
 			break ;
 		if (ft_strncmp(command, token->args[0], -1) == 0)
-			break;
+			break ;
 		else
-		{ 
+		{
 			write(pip[1], command, ft_strlen(command));
 			write(pip[1], "\n", 1);
 		}

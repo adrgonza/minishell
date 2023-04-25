@@ -6,45 +6,52 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 14:59:16 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/24 21:30:03 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	prompt(char **envp)
+char *prompt_chooser(void)
+{
+	if (g_state.last_return == 0)
+		return("(>^.^)> ");
+	return("(>-.-)> ");
+}
+void	prompt(void)
 {
 	char	*command;
 	t_token	*tokens;
 	t_token *last;
+	char 	*prompt;
+	
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = readline("(>^-^)> ");
+		command = readline(prompt_chooser());
 		if (command == NULL)
 			break ;
 		add_history(command);
 		tokens = NULL;
-		//ft_tknadd_back(&tokens,ft_tknnew(T_STDIN, ft_split("testmain.c", ' ')));
-		//ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("ls", ' ')));
-		//ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("ls", ' ')));
-		//ft_tknadd_back(&tokens,ft_tknnew(T_GREAT, ft_split("out", ' ')));
 		tokens = parsing(command);
-		if (tokens)
-		{
-			if (tokens->type != T_LESS || tokens->type != T_LESSLESS 
-				|| tokens->type != T_STDIN)
-				ft_tknadd_front(&tokens,ft_tknnew(T_STDIN, NULL));
-			last = ft_tknlast(tokens);
-			if (last->type != T_GREAT || tokens->type != T_GREATGREAT 
-				|| tokens->type != T_STDOUT)
-				ft_tknadd_back(&tokens,ft_tknnew(T_STDOUT, NULL));
-			ft_executer(tokens);
-			
-		}
+		ft_executer(tokens);
 		ft_tknclear(&tokens);
 		free(command);
-		//command = NULL;
 	}
 	//rl_clear_history();
+}
+
+void	prompt_debug(void)
+{
+	t_token	*tokens;
+	t_token *last;
+	
+	tokens = NULL;
+	ft_tknadd_back(&tokens,ft_tknnew(T_STDIN, NULL));
+	ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("cat minishell.h", ' ')));
+	ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("grep int", ' ')));
+	ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("grep built", ' ')));
+	ft_tknadd_back(&tokens,ft_tknnew(T_STDOUT, NULL));	
+	ft_executer(tokens);
+	ft_tknclear(&tokens);
 }

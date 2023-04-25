@@ -6,12 +6,15 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 15:19:45 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/25 16:49:10 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -76,7 +79,9 @@ int	ft_envsize(t_env *lst);
 t_env *env_split_to_list(char **env);
 char **env_list_to_split(t_env *token);
 
-void	prompt(char **envp);
+void	prompt(void);
+void	prompt_debug(void);
+
 int		ft_init(int argc, char **argv, char **envp);
 void	here_doc_prompt(int *pip, t_token *token);
 /* parsing */
@@ -97,12 +102,17 @@ int		pipe_counter(t_token *token);
 int		**pipe_generator(int npipes);
 void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes);
 void 	pipe_left_greatgreat(int *pipe, t_token *token);
+
+/* built ins*/
 int		check_builtin(t_token *token);
 void	ft_builtinexec(t_token *token);
 int		builtin_cd(t_token *token);
 int		builtin_export(t_token *token);
 int		builtin_unset(t_token *token);
 int		builtin_pwd();
+int		builtin_error();
+int 	builtin_exit(t_token *token);
+void 	malloc_fail_proc(void);
 
 /* declare global var*/
 extern t_state g_state;
