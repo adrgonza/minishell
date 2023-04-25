@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:48:03 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/25 23:50:58 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,9 @@ void	ft_executer(t_token *token)
 		malloc_fail_proc();
 	ft_executer2(id, ct, pip, token);
 	ft_executer3(id, ct, pip, token);	
+}
+
+void redirect_order_sort(t_token *token)
+{
+	return ;
 }
