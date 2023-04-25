@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 15:19:45 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/25 12:37:24 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ int		count_letters(char *cmd, int i);
 int		check_stdout(char *command);
 int		check_stdin(char *command);
 int		count_words(char *cmd, int i);
+int p_check_quotes(char *command);
+int redict_word_count(char *cmd, int j);
 void 	ft_free_args(char **args);
+char **get_redict_args(char *cmd, int i);
+char **get_iredict_args(char *cmd, int i);
 
 /* executing*/
 void	ft_executer(t_token *ẗoken);
