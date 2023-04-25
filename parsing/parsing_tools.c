@@ -25,16 +25,16 @@ int p_check_quotes(char *command) /* cheks if there is an open quote, semicolon 
 	while (command[++i])
 	{
 		if (command[i] == ';' && count_simple_q % 2 == 0 && count_q % 2 == 0)
-			return (printf("syntax error near unexpected token `;'\n"), 0);
+			return (perror("syntax error near unexpected token `;'\n"), 0);
 		if (command[i] == '\\' && count_simple_q % 2 == 0 && count_q % 2 == 0)
-			return (printf("syntax error near unexpected token `\\'\n"), 0);
+			return (perror("syntax error near unexpected token `\\'\n"), 0);
 		if (command[i] == '"' && (count_simple_q % 2 == 0))
 				count_q++;
 		if (command[i] == '\'' && (count_q % 2 == 0))
 				count_simple_q++;
 	}
 	if (count_q % 2 != 0 || count_simple_q % 2 != 0) /* checks if quotes nb is not pair */
-		return (printf("Error, cierra las comillas!!\n"), 0);
+		return (perror("Error, cierra las comillas!!\n"), 0);
 	return (1);
 }
 
