@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:50:57 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/26 19:02:28 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void ft_exit(void)
 void malloc_fail_proc(void)
 {
 	ft_envclear(&g_state.envp);
-	return ;
+	perror("Memory Problems") ;
+	exit(EXIT_FAILURE) ;
 }

@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:01 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 23:10:20 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/26 21:09:33 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void ft_tknswap_last(t_token *token)
 	aux_next = token->next;
 	if (aux_last != NULL)
 		aux_last->next = token;
+	if (aux_next != NULL)
+		aux_next->last = last;
 	token->last = aux_last;
 	token->next = last;
 	last->last = token;
@@ -98,6 +100,8 @@ void ft_tknswap_next(t_token *token)
 	next = token->next;
 	aux_next = token->next->next;
 	aux_last = token->last;
+	if (aux_last != NULL)
+		aux_last->next = next;
 	if (aux_next != NULL)
 		aux_next->last = token;
 	token->next = aux_next;

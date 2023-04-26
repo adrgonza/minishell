@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 23:40:46 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/26 23:44:40 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,10 @@ int		pipe_counter(t_token *token);
 int		**pipe_generator(int npipes);
 void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes);
 void 	pipe_left_greatgreat(int *pipe, t_token *token);
+t_token	*redirect_order_sort(t_token *token);
 
 /* built ins*/
-int		check_builtin(t_token *token);
+int		check_builtin(t_token *token, int ct2);
 void	ft_builtinexec(t_token *token);
 int		builtin_cd(t_token *token);
 int		builtin_export(t_token *token);
@@ -125,6 +126,8 @@ int		builtin_pwd();
 int		builtin_error();
 int 	builtin_exit(t_token *token);
 void 	malloc_fail_proc(void);
+t_token *redirect_check(t_token *token);
+
 
 /* declare global var*/
 extern t_state g_state;

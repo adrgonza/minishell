@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 23:26:21 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/26 23:57:48 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	prompt(void)
 		add_history(command);
 		tokens = parsing(command);
 		if (tokens)
-    {
-      ft_executer(tokens);
-		  ft_tknclear(&tokens);
-    }
+    	{
+      		ft_executer(tokens);
+			ft_tknclear(&tokens);
+    	}
 		free(command);
 	}
 }
@@ -52,14 +52,17 @@ void	prompt_debug(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = ft_strdup("cat <Makefile");
+		command = ft_strdup(">out <Makefile cat");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
 		if (tokens)
     	{
       		ft_print_tkns(tokens);
-		  	ft_tknclear(&tokens);
+		  	tokens = redirect_order_sort(tokens);
+			ft_print_tkns(tokens);
+			ft_executer(tokens);
+			ft_tknclear(&tokens);
 		}
 		free(command);
 		command = NULL;

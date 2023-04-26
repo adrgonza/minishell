@@ -6,14 +6,13 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/25 23:41:33 by amejia           ###   ########.fr        #
+#    Updated: 2023/04/26 23:31:10 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 MAIN = mix/main.c
-TESTMAIN = testmain.c
 NAME_DEBUG = minishell_debug
 
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
@@ -23,14 +22,14 @@ parsing/parsing_tools.c \
 exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c exec/builtin.c \
 exec/builtin2.c
 
-NAMETEST = testout
-
 CC = cc
+
 OBJS = ${SRCS:.c=.o}
+
 MAINOBJ = ${MAIN:.c=.o}
-TESTOBJ = ${TESTMAIN:.c=.o}
 
 #CFLAGS = -Wall -Werror -Wextra
+
 READLINE_FLAGS = -lreadline  #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
 
 all: $(NAME)
@@ -41,10 +40,8 @@ all: $(NAME)
 $(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
 	$(CC) $(CFLAGS)  $(OBJS) $(TESTOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
 
-
 $(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
 	$(CC) $(CFLAGS) -D DEBUG=1 -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(READLINE_FLAGS) libft/libft.a -o $@
-
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -57,7 +54,7 @@ clean:
 	make -C libft clean
 
 fclean: clean
-	rm -f $(NAME) $(TEST)
+	rm -f $(NAME) $(TEST) $(NAME_DEBUG)
 	make -C libft fclean
 
 test: $(NAMETEST)
@@ -66,4 +63,4 @@ VS_debug: $(NAME_DEBUG)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus VS_debug
