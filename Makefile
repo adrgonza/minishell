@@ -6,7 +6,7 @@
 #    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/25 02:24:56 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/04/26 03:42:45 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME_DEBUG = minishell_debug
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
 mix/list_env.c mix/list_env2.c mix/list_env3.c \
 parsing/parsing.c parsing/check_std.c  parsing/get_args.c parsing/args_tools.c\
-parsing/parsing_tools.c \
+parsing/parsing_tools.c parsing/manage_quotes.c \
 exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c exec/builtin.c \
 exec/builtin2.c
 
