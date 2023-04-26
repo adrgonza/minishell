@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/25 16:59:56 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/25 21:11:34 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,13 +140,14 @@ t_token	*parsing(char *command)
 		type = p_get_type(command, i);
 		args = get_args(type, command, i);
 		ft_tknadd_back(&token, ft_tknnew(type, args));
-		//ft_print_tkn(command, type, args);
+		ft_print_tkn(command, type, args);
 		ft_free_args(args);
 		i = next_arg(type, command, i);
 	}
 	if (check_stdout(command))
 		ft_tknadd_back(&token, ft_tknnew(T_STDOUT, NULL));
 	//system("leaks -q minishell | head -5 | tail -1 ; echo \"\n\"-----------leaks------------\"\n\"");
+	exit(0);
 	return (token);
 }
 

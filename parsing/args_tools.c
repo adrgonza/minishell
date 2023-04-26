@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:29:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/25 14:30:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/25 21:59:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ int count_words(char *cmd, int i) //finish
 		{
 			if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>')
 				return (command_count + 1);
+			if (cmd[i] == '"') /* checking quotes */
+			{
+				i++;
+				while (cmd[i] != '"')
+					i++;
+			}
 			i++;
 		}
 		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
@@ -63,10 +69,20 @@ int	count_letters(char *cmd, int i) //finish
 	int j;
 
 	j = 0;
-	while (cmd[j] && cmd[j] != ' ' && cmd[j] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
+	while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
 		if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>' || cmd[i] == ' ')
 				return (j);
+		if (cmd[i] == '"') /* checking quotes */
+		{
+			i++;
+			while (cmd[i] != '"')
+			{
+				i++;
+				j++;
+			}
+			j -= 1;
+		}
 		j++;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/25 17:33:40 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/26 03:21:27 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,28 @@ char **get_cmd_args(char *cmd, int i) //finish
 		if (!args[j])
 			return (NULL);
 		args[j][count_letters(cmd, i)] = 0;
+		printf("letter :%d\n", count_letters(cmd, i));
 		k = 0;
 		while(cmd[i] && cmd[i] != ' ')
-			args[j][k++] = cmd[i++]; /* copy */
-		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
+		{
+			if (cmd[i] == '"')
+			{
+				i++;
+				while (cmd[i] != '"')
+				{
+					if (cmd[i] == '"')
+						i++;
+					else
+						args[j][k++] = cmd[i++];
+				}
+				i++;
+			}
+			if (cmd[i] == '"')
+				i++;
+			else
+				args[j][k++] = cmd[i++]; /* copy */
+		}
+		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t')) /* skip spaces and tabs */
 			i++;
 		j++;
 	}
