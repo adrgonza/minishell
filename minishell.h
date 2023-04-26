@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:49:10 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/26 03:48:35 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int redict_word_count(char *cmd, int j);
 void 	ft_free_args(char **args);
 char **get_redict_args(char *cmd, int i);
 char **get_iredict_args(char *cmd, int i);
+void command_double_quotes(char *cmd, int *i, char *arg, int *k);
+void command_simple_quotes(char *cmd, int *i, char *arg, int *k);
 
 /* executing*/
 void	ft_executer(t_token *ẗoken);
