@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/25 21:11:34 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/26 22:16:49 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ int next_arg(int type, char *cmd, int i) //finish
 		{
 			if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>')
 				return (i);
+			if (cmd[i] == '"')
+			{
+				i++;
+				while (cmd[i] && cmd[i]!= '"')
+					i++;
+			}
+			if (cmd[i] == '\'')
+			{
+				i++;
+				while (cmd[i] && cmd[i] == '\'')
+					i++;
+			}
 			i++;
 		}
 		return (i);
@@ -33,8 +45,24 @@ int next_arg(int type, char *cmd, int i) //finish
 			i++;
 		if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>')
 			return (i);
-		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
+		while (cmd[i] && (cmd[i] != ' ' && cmd[i] != '\t'))
+		{
+			if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>')
+				return (i);
+			else if (cmd[i] == '"')
+			{
+				i++;
+				while (cmd[i] && cmd[i]!= '"')
+					i++;
+			}
+			else if (cmd[i] == '\'')
+			{
+				i++;
+				while (cmd[i] && cmd[i] == '\'')
+					i++;
+			}
 			i++;
+		}
 		return (i);
 	}
 	if ((type == T_LESSLESS || type == T_GREATGREAT))
@@ -45,8 +73,23 @@ int next_arg(int type, char *cmd, int i) //finish
 		if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>')
 			return (i);
 		while (cmd[i] && (cmd[i] != ' ' && cmd[i] != '\t'))
+		{
+			if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>')
+				return (i);
+			if (cmd[i] == '"')
+			{
+				i++;
+				while (cmd[i] && cmd[i]!= '"')
+					i++;
+			}
+			if (cmd[i] == '\'')
+			{
+				i++;
+				while (cmd[i] && cmd[i] == '\'')
+					i++;
+			}
 			i++;
-		return (i);
+		}
 	}
 	return (i);
 }
@@ -121,33 +164,32 @@ void ft_print_tkn(char *cmd, int type, char **args)
 
 t_token	*parsing(char *command)
 {
-	t_token *token = NULL;
+	t_token	*token = NULL;
 	char	**args;
 	int		type;
 	int		i;
 
-	//system("echo \"\n\"-----------leaks------------\"\n\" && leaks -q minishell | head -5 | tail -1 ");
+//system("echo \"\n\"-----------leaks------------\"\n\" && leaks -q minishell | head -5 | tail -1 ");
 	i = 0;
 	if (!command[i] || !p_check_quotes(command)) /* Checks if there is not open quotes. */
 		return (token);
-	//command = expand_variables(command);
+	//command = expand_variables(command); /* expand evey variable */
 	if (check_stdin(command)) /* Checks if there is a '<' */
 		ft_tknadd_back(&token, ft_tknnew(T_STDIN, NULL));
 	while (command[i])
 	{
-		while (command[i] && (command[i] == ' ' || command[i] == '\t'))
+		while (command[i] && (command[i] == ' ' || command[i] == '\t')) /* jump spaces and tabs */
 			i++;
-		type = p_get_type(command, i);
-		args = get_args(type, command, i);
-		ft_tknadd_back(&token, ft_tknnew(type, args));
-		ft_print_tkn(command, type, args);
-		ft_free_args(args);
-		i = next_arg(type, command, i);
+		type = p_get_type(command, i); /* get the type  */
+		args = get_args(type, command, i); /* get the argumments */
+		ft_tknadd_back(&token, ft_tknnew(type, args)); /* put values in the list */
+		//ft_print_tkn(command, type, args);
+		ft_free_args(args); /* free argumments */
+		i = next_arg(type, command, i); /* jump to the next argument */
 	}
 	if (check_stdout(command))
 		ft_tknadd_back(&token, ft_tknnew(T_STDOUT, NULL));
-	//system("leaks -q minishell | head -5 | tail -1 ; echo \"\n\"-----------leaks------------\"\n\"");
-	exit(0);
+//system("leaks -q minishell | head -5 | tail -1 ; echo \"\n\"-----------leaks------------\"\n\"");
 	return (token);
 }
 
