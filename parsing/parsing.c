@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/26 22:16:49 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:11:01 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,13 @@ t_token	*parsing(char *command)
 	int		i;
 
 //system("echo \"\n\"-----------leaks------------\"\n\" && leaks -q minishell | head -5 | tail -1 ");
-	i = 0;
-	if (!command[i] || !p_check_quotes(command)) /* Checks if there is not open quotes. */
+	command = p_check_quotes(command);
+	if (!command)
 		return (token);
 	//command = expand_variables(command); /* expand evey variable */
 	if (check_stdin(command)) /* Checks if there is a '<' */
 		ft_tknadd_back(&token, ft_tknnew(T_STDIN, NULL));
+	i = 0;
 	while (command[i])
 	{
 		while (command[i] && (command[i] == ' ' || command[i] == '\t')) /* jump spaces and tabs */
@@ -183,7 +184,7 @@ t_token	*parsing(char *command)
 		type = p_get_type(command, i); /* get the type  */
 		args = get_args(type, command, i); /* get the argumments */
 		ft_tknadd_back(&token, ft_tknnew(type, args)); /* put values in the list */
-		//ft_print_tkn(command, type, args);
+		ft_print_tkn(command, type, args);
 		ft_free_args(args); /* free argumments */
 		i = next_arg(type, command, i); /* jump to the next argument */
 	}
