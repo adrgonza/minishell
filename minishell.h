@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 23:40:46 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/27 18:37:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,10 @@ int		count_words(char *cmd, int i);
 int		p_check_quotes(char *command);
 int		redict_word_count(char *cmd, int j);
 void 	ft_free_args(char **args);
-char	**get_redict_args(char *cmd, int i);
-char	**get_iredict_args(char *cmd, int i);
+char **get_redict_args(char *cmd, int i);
+char **get_iredict_args(char *cmd, int i);
+void command_double_quotes(char *cmd, int *i, char *arg, int *k);
+void command_simple_quotes(char *cmd, int *i, char *arg, int *k);
 
 /* executing*/
 void	ft_executer(t_token *ẗoken);
