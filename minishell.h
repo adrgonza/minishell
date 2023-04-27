@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/27 18:40:07 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/27 22:02:11 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int		**pipe_generator(int npipes);
 void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes);
 void 	pipe_left_greatgreat(int *pipe, t_token *token);
 t_token	*redirect_order_sort(t_token *token);
+int 	fork_exec(t_token *token, int fdin, int *pipeout);
 
 /* built ins*/
 int		check_builtin(t_token *token, int ct2);

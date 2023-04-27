@@ -6,82 +6,33 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/27 00:00:22 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/27 22:01:21 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	**pipe_generator(int npipes)
+int fork_exec(t_token *token, int fdin, int *pipeout)
 {
-	int	**to_return;
-	int	ct;
+	int id;
+	int error;
 
-	to_return = (int **)ft_calloc(npipes, sizeof(int *));
-	if (to_return == 0)
-		return (0);
-	ct = 0;
-	while (ct < npipes)
+	id = fork();
+	if (id == 0)
 	{
-		to_return[ct] = ft_calloc(2, sizeof(int));
-		if (to_return[ct] == 0)
-			break ;
-		ct++;
+		dup2(fdin, STDIN_FILENO);
+		dup2(pipeout[1], STDOUT_FILENO);
+		close(fdin);
+		close(pipeout[0]);
+		close(pipeout[1]);
+		error = ft_exectkn(token);
+		if (error == -1)
+		{
+			perror ("Execution Error");
+			return (-1);
+		}
 	}
-	if (ct == npipes)
-	{
-		while (ct-- > 0)
-			pipe(to_return[ct]);
-		return (to_return);
-	}
-	else
-		while (ct-- > 0)
-			free(to_return[ct]);
-	return (free(to_return), (int **)0);
-}
-
-int	pipe_counter(t_token *token)
-{
-	int	c;
-
-	c = 0;
-	while (token != NULL)
-	{
-		if (token->type == T_LESS || token->type == T_LESSLESS || \
-			token->type == T_GREAT || token->type == T_GREATGREAT || \
-			token->type == T_COMMAND || token->type == T_STDIN || \
-			token->type == T_STDOUT)
-			c++;
-		token = token->next;
-	}
-	return (ft_max(c - 1, 0));
-}
-
-void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes)
-{
-	int	j;
-	
-	j = 0;
-	while (token != NULL)
-	{
-		if (token->type == T_LESS)
-			pip[j][0] = open(token->args[0],O_RDONLY);
-		else if (token->type == T_LESSLESS)
-			here_doc_prompt(pip[j], token);
-		else if (token->type == T_STDIN)
-			pip[j][0] = dup(STDIN_FILENO);
-		else if (token->type == T_GREAT)
-			pip[j][1] = open(token->args[0], \
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (token->type == T_GREATGREAT)
-			pip[j][1] = open(token->args[0], \
-			O_WRONLY | O_APPEND | O_CREAT, 0644);
-		else if (token->type == T_STDOUT)
-			pip[j][1] = dup(STDOUT_FILENO);
-		else if (token->type == T_COMMAND)
-			j++;
-		token = token->next;
-	}
+	return (id);
 }
 
 void	here_doc_prompt(int *pip, t_token *token)

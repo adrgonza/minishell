@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 15:13:06 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:45:30 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/27 21:55:53 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ int	ft_exectkn(t_token *token)
 	path_to_exec = find_path((token->args)[0], env_list_to_split(g_state.envp));
 	if (execve(path_to_exec, token->args,
 			env_list_to_split(g_state.envp)) == -1)
-		exit (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	return (0);
 }
