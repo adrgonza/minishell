@@ -6,14 +6,16 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:45:04 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/26 23:25:11 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_builtin(t_token *token)
+int	check_builtin(t_token *token, int ct2)
 {
+	if (ct2 > 2)
+		return (1);
 	if (ft_strncmp(token->args[0], "cd", -1) == 0)
 		return (0);
 	if (ft_strncmp(token->args[0], "export", -1) == 0)

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
 /*   Updated: 2023/04/28 02:22:22 by adrgonza         ###   ########.fr       */
@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void ft_print_tkn(char *cmd, int type, char **args)
+void ft_print_args(char *cmd, int type, char **args)
 {
 	int i;
 

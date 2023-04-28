@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/24 16:31:10 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/26 23:57:48 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,37 @@ void	prompt(void)
 		add_history(command);
 		tokens = parsing(command);
 		if (tokens)
-    {
-      ft_executer(tokens);
-		  ft_tknclear(&tokens);
-    }
+    	{
+      		ft_executer(tokens);
+			ft_tknclear(&tokens);
+    	}
 		free(command);
 	}
 }
 
 void	prompt_debug(void)
 {
+	char	*command;
 	t_token	*tokens;
 	t_token *last;
+	char 	*prompt;
 	
-	tokens = NULL;
-	ft_tknadd_back(&tokens,ft_tknnew(T_STDIN, NULL));
-	ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("cat minishell.h", ' ')));
-	ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("grep int", ' ')));
-	ft_tknadd_back(&tokens,ft_tknnew(T_COMMAND,ft_split("grep built", ' ')));
-	ft_tknadd_back(&tokens,ft_tknnew(T_STDOUT, NULL));	
-	ft_executer(tokens);
-	ft_tknclear(&tokens);
+	command = (char *)1;
+	while (command != NULL)
+	{
+		command = ft_strdup(">out <Makefile cat");
+		if (command == NULL)
+			break ;
+		tokens = parsing(command);
+		if (tokens)
+    	{
+      		ft_print_tkns(tokens);
+		  	tokens = redirect_order_sort(tokens);
+			ft_print_tkns(tokens);
+			ft_executer(tokens);
+			ft_tknclear(&tokens);
+		}
+		free(command);
+		command = NULL;
+	}
 }
