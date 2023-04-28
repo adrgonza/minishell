@@ -6,53 +6,25 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/26 20:11:38 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/28 00:51:03 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **get_iredict_args(char *cmd, int i)
-{
-	char	**args;
-	int		word_count;
-	int		j;
-
-	j = i + 2;
-	word_count = redict_word_count(cmd, j);
-	while (cmd[j] && (cmd[j] == ' ' || cmd[j] == '\t'))
-		j++;
-	args = malloc((sizeof(char *) * word_count));
-	if (!args)
-		return (NULL);
-	if (word_count == 1)
-		return (args[0] = NULL, args);
-	args[0] = malloc(sizeof(char *) * count_letters(cmd, j));
-	if (!args[0])
-		return (NULL);
-	i = 0;
-	while (cmd[j] && cmd[j] != ' ' && cmd[j] != '\t' && cmd[j] != '|' && cmd[j] != '<' && cmd[j] != '>')
-	{
-		if (cmd[j] == '"')
-			command_double_quotes(cmd, &j, args[0], &i);
-		else if (cmd[j] == '\'')
-			command_simple_quotes(cmd, &j, args[0], &i);
-		else
-			args[0][i++] = cmd[j++];
-	}
-	return (args[0][i] = 0, args[1] = NULL, args);
-}
-
-char **get_redict_args(char *cmd, int i)
+char **get_redict_args(char *cmd, int i, int type)
 {
 	char **args;
 	int word_count;
 	int j;
 
-	j = i + 1;
-	word_count = redict_word_count(cmd, j);
-	while (cmd[j] && (cmd[j] == ' ' || cmd[j] == '\t'))
+	if (type == T_GREATGREAT || type == T_LESSLESS)
+		j = i + 2;
+	else
+		j = i + 1;
+	while (cmd[j] && cmd[j] == ' ')
 		j++;
+	word_count = redict_word_count(cmd, j);
 	args = malloc(sizeof(char *) * word_count);
 	if (!args)
 		return (NULL);
@@ -62,10 +34,8 @@ char **get_redict_args(char *cmd, int i)
 	if (!args[0])
 		return (NULL);
 	i = 0;
-	while (cmd[j] && cmd[j] != ' ' && cmd[j] != '\t' && cmd[j] != '|' && cmd[j] != '<' && cmd[j] != '>')
+	while (cmd[j] && cmd[j] != ' ' && cmd[j] != '|' && cmd[j] != '<' && cmd[j] != '>')
 	{
-		if (cmd[j] == '|' || cmd[j] == '<' || cmd[j] == '>' || cmd[j] == ' ')
-				return (args);
 		if (cmd[j] == '"')
 			command_double_quotes(cmd, &j, args[0], &i);
 		else if (cmd[j] == '\'')
@@ -76,14 +46,14 @@ char **get_redict_args(char *cmd, int i)
 	return (args[0][i] = 0, args[1] = NULL, args);
 }
 
-char **get_cmd_args(char *cmd, int i) //finish
+char **get_cmd_args(char *cmd, int i)
 {
 	char **args;
+	int word_count;
 	int j;
 	int k;
-	int word_count;
 
-	word_count = count_words(cmd, i);
+	word_count = count_words(cmd, i); /* counts how many argumments command have */
 	args = malloc(sizeof(char *) * (word_count + 1));
 	if (!args)
 		return (printf("Malloc KO.\n"), exit(0), NULL);
@@ -96,18 +66,16 @@ char **get_cmd_args(char *cmd, int i) //finish
 			return (NULL);
 		args[j][count_letters(cmd, i)] = 0;
 		k = 0;
-		while(cmd[i] && cmd[i] != ' ')
+		while(cmd[i] && cmd[i] != ' ' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 		{
-			if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>' || cmd[i] == ' ')
-				return (args);
-			else if (cmd[i] == '"')
+			if (cmd[i] == '"')
 				command_double_quotes(cmd, &i, args[j], &k);
 			else if (cmd[i] == '\'')
 				command_simple_quotes(cmd, &i, args[j], &k);
 			else
-				args[j][k++] = cmd[i++]; /* copy */
+				args[j][k++] = cmd[i++]; /* copy the command to the arg array */
 		}
-		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t')) /* skip spaces and tabs */
+		while (cmd[i] && cmd[i] == ' ') /* skip spaces */
 			i++;
 		j++;
 	}
