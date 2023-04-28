@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:54:33 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/27 00:00:22 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,29 @@ int	pipe_counter(t_token *token)
 
 void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes)
 {
-	t_token	*end;
-
-	end = token;
-	while (end->next != NULL)
-		end = end->next;
-	if (token->type == T_LESS)
-		pip[0][0] = open(token->args[0],O_RDONLY);
-	else if (token->type == T_LESSLESS)
-		here_doc_prompt(pip[0], token);
-	else if (token->type == T_STDIN)
-		pip[0][0] = dup(STDIN_FILENO);
-	if (end->type == T_GREAT)
-		pip[n_pipes - 1][1] = open(end->args[0], \
-			O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (end->type == T_GREATGREAT)
-		pip[n_pipes - 1][1] = open(end->args[0], \
-		O_WRONLY | O_APPEND | O_CREAT, 0644);
-	else if (end->type == T_STDOUT)
-	 	pip[n_pipes - 1][1] = dup(STDOUT_FILENO);
+	int	j;
+	
+	j = 0;
+	while (token != NULL)
+	{
+		if (token->type == T_LESS)
+			pip[j][0] = open(token->args[0],O_RDONLY);
+		else if (token->type == T_LESSLESS)
+			here_doc_prompt(pip[j], token);
+		else if (token->type == T_STDIN)
+			pip[j][0] = dup(STDIN_FILENO);
+		else if (token->type == T_GREAT)
+			pip[j][1] = open(token->args[0], \
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if (token->type == T_GREATGREAT)
+			pip[j][1] = open(token->args[0], \
+			O_WRONLY | O_APPEND | O_CREAT, 0644);
+		else if (token->type == T_STDOUT)
+			pip[j][1] = dup(STDOUT_FILENO);
+		else if (token->type == T_COMMAND)
+			j++;
+		token = token->next;
+	}
 }
 
 void	here_doc_prompt(int *pip, t_token *token)

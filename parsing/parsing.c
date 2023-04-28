@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/26 22:16:49 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:37:34 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	p_get_type(char *command, int i) //finish
 	return (T_COMMAND);
 }
 
-void ft_print_tkn(char *cmd, int type, char **args)
+void ft_print_args(char *cmd, int type, char **args)
 {
 	int i;
 
