@@ -96,18 +96,20 @@ int		ft_init(int argc, char **argv, char **envp);
 /* parsing */
 t_token	*parsing(char *command);
 char	**get_cmd_args(char *command, int i);
-int		p_get_type(char *command, int i);
+int		get_type(char *command, int i);
+int		next_arg(int type, char *cmd, int i);
 int		count_letters(char *cmd, int i);
 int		check_stdout(char *command);
 int		check_stdin(char *command);
 int		count_words(char *cmd, int i);
-int		p_check_quotes(char *command);
 int		redict_word_count(char *cmd, int j);
-void 	ft_free_args(char **args);
-char **get_redict_args(char *cmd, int i);
-char **get_iredict_args(char *cmd, int i);
-void command_double_quotes(char *cmd, int *i, char *arg, int *k);
-void command_simple_quotes(char *cmd, int *i, char *arg, int *k);
+char	**get_args(int	type, char *command, int i);
+char	*check_quotes(char *cmd);
+char	**get_redict_args(char *cmd, int i, int type);
+void	ft_free_args(char **args);
+void	command_double_quotes(char *cmd, int *i, char *arg, int *k);
+void	command_simple_quotes(char *cmd, int *i, char *arg, int *k);
+
 
 /* executing*/
 void	ft_executer(t_token *ẗoken);
