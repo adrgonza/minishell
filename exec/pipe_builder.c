@@ -6,13 +6,13 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/27 22:01:21 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 02:45:33 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int fork_exec(t_token *token, int fdin, int *pipeout)
+int fork_exec(t_token *token, int fdin, int fdout)
 {
 	int id;
 	int error;
@@ -20,32 +20,46 @@ int fork_exec(t_token *token, int fdin, int *pipeout)
 	id = fork();
 	if (id == 0)
 	{
-		dup2(fdin, STDIN_FILENO);
-		dup2(pipeout[1], STDOUT_FILENO);
-		close(fdin);
-		close(pipeout[0]);
-		close(pipeout[1]);
+		if (fdin != STDIN_FILENO)
+		{
+			error = dup2(fdin, STDIN_FILENO);
+			close(fdin);
+		}
+		if (fdout != STDOUT_FILENO)
+		{
+			error = dup2(fdout, STDOUT_FILENO);
+			close(fdout);
+		}
 		error = ft_exectkn(token);
 		if (error == -1)
 		{
-			perror ("Execution Error");
-			return (-1);
+			perror("Execution Error");
+			exit(-1);
 		}
+	}
+	else
+	{
+		if (fdin != STDIN_FILENO)
+			close(fdin);
+		if (fdout != STDOUT_FILENO)
+			close(fdout);
 	}
 	return (id);
 }
 
-void	here_doc_prompt(int *pip, t_token *token)
+int here_doc_prompt(t_token *token)
 {
-	char	*command;
+	char *command;
+	int pip[2];
 
+	pipe(pip);
 	while (1)
 	{
 		command = readline("(>^.^)> Here_doc $");
 		if (command == NULL)
-			break ;
+			break;
 		if (ft_strncmp(command, token->args[0], -1) == 0)
-			break ;
+			break;
 		else
 		{
 			write(pip[1], command, ft_strlen(command));
@@ -55,4 +69,5 @@ void	here_doc_prompt(int *pip, t_token *token)
 		command = NULL;
 	}
 	close(pip[1]);
+	return (pip[0]);
 }
