@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 13:34:34 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 22:57:17 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,10 @@ void command_simple_quotes(char *cmd, int *i, char *arg, int *k);
 void	ft_executer(t_token *ẗoken);
 int		ft_exectkn(t_token *token);
 int		pipe_counter(t_token *token);
-int		**pipe_generator(int npipes);
-void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes);
-void 	pipe_left_greatgreat(int *pipe, t_token *token);
 t_token	*redirect_order_sort(t_token *token);
 int 	fork_exec(t_token *token, int fdin, int fdout);
 int	set_pipeoutput(t_token *token, int *nextinput);
+int	set_pipeinput(t_token *token, int *nextfdin);
 
 /* built ins*/
 int		check_builtin(t_token *token);
@@ -128,6 +126,7 @@ int		builtin_cd(t_token *token);
 int		builtin_export(t_token *token);
 int		builtin_unset(t_token *token);
 int		builtin_pwd(t_token *token);
+int		builtin_echo(t_token *token);
 int		builtin_error();
 int 	builtin_exit(t_token *token);
 void 	malloc_fail_proc(void);

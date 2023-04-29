@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 13:33:55 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 22:28:37 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_builtinexec(t_token *token)
 {
-	int status;
-	
+	int	status;
+
 	if (ft_strncmp(token->args[0], "cd", -1) == 0)
 		status = builtin_cd(token);
 	if (ft_strncmp(token->args[0], "export", -1) == 0)
@@ -28,6 +28,8 @@ void	ft_builtinexec(t_token *token)
 		status = builtin_pwd(token);
 	if (ft_strncmp(token->args[0], "exit", -1) == 0)
 		status = builtin_exit(token);
+	if (ft_strncmp(token->args[0], "echo", -1) == 0)
+		status = builtin_echo(token);
 	g_state.last_return = status;
 }
 

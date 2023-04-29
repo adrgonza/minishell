@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:01 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/26 21:09:33 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 23:39:11 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void	split_cpy(char ***dst, char **src)
 	}
 }
 
-void ft_tknswap_last(t_token *token)
+void	ft_tknswap_last(t_token *token)
 {
-	t_token *aux_last;
-	t_token *aux_next;
-	t_token *last;
+	t_token	*aux_last;
+	t_token	*aux_next;
+	t_token	*last;
 
 	if (token->last == NULL)
 		return ;
@@ -86,14 +86,14 @@ void ft_tknswap_last(t_token *token)
 	token->last = aux_last;
 	token->next = last;
 	last->last = token;
-	last->next = aux_next;	
+	last->next = aux_next;
 }
 
-void ft_tknswap_next(t_token *token)
+void	ft_tknswap_next(t_token *token)
 {
-	t_token *aux_last;
-	t_token *aux_next;
-	t_token *next;
+	t_token	*aux_last;
+	t_token	*aux_next;
+	t_token	*next;
 
 	if (token->next == NULL)
 		return ;
@@ -107,5 +107,5 @@ void ft_tknswap_next(t_token *token)
 	token->next = aux_next;
 	token->last = next;
 	next->next = token;
-	next->last = aux_last;	
+	next->last = aux_last;
 }
