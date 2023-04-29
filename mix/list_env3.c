@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 22:27:07 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:37:14 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 13:08:32 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_envset(t_env *token)
 }
 
 //env
-void	ft_envprint(void)
+int	ft_envprint(void)
 {
 	t_env	*env;
 
@@ -63,4 +63,5 @@ void	ft_envprint(void)
 		ft_printf("%s=%s\n", env->name, env->args);
 		env = env->next;
 	}
+	return (0);
 }

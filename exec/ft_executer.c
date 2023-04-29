@@ -6,33 +6,32 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 02:42:09 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 13:34:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
+// #include <stdio.h>
+// #include <fcntl.h>
+// #include <unistd.h>
 
-void print_open_fds() {
-    int max_fd = getdtablesize();
-    int fd;
+// void print_open_fds() {
+//     int max_fd = getdtablesize();
+//     int fd;
 
-    for (fd = 0; fd < max_fd; fd++) {
-        if (fcntl(fd, F_GETFD) != -1) {
-            printf("File descriptor %d is open\n", fd);
-        }
-    }
-}
+//     for (fd = 0; fd < max_fd; fd++) {
+//         if (fcntl(fd, F_GETFD) != -1) {
+//             printf("File descriptor %d is open\n", fd);
+//         }
+//     }
+// }
 
-int set_pipeinput(t_token *token, int *nextfdin)
+int	set_pipeinput(t_token *token, int *nextfdin)
 {
-	int fdtemp;
-	
+	int	fdtemp;
+
 	fdtemp = -1;
-	
 	if (token->last != NULL && *nextfdin != -1)
 	{
 		close(*nextfdin);
@@ -44,14 +43,14 @@ int set_pipeinput(t_token *token, int *nextfdin)
 		fdtemp = open(token->args[0],O_RDONLY);
 	if (token->type == T_LESSLESS)
 		fdtemp = here_doc_prompt(token);
-	return(fdtemp);
+	return (fdtemp);
 }
 
-int set_pipeoutput(t_token *token, int *nextinput)
+int	set_pipeoutput(t_token *token, int *nextinput)
 {
-	int fdfile;
-	int pip[2];
-	
+	int	fdfile;
+	int	pip[2];
+
 	if (token->next->type == T_STDOUT)
 		fdfile = STDOUT_FILENO;
 	if (token->next->type == T_GREATGREAT)
@@ -60,7 +59,7 @@ int set_pipeoutput(t_token *token, int *nextinput)
 	if (token->next->type == T_GREAT)
 		fdfile = open(token->next->args[0], \
 				O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if	(token->next->type == T_PIPE)
+	if (token->next->type == T_PIPE)
 	{
 		pipe(pip);
 		fdfile = pip[1];
@@ -69,62 +68,73 @@ int set_pipeoutput(t_token *token, int *nextinput)
 	return (fdfile);
 }
 
+int	count_commands(t_token *token)
+{
+	int ct;
+
+	ct = 0;
+	while (token != NULL)
+	{
+		if (token->type == T_COMMAND)
+			ct++;
+		token = token->next;
+	}
+	return (ct);
+}
+
+
 void	ft_executer(t_token *token)
 {
-	int fdin;
-	int fdout;
-	int nextfdin;
-	int ct;
-	int ct2;
-	int *id;
-	
-	char *test;
-	int	status;
+	int		fdin;
+	int		fdout;
+	int		nextfdin;
+	int		ct;
+	int		ct2;
+	int		*id;
+	int		status;
+	int		numb_commands;
 
-	id = ft_calloc(ft_tknsize(token),sizeof(int));
+	numb_commands = count_commands(token);
+	id = ft_calloc(numb_commands,sizeof(int));
 	nextfdin = -1;
 	ct = 0;
 	redirect_order_sort(token);
-	//print_open_fds();
-	//printf("____________________-");
 	while (token)
 	{
-		if (token->type == T_LESS || token->type == T_LESSLESS 
+		if (token->type == T_LESS || token->type == T_LESSLESS \
 				|| token->type == T_STDIN)
-			{
-			fdin =set_pipeinput(token,&nextfdin);
-			// test = (char *)1;
-			// while (test)
-			// 	test = get_next_line(fdin);
-			 }
+			fdin = set_pipeinput(token, &nextfdin);
 		if (token->type == T_COMMAND)
 		{
 			fdout = set_pipeoutput(token, &nextfdin);
-			//write(fdout,"Baby",4);
-			//print_open_fds();
-			id[ct] = fork_exec(token, fdin, fdout);
-			ct++;
+			if (numb_commands == 1 && check_builtin(token) == 0)
+				ft_builtinexec(token);
+			else
+			{
+				id[ct] = fork_exec(token, fdin, fdout);
+				ct++;
+			}
 		}
 		if (token->type == T_PIPE)
 			fdin = nextfdin;
 		token = token->next;
 	}
-	//print_open_fds();
 	ct2 = -1;
 	while (++ct2 < ct)
 		waitpid(id[ct2], &status, 0);	
+	if (ct > 0)
+		g_state.last_return =  WEXITSTATUS(status);
 	free(id);
-	
 }
 
-t_token *redirect_order_sort(t_token *token)
+t_token	*redirect_order_sort(t_token *token)
 {
-	t_token *start;
+	t_token	*start;
 
 	start = token;
-	while((token) != NULL)
+	while ((token) != NULL)
 	{
-		while ((token->type == T_LESS || token->type == T_LESSLESS || token->
+		while ((token->type == T_LESS || token->type == T_LESSLESS || token-> \
 			type == T_STDIN) && token->last != 0 && token->last->type != T_PIPE)
 			ft_tknswap_last(token);
 		token = (token)->next;
@@ -132,10 +142,10 @@ t_token *redirect_order_sort(t_token *token)
 	token = start;
 	while (token->last != NULL)
 		token = token->last;
-	while((token->next) != NULL)
+	while ((token->next) != NULL)
 	{
-		while (((token)->type == T_GREAT || (token)->type == T_GREATGREAT 
-			|| (token)->type == T_STDOUT) && (token)->next != NULL 
+		while (((token)->type == T_GREAT || (token)->type == T_GREATGREAT \
+			|| (token)->type == T_STDOUT) && (token)->next != NULL \
 			&& (token)->next->type != T_PIPE)
 			ft_tknswap_next(token);
 		if (token->next != NULL)
@@ -146,29 +156,29 @@ t_token *redirect_order_sort(t_token *token)
 	return (token);
 }
 
-t_token *redirect_check(t_token *token)
+t_token	*redirect_check(t_token *token)
 {
-	t_token *first;
-	t_token *end;
-	t_token *newtkn;
-	
+	t_token	*first;
+	t_token	*end;
+	t_token	*newtkn;
+
 	token = redirect_order_sort(token);
 	end = ft_tknlast(token);
 	if (token->type != T_STDIN && token->type != T_LESS && token->type \
 		!= T_LESSLESS)
-		{
-			newtkn = ft_tknnew(T_STDIN,NULL);
-			if (newtkn == NULL)
-				malloc_fail_proc();
-			ft_tknadd_front(&token,newtkn);
-		}
+	{
+		newtkn = ft_tknnew(T_STDIN,NULL);
+		if (newtkn == NULL)
+			malloc_fail_proc();
+		ft_tknadd_front(&token,newtkn);
+	}
 	if (end->type != T_STDOUT && end->type != T_GREAT && end->type \
 		!= T_GREATGREAT)
-		{
-			newtkn = ft_tknnew(T_STDOUT, NULL);
-			if (newtkn == NULL)
-				malloc_fail_proc();
-			ft_tknadd_back(&token,newtkn);
-		}
+	{
+		newtkn = ft_tknnew(T_STDOUT, NULL);
+		if (newtkn == NULL)
+			malloc_fail_proc();
+		ft_tknadd_back(&token,newtkn);
+	}
 	return (token);
 }

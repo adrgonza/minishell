@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 02:45:33 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 13:24:22 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int fork_exec(t_token *token, int fdin, int fdout)
 	id = fork();
 	if (id == 0)
 	{
+		g_state.am_child = 1;
 		if (fdin != STDIN_FILENO)
 		{
 			error = dup2(fdin, STDIN_FILENO);
@@ -30,12 +31,12 @@ int fork_exec(t_token *token, int fdin, int fdout)
 			error = dup2(fdout, STDOUT_FILENO);
 			close(fdout);
 		}
-		error = ft_exectkn(token);
-		if (error == -1)
+		if (check_builtin(token) == 0)
 		{
-			perror("Execution Error");
-			exit(-1);
+			ft_builtinexec(token);
+			exit(g_state.last_return);
 		}
+		ft_exectkn(token);
 	}
 	else
 	{

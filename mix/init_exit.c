@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/28 17:25:05 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 13:23:29 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ int	ft_init(int argc, char **argv, char **envp)
 {
 	t_env *envt;
 	if (argc != 1) /* check there is only an argument */
-	{
 		return (0);
-	}
 	g_state.envp = env_split_to_list(envp); /* copy the external env */
+	g_state.am_child = 0;
 	envt = ft_envnew("SHELL",argv[0]);
 	if (envt == NULL)
 	{
@@ -27,7 +26,6 @@ int	ft_init(int argc, char **argv, char **envp)
 		exit (EXIT_FAILURE);
 	}
 	ft_envset(envt);
-	//ft_envprint();
 	return (1);
 }
 

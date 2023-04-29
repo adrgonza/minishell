@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 02:46:37 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 12:49:05 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char *prompt_chooser(void)
 {
 	if (g_state.last_return == 0)
 		return("(>^.^)> ");
-	return("(>-.-)> ");
+	return("(>x.x)> ");
 }
 void	prompt(void)
 {
