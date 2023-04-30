@@ -6,15 +6,15 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 23:12:27 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 23:44:06 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 23:40:09 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_print_tkn(t_token *token)
+void	ft_print_tkn(t_token *token)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	ft_printf("\n----------------------------\n");
@@ -25,7 +25,7 @@ void ft_print_tkn(t_token *token)
 	}
 	else if (token->args != NULL)
 	{
-		while(token->args[i])
+		while (token->args[i])
 		{
 			ft_printf("   args(%d) ==> {[%s]}   \n", i, token->args[i]);
 			i++;
@@ -35,9 +35,9 @@ void ft_print_tkn(t_token *token)
 	ft_printf("----------------------------\n\n");
 }
 
-void ft_print_tkns(t_token *token)
+void	ft_print_tkns(t_token *token)
 {
-	int i;
+	int	i;
 
 	if (token == NULL)
 		return ;
@@ -55,4 +55,3 @@ void ft_print_tkns(t_token *token)
 		i++;
 	}
 }
-

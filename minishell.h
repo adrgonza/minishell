@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/27 18:40:07 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 22:57:17 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_state{
 	t_env	*envp;
 	int		last_return;
 	int		exit;
+	int		am_child;
 }	t_state;
 
 typedef struct s_token{
@@ -82,7 +83,7 @@ t_env 	*ft_envfind(char *name);
 void 	ft_envunset(t_env *token);
 void 	ft_envset(t_env *token);
 t_env	*ft_envnew(char *name, char *args);
-void 	ft_envprint(void);
+int 	ft_envprint(void);
 int		ft_envsize(t_env *lst);
 t_env	*env_split_to_list(char **env);
 char	**env_list_to_split(t_env *token);
@@ -90,7 +91,7 @@ char	**env_list_to_split(t_env *token);
 /*prompt*/
 void	prompt(void);
 void	prompt_debug(void);
-void	here_doc_prompt(int *pip, t_token *token);
+int		here_doc_prompt(t_token *token);
 int		ft_init(int argc, char **argv, char **envp);
 
 /* parsing */
@@ -115,18 +116,19 @@ void	command_simple_quotes(char *cmd, int *i, char *arg, int *k);
 void	ft_executer(t_token *ẗoken);
 int		ft_exectkn(t_token *token);
 int		pipe_counter(t_token *token);
-int		**pipe_generator(int npipes);
-void	pipe_con_before_forks(t_token *token, int **pip, int n_pipes);
-void 	pipe_left_greatgreat(int *pipe, t_token *token);
 t_token	*redirect_order_sort(t_token *token);
+int 	fork_exec(t_token *token, int fdin, int fdout);
+int	set_pipeoutput(t_token *token, int *nextinput);
+int	set_pipeinput(t_token *token, int *nextfdin);
 
 /* built ins*/
-int		check_builtin(t_token *token, int ct2);
+int		check_builtin(t_token *token);
 void	ft_builtinexec(t_token *token);
 int		builtin_cd(t_token *token);
 int		builtin_export(t_token *token);
 int		builtin_unset(t_token *token);
-int		builtin_pwd();
+int		builtin_pwd(t_token *token);
+int		builtin_echo(t_token *token);
 int		builtin_error();
 int 	builtin_exit(t_token *token);
 void 	malloc_fail_proc(void);

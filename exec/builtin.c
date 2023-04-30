@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:40:51 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 22:28:37 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 void	ft_builtinexec(t_token *token)
 {
+	int	status;
+
 	if (ft_strncmp(token->args[0], "cd", -1) == 0)
-		builtin_cd(token);
+		status = builtin_cd(token);
 	if (ft_strncmp(token->args[0], "export", -1) == 0)
-		builtin_export(token);
+		status = builtin_export(token);
 	if (ft_strncmp(token->args[0], "unset", -1) == 0)
-		builtin_unset(token);
+		status = builtin_unset(token);
 	if (ft_strncmp(token->args[0], "env", -1) == 0)
-		ft_envprint();
+		status = ft_envprint();
 	if (ft_strncmp(token->args[0], "pwd", -1) == 0)
-		builtin_pwd();
+		status = builtin_pwd(token);
 	if (ft_strncmp(token->args[0], "exit", -1) == 0)
-		builtin_exit(token);
+		status = builtin_exit(token);
+	if (ft_strncmp(token->args[0], "echo", -1) == 0)
+		status = builtin_echo(token);
+	g_state.last_return = status;
 }
 
 int	builtin_error(void)

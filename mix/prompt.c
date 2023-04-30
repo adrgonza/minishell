@@ -6,24 +6,25 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/28 02:59:18 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/29 23:37:35 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *prompt_chooser(void)
+char	*prompt_chooser(void)
 {
 	if (g_state.last_return == 0)
-		return("\033[0;35m(>^.^)> \033[0;37m");
-	return("(>-.-)> ");
+		return ("\033[0;35m(>^.^)> ");
+	return ("(>x.x)> ");
 }
+
 void	prompt(void)
 {
 	char	*command;
 	t_token	*tokens;
-	t_token *last;
-	char 	*prompt;
+	t_token	*last;
+	char	*prompt;
 
 	command = (char *)1;
 	while (command != NULL)
@@ -34,10 +35,10 @@ void	prompt(void)
 		add_history(command);
 		tokens = parsing(command);
 		if (tokens)
-    	{
-      		ft_executer(tokens);
+		{
+			ft_executer(tokens);
 			ft_tknclear(&tokens);
-    	}
+		}
 		free(command);
 	}
 }
@@ -46,20 +47,20 @@ void	prompt_debug(void)
 {
 	char	*command;
 	t_token	*tokens;
-	t_token *last;
-	char 	*prompt;
-
+	t_token	*last;
+	char	*prompt;
+  
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = ft_strdup(">out <Makefile cat");
+		command = ft_strdup("cot");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
 		if (tokens)
-    	{
-      		ft_print_tkns(tokens);
-		  	tokens = redirect_order_sort(tokens);
+		{
+			ft_print_tkns(tokens);
+			tokens = redirect_order_sort(tokens);
 			ft_print_tkns(tokens);
 			ft_executer(tokens);
 			ft_tknclear(&tokens);

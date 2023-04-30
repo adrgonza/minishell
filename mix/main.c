@@ -6,15 +6,15 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/27 20:41:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/04/29 23:41:04 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_state g_state;
+t_state	g_state;
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	if (!ft_init(argc, argv, envp)) /* inicializate args */
 		return (0);
@@ -24,4 +24,3 @@ int main(int argc, char **argv, char **envp)
 		prompt_debug();
 	return (0);
 }
-

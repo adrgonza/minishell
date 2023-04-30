@@ -6,105 +6,108 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/26 23:45:45 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 22:54:56 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_executer2(int *id, int *ct, int **pip, t_token *token)
+// #include <stdio.h>
+// #include <fcntl.h>
+// #include <unistd.h>
+
+// void print_open_fds() {
+//     int max_fd = getdtablesize();
+//     int fd;
+
+//     for (fd = 0; fd < max_fd; fd++) {
+//         if (fcntl(fd, F_GETFD) != -1) {
+//             printf("File descriptor %d is open\n", fd);
+//         }
+//     }
+// }
+
+int	count_commands(t_token *token)
 {
-	pipe_con_before_forks(token, pip, ct[2]);
+	int	ct;
+
+	ct = 0;
 	while (token != NULL)
 	{
-		while (token->type == T_PIPE)
-			token = token->next;
-		if (token->type == T_COMMAND && check_builtin(token, ct[2]) == 1)
-		{
-			id[ct[1]] = fork();
-			if (id[ct[1]] == 0)
-			{
-				dup2(pip[ct[0] - 1][0], STDIN_FILENO);
-				dup2(pip[ct[0]][1], STDOUT_FILENO);
-				ct[0] = 0;
-				while (ct[0] < ct[2])
-				{	
-					close(pip[ct[0]][1]);
-					close(pip[ct[0]][0]);
-					ct[0]++;
-				}
-				ft_exectkn(token);
-			}
-			ct[1]++;
-		}
-		else if (token->type == T_COMMAND)
-		{
-			id[ct[1]] = 256;
-			ft_builtinexec(token);
-		}
-		ct[0]++;
+		if (token->type == T_COMMAND)
+			ct++;
 		token = token->next;
 	}
+	return (ct);
 }
 
-void	ft_executer3(int *id, int *ct, int **pip, t_token *token)
+int	ft_executerloop(t_token *token, int *it, int *id)
 {
-	ct[0] = 0;
-	while (ct[0] < ct[2])
-	{	
-		close(pip[ct[0]][1]);
-		close(pip[ct[0]][0]);
-		ct[0]++;
-	}
-	ct[0] = 0;
-	while (ct[0] < ct[1])
+	while (token)
 	{
-		if (id[ct[0]] == -1)
-			ct[3] = 0;
-		else
-			waitpid(id[ct[0]], &ct[3], 0);
-		ct[0]++;
+		if (token->type == 6 || token->type == 7 || token->type == T_STDIN)
+			it[0] = set_pipeinput(token, &it[2]);
+		if (it[0] == -1)
+			return (-1);
+		if (token->type == T_COMMAND)
+		{
+			it[1] = set_pipeoutput(token, &it[2]);
+			if (it[1] == -1)
+				return (-1);
+			if (it[6] == 1 && check_builtin(token) == 0)
+				ft_builtinexec(token);
+			else
+			{
+				id[it[3]] = fork_exec(token, it[0], it[1]);
+				it[3]++;
+			}
+		}
+		if (token->type == T_PIPE)
+			it[0] = it[2];
+		token = token->next;
 	}
-	free (pip);
-	free (id);
-	if (ct[3] < 256)
-		g_state.last_return = WEXITSTATUS(ct[3]);
-	else
-		g_state.last_return = 0;
+	return (0);
 }
 
+	// int		fdin; 0
+	// int		fdout;1
+	// int		nextfdin;2
+	// int		ct;3
+	// int		ct2;4
+	// int		*id;
+	// int		status; 5
+	// int		numb_commands; 6
 void	ft_executer(t_token *token)
 {
-	int **pip;
+	int	it[7];
 	int	*id;
-	int	ct[4];
-	
-	if (token == NULL)
-		return ;
-	ft_bzero(ct, 3 * sizeof(int));
-	ct[2] = pipe_counter(token);
-	pip = pipe_generator(ct[2]);
-	if (pip == NULL)
-		malloc_fail_proc();
-	id = ft_calloc(ct[2] - 1, sizeof(int));
-	if (id == NULL)
+
+	it[6] = count_commands(token);
+	id = ft_calloc(it[6], sizeof(int));
+	it[3] = 0;
+	it[2] = -1;
+	redirect_order_sort(token);
+	if (ft_executerloop(token, it, id) == -1)
 	{
-		free(pip);
-		malloc_fail_proc();
+		g_state.last_return = 1;
+		return ;
 	}
-	token = redirect_check(token);
-	ft_executer2(id, ct, pip, token);
-	ft_executer3(id, ct, pip, token);	
+	it[4] = -1;
+	while (++it[4] < it[3])
+		waitpid(id[it[4]], &it[5], 0);
+	if (it[3] > 0)
+		g_state.last_return = WEXITSTATUS(it[5]);
+	free(id);
 }
 
-t_token *redirect_order_sort(t_token *token)
+t_token	*redirect_order_sort(t_token *token)
 {
-	t_token *start;
+	t_token	*start;
 
 	start = token;
-	while((token) != NULL)
+	while ((token) != NULL)
 	{
-		while ((token->type == T_LESS || token->type == T_LESSLESS || token->
+		while ((token->type == T_LESS || token->type == T_LESSLESS || token-> \
 			type == T_STDIN) && token->last != 0 && token->last->type != T_PIPE)
 			ft_tknswap_last(token);
 		token = (token)->next;
@@ -112,10 +115,10 @@ t_token *redirect_order_sort(t_token *token)
 	token = start;
 	while (token->last != NULL)
 		token = token->last;
-	while((token->next) != NULL)
+	while ((token->next) != NULL)
 	{
-		while (((token)->type == T_GREAT || (token)->type == T_GREATGREAT 
-			|| (token)->type == T_STDOUT) && (token)->next != NULL 
+		while (((token)->type == T_GREAT || (token)->type == T_GREATGREAT \
+			|| (token)->type == T_STDOUT) && (token)->next != NULL \
 			&& (token)->next->type != T_PIPE)
 			ft_tknswap_next(token);
 		if (token->next != NULL)
@@ -126,29 +129,29 @@ t_token *redirect_order_sort(t_token *token)
 	return (token);
 }
 
-t_token *redirect_check(t_token *token)
+t_token	*redirect_check(t_token *token)
 {
-	t_token *first;
-	t_token *end;
-	t_token *newtkn;
-	
+	t_token	*first;
+	t_token	*end;
+	t_token	*newtkn;
+
 	token = redirect_order_sort(token);
 	end = ft_tknlast(token);
 	if (token->type != T_STDIN && token->type != T_LESS && token->type \
 		!= T_LESSLESS)
-		{
-			newtkn = ft_tknnew(T_STDIN,NULL);
-			if (newtkn == NULL)
-				malloc_fail_proc();
-			ft_tknadd_front(&token,newtkn);
-		}
+	{
+		newtkn = ft_tknnew(T_STDIN, NULL);
+		if (newtkn == NULL)
+			malloc_fail_proc();
+		ft_tknadd_front(&token, newtkn);
+	}
 	if (end->type != T_STDOUT && end->type != T_GREAT && end->type \
 		!= T_GREATGREAT)
-		{
-			newtkn = ft_tknnew(T_STDOUT, NULL);
-			if (newtkn == NULL)
-				malloc_fail_proc();
-			ft_tknadd_back(&token,newtkn);
-		}
+	{
+		newtkn = ft_tknnew(T_STDOUT, NULL);
+		if (newtkn == NULL)
+			malloc_fail_proc();
+		ft_tknadd_back(&token, newtkn);
+	}
 	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 15:13:06 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:45:30 by amejia           ###   ########.fr       */
+/*   Updated: 2023/04/29 12:47:51 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ char	*find_path2(char *command, char **envpaths)
 			return (free(command), ft_free_split(envpaths), path);
 		ct++;
 	}
-	return (free(command), ft_free_split(envpaths), NULL);
+	free(command);
+	ft_free_split(envpaths);
+	return (NULL);
 }
 
 //this function mallocs its result
@@ -80,8 +82,16 @@ int	ft_exectkn(t_token *token)
 	char	*path_to_exec;
 
 	path_to_exec = find_path((token->args)[0], env_list_to_split(g_state.envp));
+	if (path_to_exec == NULL)
+	{
+		perror("Minishell: Command not found");
+		exit(127);
+	}
 	if (execve(path_to_exec, token->args,
 			env_list_to_split(g_state.envp)) == -1)
-		exit (EXIT_FAILURE);
+	{
+		perror("execve");
+		exit (126);
+	}
 	return (0);
 }
