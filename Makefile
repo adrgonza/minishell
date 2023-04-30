@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/04/29 22:53:27 by amejia           ###   ########.fr        #
+#    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #      
+#    Updated: 2023/04/28 01:01:15 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,12 @@ NAME_DEBUG = minishell_debug
 
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
 mix/list_tkn3.c mix/list_env.c mix/list_env2.c mix/list_env3.c \
-parsing/parsing.c parsing/check_std.c  parsing/get_args.c parsing/args_tools.c\
-parsing/parsing_tools.c parsing/manage_quotes.c \
+parsing/parsing.c parsing/get_args.c parsing/args_tools.c\
+parsing/parsing_tools.c parsing/manage_quotes.c parsing/get_things.c \
 exec/ft_executer.c  exec/fork_exec.c exec/ft_exectkn.c exec/builtin.c \
 exec/builtin2.c exec/builtin3.c
+#exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c exec/builtin.c \
+#exec/builtin2.c
 
 CC = cc
 
@@ -28,7 +30,7 @@ OBJS = ${SRCS:.c=.o}
 
 MAINOBJ = ${MAIN:.c=.o}
 
-CFLAGS = #-fsanitize=address -g #-Wall -Werror -Wextra
+CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
 READLINE_FLAGS = -lreadline  #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
 
 all: $(NAME)

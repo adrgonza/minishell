@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
 /*   Updated: 2023/04/29 23:37:35 by amejia           ###   ########.fr       */
@@ -15,7 +15,7 @@
 char	*prompt_chooser(void)
 {
 	if (g_state.last_return == 0)
-		return ("(>^.^)> ");
+		return ("\033[0;35m(>^.^)> ");
 	return ("(>x.x)> ");
 }
 
@@ -49,7 +49,7 @@ void	prompt_debug(void)
 	t_token	*tokens;
 	t_token	*last;
 	char	*prompt;
-
+  
 	command = (char *)1;
 	while (command != NULL)
 	{
