@@ -6,11 +6,73 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/02 17:33:09 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:51:20 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char **arrayjoin(char **array1, char ** array2)
+{
+	char **aux;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (array1[i])
+		i++;
+	while (array2[j])
+		j++;
+	aux = malloc(sizeof(char*) * (j + i + 1));
+	if (!aux)
+		return(NULL);
+	aux[j + i] = NULL;
+	i = -1;
+	while (array1[++i])
+		aux[i] = ft_strdup(array1[i]);
+	j = 0;
+	while (array2[j])
+		aux[i++] = ft_strdup(array2[j++]);
+	i = -1;
+	while (array1[++i])
+		free(array1[i]);
+	free(array1);
+	i = -1;
+	while (array2[++i])
+		free(array2[i]);
+	free(array2);
+	return (aux);
+}
+
+void reordenate_tokens(t_token	**token)
+{
+	t_token *tmp;
+	char **aux;
+
+	tmp = *token;
+	while (*token)
+	{
+		aux = (*token)->args;
+		if ((*token)->next && (*token)->type == T_COMMAND)
+		{
+			*token = (*token)->next;
+			if ((*token)->next && (*token)->type == T_LESS)
+			{
+				*token = (*token)->next;
+				if ((*token)->type == T_COMMAND)
+				{
+					aux = arrayjoin(aux, (*token)->args);
+					*token = ft_tknlast(*token);// add back and put freed pointer in the end (problem here)
+					free(*token);
+				}
+			}
+		}
+		*token = (*token)->next;
+	}
+	*token = tmp;
+	(*token)->args = aux;
+}
 
 void ft_print_args(char *cmd, int type, char **args)
 {
@@ -71,7 +133,7 @@ t_token	*parsing(char *command)
 	}
 	if (check_stdout(command))
 		ft_tknadd_back(&token, ft_tknnew(T_STDOUT, NULL));
-	//token = reordenate_tokens(token);
+	//reordenate_tokens(&token);
 	return (token);
 }
 

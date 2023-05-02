@@ -6,11 +6,12 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/27 20:30:24 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:52:59 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 char	*variable_expansion(char *cmd, int i)
 {
 	char *path;
