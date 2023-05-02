@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
+#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #      
-#    Updated: 2023/04/28 01:01:15 by adrgonza         ###   ########.fr        #
+#    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
+#    Updated: 2023/05/02 17:24:07 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,10 @@ NAME_DEBUG = minishell_debug
 
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
 mix/list_tkn3.c mix/list_env.c mix/list_env2.c mix/list_env3.c \
-parsing/parsing.c parsing/get_args.c parsing/args_tools.c\
+parsing/parsing.c parsing/get_args.c parsing/args_tools.c parsing/check_std.c\
 parsing/parsing_tools.c parsing/manage_quotes.c parsing/get_things.c \
 exec/ft_executer.c  exec/fork_exec.c exec/ft_exectkn.c exec/builtin.c \
 exec/builtin2.c exec/builtin3.c
-#exec/ft_executer.c  exec/pipe_builder.c exec/ft_exectkn.c exec/builtin.c \
-#exec/builtin2.c
 
 CC = cc
 

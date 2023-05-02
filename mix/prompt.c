@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 23:37:35 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/02 17:28:28 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 char	*prompt_chooser(void)
 {
 	if (g_state.last_return == 0)
-		return ("\033[0;35m(>^.^)> ");
-	return ("(>x.x)> ");
+		return ("\033[0;35m(>^.^)> \033[0;37m");
+	return ("\033[0;31m(>x.x)> \033[0;37m");
 }
 
 void	prompt(void)
@@ -49,7 +49,7 @@ void	prompt_debug(void)
 	t_token	*tokens;
 	t_token	*last;
 	char	*prompt;
-  
+
 	command = (char *)1;
 	while (command != NULL)
 	{
