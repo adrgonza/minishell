@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/04 19:52:36 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/05 01:28:12 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ t_token	*parsing(char *command)
 	command = check_quotes(command); /* checks if there is any open quote and expand variables */
 	if (!command)
 		return (token);
-	if (check_stdin(command)) /* Checks if there is a '<' */
-		ft_tknadd_back(&token, ft_tknnew(T_STDIN, NULL));
 	i = 0;
 	while (command[i])
 	{
@@ -128,9 +126,12 @@ t_token	*parsing(char *command)
 		ft_free_args(args); /* free argumments */
 		i = next_arg(type, command, i); /* jump to the next argument */
 	}
-	if (check_stdout(command)) /* Checks if there is a '>' */
+	if (check_stdout(token)) /* Checks if there is a '>' */
 		ft_tknadd_back(&token, ft_tknnew(T_STDOUT, NULL));
 	reordenate_tokens(&token); /* reordenate tokens if it is necesary */
+	if (check_stdin(token)) /* Checks if there is a '<' */
+		ft_tknadd_front(&token, ft_tknnew(T_STDIN, NULL));
+	//ft_print_tkns(token);
 	return (token);
 }
 

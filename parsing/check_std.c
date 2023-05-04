@@ -1,23 +1,23 @@
 #include "../minishell.h"
 
-int check_stdin(char *command)
+int check_stdin(t_token *token)
 {
-	int i;
-
-	i = -1;
-	while (command[++i])
-		if (command[i] == '<')
-			return 0;
-	return 1;
+while (token)
+	{
+		if (token->type == T_LESS)
+			return (0);
+		token = token->next;
+	}
+	return (1);
 }
 
-int check_stdout(char *command)
+int check_stdout(t_token *token)
 {
-	int i;
-
-	i = -1;
-	while (command[++i])
-		if (command[i] == '>')
-			return 0;
-	return 1;
+	while (token)
+	{
+		if (token->type == T_GREAT)
+			return (0);
+		token = token->next;
+	}
+	return (1);
 }
