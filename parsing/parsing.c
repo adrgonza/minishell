@@ -6,13 +6,13 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/02 17:51:20 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/04 19:52:36 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **arrayjoin(char **array1, char ** array2)
+char **arrayjoin(char **array1, char **array2)
 {
 	char **aux;
 	int i;
@@ -38,43 +38,10 @@ char **arrayjoin(char **array1, char ** array2)
 	while (array1[++i])
 		free(array1[i]);
 	free(array1);
-	i = -1;
-	while (array2[++i])
-		free(array2[i]);
-	free(array2);
 	return (aux);
 }
 
-void reordenate_tokens(t_token	**token)
-{
-	t_token *tmp;
-	char **aux;
-
-	tmp = *token;
-	while (*token)
-	{
-		aux = (*token)->args;
-		if ((*token)->next && (*token)->type == T_COMMAND)
-		{
-			*token = (*token)->next;
-			if ((*token)->next && (*token)->type == T_LESS)
-			{
-				*token = (*token)->next;
-				if ((*token)->type == T_COMMAND)
-				{
-					aux = arrayjoin(aux, (*token)->args);
-					*token = ft_tknlast(*token);// add back and put freed pointer in the end (problem here)
-					free(*token);
-				}
-			}
-		}
-		*token = (*token)->next;
-	}
-	*token = tmp;
-	(*token)->args = aux;
-}
-
-void ft_print_args(char *cmd, int type, char **args)
+void ft_print_args(int type, char **args)
 {
 	int i;
 
@@ -107,6 +74,36 @@ void ft_print_args(char *cmd, int type, char **args)
 	}
 	printf("----------------------------\n\n");
 }
+void reordenate_tokens(t_token	**token)
+{
+	t_token *first;
+	char **aux = NULL;
+
+	first = *token;
+	while (*token)
+	{
+		aux = (*token)->args;
+		if ((*token)->next && (*token)->type == T_COMMAND)
+		{
+			*token = (*token)->next;
+			if ((*token)->next && ((*token)->type == T_LESS || (*token)->type == T_GREAT))
+			{
+				*token = (*token)->next;
+				if ((*token)->type == T_COMMAND)
+				{
+					aux = arrayjoin(aux, (*token)->args);
+					(*token)->last->last->args = aux;
+					if ((*token)->next)
+						(*token)->last->next = (*token)->next;
+				}
+			}
+		}
+		else
+			*token = (*token)->next;
+	}
+	*token = first;
+}
+
 
 t_token	*parsing(char *command)
 {
@@ -131,16 +128,21 @@ t_token	*parsing(char *command)
 		ft_free_args(args); /* free argumments */
 		i = next_arg(type, command, i); /* jump to the next argument */
 	}
-	if (check_stdout(command))
+	if (check_stdout(command)) /* Checks if there is a '>' */
 		ft_tknadd_back(&token, ft_tknnew(T_STDOUT, NULL));
-	//reordenate_tokens(&token);
+	reordenate_tokens(&token); /* reordenate tokens if it is necesary */
 	return (token);
 }
 
 
 
 
-		//ft_print_args(command, type, args);
+	/*while(token->next)
+	{
+		ft_print_tkn(token);
+		token = token->next;
+	}*/
+		//ft_print_args(type, args);
 //system("echo \"\n\"-----------leaks------------\"\n\" && leaks -q minishell | head -5 | tail -1 ");
 
 //system("leaks -q minishell | head -5 | tail -1 ; echo \"\n\"-----------leaks------------\"\n\"");
