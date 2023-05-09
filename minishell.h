@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/04 22:34:01 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/09 02:11:58 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_token{
 	struct s_token	*last;
 	struct s_token	*next;
 }	t_token;
+
 
 /* mix */
 /*tkn*/
@@ -110,6 +111,9 @@ char	**get_redict_args(char *cmd, int i, int type);
 void	ft_free_args(char **args);
 void	command_double_quotes(char *cmd, int *i, char *arg, int *k);
 void	command_simple_quotes(char *cmd, int *i, char *arg, int *k);
+char	*inter_expansion(char *cmd, int i);
+char	*variable_expansion(char *cmd, int i, int first);
+void	reordenate_tokens(t_token	**token);
 
 
 /* executing*/

@@ -6,15 +6,15 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:29:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/28 01:00:32 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:27:21 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_free_args(char **args) //finish
+void	ft_free_args(char **args) //finish
 {
-	int i;
+	int	i;
 
 	if (!args)
 		return ;
@@ -24,9 +24,9 @@ void ft_free_args(char **args) //finish
 	free(args);
 }
 
-int redict_word_count(char *cmd, int i)
+int	redict_word_count(char *cmd, int i)
 {
-	int word_count;
+	int	word_count;
 
 	word_count = 2;
 	if (cmd[i] == '|' || cmd[i] == '<' || cmd[i] == '>' || !cmd[i])
@@ -34,14 +34,14 @@ int redict_word_count(char *cmd, int i)
 	return (word_count);
 }
 
-int count_words(char *cmd, int i) //finish
+int	count_words(char *cmd, int i) //finish
 {
 	int	command_count;
 
 	command_count = 0;
 	while (cmd[i] && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
-		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
+		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 		{
 			if (cmd[i] == '"') /* checking quotes */
 			{
@@ -57,19 +57,19 @@ int count_words(char *cmd, int i) //finish
 			}
 			i++;
 		}
-		while (cmd[i] && cmd[i] == ' ')
+		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
 		command_count++;
 	}
 	return (command_count);
 }
 
-int	count_letters(char *cmd, int i) //finish
+int	count_letters(char *cmd, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
-	while (cmd[i] && cmd[i] != ' ' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
+	while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
 		if (cmd[i] == '"') /* checking quotes */
 		{

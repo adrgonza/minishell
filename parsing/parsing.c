@@ -6,144 +6,47 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/05 01:28:12 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/09 02:15:25 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **arrayjoin(char **array1, char **array2)
+void	leaks()
 {
-	char **aux;
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (array1[i])
-		i++;
-	while (array2[j])
-		j++;
-	aux = malloc(sizeof(char*) * (j + i + 1));
-	if (!aux)
-		return(NULL);
-	aux[j + i] = NULL;
-	i = -1;
-	while (array1[++i])
-		aux[i] = ft_strdup(array1[i]);
-	j = 0;
-	while (array2[j])
-		aux[i++] = ft_strdup(array2[j++]);
-	i = -1;
-	while (array1[++i])
-		free(array1[i]);
-	free(array1);
-	return (aux);
+	system("leaks -q minishell");
 }
 
-void ft_print_args(int type, char **args)
-{
-	int i;
-
-	i = 0;
-	printf("\n----------------------------\n");
-	if (type == 3)
-		printf("   type ==> {[Command]}   \n");
-	if (type == 4)
-		printf("   type ==> {[Pipe]}   \n");
-	if (type == 6)
-		printf("   type ==> {[LESS]}   \n");
-	if (type == 7)
-		printf("   type ==> {[LESSLESS]}   \n");
-	if (type == 8)
-		printf("   type ==> {[GREAT]}   \n");
-	if (type == 9)
-		printf("   type ==> {[GREATGREAT]}   \n");
-	if (type == 4)
-	{
-		printf("   args(%d) ==> {[%s]}   \n", i, args);
-	}
-	else
-	{
-		while(args[i])
-		{
-			printf("   args(%d) ==> {[%s]}   \n", i, args[i]);
-			i++;
-		}
-		printf("   args(%d) ==> {[%s]}   \n", i, args[i]);
-	}
-	printf("----------------------------\n\n");
-}
-void reordenate_tokens(t_token	**token)
-{
-	t_token *first;
-	char **aux = NULL;
-
-	first = *token;
-	while (*token)
-	{
-		aux = (*token)->args;
-		if ((*token)->next && (*token)->type == T_COMMAND)
-		{
-			*token = (*token)->next;
-			if ((*token)->next && ((*token)->type == T_LESS || (*token)->type == T_GREAT))
-			{
-				*token = (*token)->next;
-				if ((*token)->type == T_COMMAND)
-				{
-					aux = arrayjoin(aux, (*token)->args);
-					(*token)->last->last->args = aux;
-					if ((*token)->next)
-						(*token)->last->next = (*token)->next;
-				}
-			}
-		}
-		else
-			*token = (*token)->next;
-	}
-	*token = first;
-}
-
-
-t_token	*parsing(char *command)
+t_token	*parsing(char *cmd)
 {
 	t_token	*token = NULL;
 	char	**args;
 	int		type;
 	int		i;
 
-	command = check_quotes(command); /* checks if there is any open quote and expand variables */
-	if (!command)
+	cmd = check_quotes(cmd); /* checks if there is any open quote and expand variables */
+	if (!cmd)
 		return (token);
 	i = 0;
-	while (command[i])
+	while (cmd[i])
 	{
-		while (command[i] && command[i] == ' ') /* jump spaces */
+		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t')) /* jump spaces */
 			i++;
-		type = get_type(command, i); /* get the type  */
-		args = get_args(type, command, i); /* get the argumments */
+		type = get_type(cmd, i); /* get the type  */
+		args = get_args(type, cmd, i); /* get the argumments */
 		ft_tknadd_back(&token, ft_tknnew(type, args)); /* put values in the list */
 		ft_free_args(args); /* free argumments */
-		i = next_arg(type, command, i); /* jump to the next argument */
+		i = next_arg(type, cmd, i); /* jump to the next argument */
 	}
 	if (check_stdout(token)) /* Checks if there is a '>' */
 		ft_tknadd_back(&token, ft_tknnew(T_STDOUT, NULL));
 	reordenate_tokens(&token); /* reordenate tokens if it is necesary */
 	if (check_stdin(token)) /* Checks if there is a '<' */
 		ft_tknadd_front(&token, ft_tknnew(T_STDIN, NULL));
-	//ft_print_tkns(token);
 	return (token);
 }
 
 
 
-
-	/*while(token->next)
-	{
-		ft_print_tkn(token);
-		token = token->next;
-	}*/
-		//ft_print_args(type, args);
-//system("echo \"\n\"-----------leaks------------\"\n\" && leaks -q minishell | head -5 | tail -1 ");
-
 //system("leaks -q minishell | head -5 | tail -1 ; echo \"\n\"-----------leaks------------\"\n\"");
+//system("echo \"\n\"-----------leaks------------\"\n\" && leaks -q minishell | head -5 | tail -1 ");
