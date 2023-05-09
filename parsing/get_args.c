@@ -6,23 +6,23 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/28 00:51:03 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:29:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **get_redict_args(char *cmd, int i, int type)
+char	**get_redict_args(char *cmd, int i, int type)
 {
-	char **args;
-	int word_count;
-	int j;
+	char	**args;
+	int		word_count;
+	int		j;
 
 	if (type == T_GREATGREAT || type == T_LESSLESS)
 		j = i + 2;
 	else
 		j = i + 1;
-	while (cmd[j] && cmd[j] == ' ')
+	while (cmd[j] && (cmd[j] == ' ' || cmd[j] == '\t'))
 		j++;
 	word_count = redict_word_count(cmd, j);
 	args = malloc(sizeof(char *) * word_count);
@@ -34,7 +34,7 @@ char **get_redict_args(char *cmd, int i, int type)
 	if (!args[0])
 		return (NULL);
 	i = 0;
-	while (cmd[j] && cmd[j] != ' ' && cmd[j] != '|' && cmd[j] != '<' && cmd[j] != '>')
+	while (cmd[j] && cmd[j] != ' ' && cmd[j] != '\t' && cmd[j] != '|' && cmd[j] != '<' && cmd[j] != '>' )
 	{
 		if (cmd[j] == '"')
 			command_double_quotes(cmd, &j, args[0], &i);
@@ -46,12 +46,12 @@ char **get_redict_args(char *cmd, int i, int type)
 	return (args[0][i] = 0, args[1] = NULL, args);
 }
 
-char **get_cmd_args(char *cmd, int i)
+char	**get_cmd_args(char *cmd, int i)
 {
-	char **args;
-	int word_count;
-	int j;
-	int k;
+	char	**args;
+	int		word_count;
+	int		j;
+	int		k;
 
 	word_count = count_words(cmd, i); /* counts how many argumments command have */
 	args = malloc(sizeof(char *) * (word_count + 1));
@@ -66,7 +66,7 @@ char **get_cmd_args(char *cmd, int i)
 			return (NULL);
 		args[j][count_letters(cmd, i)] = 0;
 		k = 0;
-		while(cmd[i] && cmd[i] != ' ' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
+		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 		{
 			if (cmd[i] == '"')
 				command_double_quotes(cmd, &i, args[j], &k);
@@ -75,7 +75,7 @@ char **get_cmd_args(char *cmd, int i)
 			else
 				args[j][k++] = cmd[i++]; /* copy the command to the arg array */
 		}
-		while (cmd[i] && cmd[i] == ' ') /* skip spaces */
+		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t')) /* skip spaces */
 			i++;
 		j++;
 	}

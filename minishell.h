@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
 /*   Updated: 2023/05/09 22:54:57 by amejia           ###   ########.fr       */
@@ -57,6 +57,7 @@ typedef struct s_token{
 	struct s_token	*next;
 }	t_token;
 
+
 /* mix */
 /*tkn*/
 void	ft_tknadd_back(t_token **lst, t_token *new);
@@ -100,8 +101,8 @@ char	**get_cmd_args(char *command, int i);
 int		get_type(char *command, int i);
 int		next_arg(int type, char *cmd, int i);
 int		count_letters(char *cmd, int i);
-int		check_stdout(char *command);
-int		check_stdin(char *command);
+int		check_stdout(t_token *token);
+int		check_stdin(t_token *token);
 int		count_words(char *cmd, int i);
 int		redict_word_count(char *cmd, int j);
 char	**get_args(int	type, char *command, int i);
@@ -110,6 +111,9 @@ char	**get_redict_args(char *cmd, int i, int type);
 void	ft_free_args(char **args);
 void	command_double_quotes(char *cmd, int *i, char *arg, int *k);
 void	command_simple_quotes(char *cmd, int *i, char *arg, int *k);
+char	*inter_expansion(char *cmd, int i);
+char	*variable_expansion(char *cmd, int i, int first);
+void	reordenate_tokens(t_token	**token);
 
 
 /* executing*/

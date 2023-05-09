@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exectkn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 15:13:06 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 12:47:51 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/02 17:39:58 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*separate_program_name(char *command)
-{
-	if (ft_strchr(command, ' ') != 0)
-		command = ft_substr(command, 0, ft_strchr(command, ' ') - command);
-	else
-		command = ft_substr(command, 0, ft_strlen(command));
-	return (command);
-}
 
 char	*find_path2(char *command, char **envpaths)
 {
@@ -55,7 +46,6 @@ char	*find_path(char *command, char **envp)
 	char	**envpaths;
 	int		c;
 
-	command = separate_program_name(command);
 	if (command == 0)
 		return (0);
 	if (!access(command, X_OK))

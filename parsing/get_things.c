@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:31:28 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/04/28 00:47:39 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:19:40 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,24 @@ int next_redict(int type, char *cmd, int i)
 		i += 2;
 	else
 		i++;
-	while (cmd[i] && cmd[i] == ' ')
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 		i++;
-	while (cmd[i] && cmd[i] != ' ' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
+	while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
-		if (cmd[i] == '"')
+		if (cmd[i] && cmd[i] == '"' && cmd[i + 1])
 		{
 			i++;
 			while (cmd[i] && cmd[i]!= '"')
 				i++;
 		}
-		if (cmd[i] == '\'')
+		if (cmd[i] && cmd[i] == '\'' && cmd[i + 1])
 		{
 			i++;
 			while (cmd[i] && cmd[i] == '\'')
 				i++;
 		}
-		i++;
+		else
+			i++;
 	}
 	return (i);
 }
@@ -43,19 +44,20 @@ int next_cmd(char *cmd, int i)
 {
 	while (cmd[i] && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
-		if (cmd[i] == '"') /* checks commands between double quotes */
+		if (cmd[i] && cmd[i] == '"' && cmd[i + 1]) /* checks commands between double quotes */
 		{
 			i++;
 			while (cmd[i] && cmd[i]!= '"')
 				i++;
 		}
-		if (cmd[i] == '\'') /* checks commands between simple quotes */
+		if (cmd[i] && cmd[i] == '\'' && cmd[i + 1]) /* checks commands between simple quotes */
 		{
 			i++;
 			while (cmd[i] && cmd[i] == '\'')
 				i++;
 		}
-		i++;
+		else
+			i++;
 	}
 	return (i);
 }
