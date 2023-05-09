@@ -6,47 +6,51 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 22:54:40 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/09 22:55:42 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	kid_stuff(t_token *token, int *fdin, int *fdout, int *error)
+int	kid_stuff(t_token *token, int *it)
 {
+	int error;
+	
 	g_state.am_child = 1;
-	if (*fdin != STDIN_FILENO)
+	if (it[0] != STDIN_FILENO)
 	{
-		*error = dup2(*fdin, STDIN_FILENO);
-		close(*fdin);
+		error = dup2(it[0], STDIN_FILENO);
+		close(it[0]);
 	}
-	if (*fdout != STDOUT_FILENO)
+	if (it[1] != STDOUT_FILENO)
 	{
-		*error = dup2(*fdout, STDOUT_FILENO);
-		close(*fdout);
+		error = dup2(it[1], STDOUT_FILENO);
+		close(it[1]);
 	}
+	close(it[2]);
 	if (check_builtin(token) == 0)
 	{
 		ft_builtinexec(token);
 		exit(g_state.last_return);
 	}
 	ft_exectkn(token);
+	return (error);
 }
 
-int	fork_exec(t_token *token, int fdin, int fdout)
+int	fork_exec(t_token *token, int *it)
 {
 	int	id;
 	int	error;
 
 	id = fork();
 	if (id == 0)
-		kid_stuff(token, &fdin, &fdout, &error);
+		error = kid_stuff(token, it);
 	else
 	{
-		if (fdin != STDIN_FILENO)
-			close(fdin);
-		if (fdout != STDOUT_FILENO)
-			close(fdout);
+		if (it[0] != STDIN_FILENO)
+			close(it[0]);
+		if (it[1] != STDOUT_FILENO)
+			close(it[1]);
 	}
 	return (id);
 }

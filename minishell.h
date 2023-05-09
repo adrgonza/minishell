@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 22:57:17 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/09 22:54:57 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	ft_executer(t_token *ẗoken);
 int		ft_exectkn(t_token *token);
 int		pipe_counter(t_token *token);
 t_token	*redirect_order_sort(t_token *token);
-int 	fork_exec(t_token *token, int fdin, int fdout);
+int	fork_exec(t_token *token, int *it);
 int	set_pipeoutput(t_token *token, int *nextinput);
 int	set_pipeinput(t_token *token, int *nextfdin);
 
