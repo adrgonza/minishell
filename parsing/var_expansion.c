@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 20:26:10 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:22:23 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ char	*variable_expansion(char *cmd, int i, int first)
 	var = ft_substr(cmd, i, len - i);
 	data = ft_envfind(var);
 	free(var);
-	if (!data)
+	args_len = 0;
+	if (!data || !data->args)
 		len = 0;
 	else
 		args_len = ft_strlen(data->args);

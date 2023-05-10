@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 20:33:28 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:54:03 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	reordenate_tokens(t_token	**token)
 	while ((*token)->next)
 	{
 		if ((*token)->next && (*token)->type == T_COMMAND)
-			if ((*token)->next->next && ((*token)->next->type == T_LESS || (*token)->next->type == T_LESSLESS))
+			if ((*token)->next->next && ((*token)->next->type == T_LESS))
 				ft_tknswap_next(*token);
 		if ((*token)->next && ((*token)->type == T_GREAT || (*token)->type == T_GREATGREAT))
 			if ((*token)->next->next && (*token)->next->type == T_COMMAND)

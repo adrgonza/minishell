@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 21:12:28 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:57:47 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ t_token	*parsing(char *cmd)
 		ft_free_args(args);
 		i = next_arg(type, cmd, i);
 	}
+	//ft_print_tkns(token);
 	if (check_stdout(token))
 		ft_tknadd_back(&token, ft_tknnew(T_STDOUT, NULL));
 	reordenate_tokens(&token);
 	if (check_stdin(token))
 		ft_tknadd_front(&token, ft_tknnew(T_STDIN, NULL));
-	//ft_print_tkns(token);
 	return (token);
 }
