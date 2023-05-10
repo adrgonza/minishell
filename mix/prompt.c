@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/10 14:34:17 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:07:01 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	prompt(void)
 	t_token	*last;
 	char	*prompt;
 
-	signal(SIGINT, sig_hnd);
-	signal(SIGQUIT, sig_hnd);
+	//signal(SIGINT, sig_hnd);
+	//signal(SIGQUIT, sig_hnd);
 	command = (char *)1;
 	while (command != NULL)
 	{
@@ -62,7 +62,6 @@ void	prompt_debug(void)
 		if (tokens)
 		{
 			ft_print_tkns(tokens);
-			tokens = redirect_order_sort(tokens);
 			ft_print_tkns(tokens);
 			ft_executer(tokens);
 			ft_tknclear(&tokens);

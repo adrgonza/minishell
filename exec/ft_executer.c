@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/10 10:24:10 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:19:00 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	ft_executer(t_token *token)
 	id = ft_calloc(it[6], sizeof(int));
 	it[3] = 0;
 	it[2] = -1;
-	redirect_order_sort(token);
 	if (ft_executerloop(token, it, id) == -1)
 	{
 		g_state.last_return = 1;
@@ -99,60 +98,4 @@ void	ft_executer(t_token *token)
 	if (it[3] > 0)
 		g_state.last_return = WEXITSTATUS(it[5]);
 	free(id);
-}
-
-t_token	*redirect_order_sort(t_token *token)
-{
-	t_token	*start;
-
-	start = token;
-	while ((token) != NULL)
-	{
-		while ((token->type == T_LESS || token->type == T_LESSLESS || token-> \
-			type == T_STDIN) && token->last != 0 && token->last->type != T_PIPE)
-			ft_tknswap_last(token);
-		token = (token)->next;
-	}
-	token = start;
-	while (token->last != NULL)
-		token = token->last;
-	while ((token->next) != NULL)
-	{
-		while (((token)->type == T_GREAT || (token)->type == T_GREATGREAT \
-			|| (token)->type == T_STDOUT) && (token)->next != NULL \
-			&& (token)->next->type != T_PIPE)
-			ft_tknswap_next(token);
-		if (token->next != NULL)
-			token = (token)->next;
-	}
-	while (token->last != NULL)
-		token = token->last;
-	return (token);
-}
-
-t_token	*redirect_check(t_token *token)
-{
-	t_token	*first;
-	t_token	*end;
-	t_token	*newtkn;
-
-	token = redirect_order_sort(token);
-	end = ft_tknlast(token);
-	if (token->type != T_STDIN && token->type != T_LESS && token->type \
-		!= T_LESSLESS)
-	{
-		newtkn = ft_tknnew(T_STDIN, NULL);
-		if (newtkn == NULL)
-			malloc_fail_proc();
-		ft_tknadd_front(&token, newtkn);
-	}
-	if (end->type != T_STDOUT && end->type != T_GREAT && end->type \
-		!= T_GREATGREAT)
-	{
-		newtkn = ft_tknnew(T_STDOUT, NULL);
-		if (newtkn == NULL)
-			malloc_fail_proc();
-		ft_tknadd_back(&token, newtkn);
-	}
-	return (token);
 }

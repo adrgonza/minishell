@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/09 16:11:19 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:56:56 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ char	**get_cmd_args(char *cmd, int i)
 	j = 0;
 	while (j < word_count)
 	{
-		args[j] = malloc(sizeof(char) * (count_letters(cmd, i) + 1));
+		args[j] = ft_calloc(sizeof(char), (count_letters(cmd, i) + 1));
 		if (!args[j])
 			return (NULL);
-		args[j][count_letters(cmd, i)] = 0;
 		k = 0;
 		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 		{
+			if (cmd[i] == '$' && cmd[i + 1] == '"')
+				i++;
 			if (cmd[i] == '"')
 				command_double_quotes(cmd, &i, args[j], &k);
 			else if (cmd[i] == '\'')
