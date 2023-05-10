@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 16:13:44 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:33:28 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,21 @@ char	**arrayjoin(char **array1, char **array2)
 void	reordenate_tokens(t_token	**token)
 {
 	t_token	*first;
+	t_token *aux;
 
 	first = *token;
 	while ((*token)->next)
 	{
 		if ((*token)->next && (*token)->type == T_COMMAND)
+			if ((*token)->next->next && ((*token)->next->type == T_LESS || (*token)->next->type == T_LESSLESS))
+				ft_tknswap_next(*token);
+		if ((*token)->next && ((*token)->type == T_GREAT || (*token)->type == T_GREATGREAT))
+			if ((*token)->next->next && (*token)->next->type == T_COMMAND)
+				ft_tknswap_next(*token);
+		if ((*token)->next && (*token)->type == T_COMMAND)
 		{
 			*token = (*token)->next;
-			if ((*token)->next && ((*token)->type == 6 || (*token)->type == 8
-					|| (*token)->type == 7 || (*token)->type == 9))
+			if ((*token)->next && ((*token)->type == T_GREAT || (*token)->type == T_GREATGREAT))
 			{
 				*token = (*token)->next;
 				if ((*token)->type == T_COMMAND)
@@ -74,7 +80,7 @@ int	check_parsing_errors(char cmd, int s_qte, int d_qte)
 	if (cmd == ';' && s_qte % 2 == 0 && d_qte % 2 == 0)
 		return (perror("syntax error near unexpected token `;'\n"), 0);
 	if (cmd == '\\' && s_qte % 2 == 0 && d_qte % 2 == 0)
-		return (perror("syntax error near unexpected token `\\'\n"), 0);
+		return (write(STDERR_FILENO, "syntax error near unexpected token `\\'\n", 40), 0);
 	return (1);
 }
 

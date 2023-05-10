@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 15:56:56 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:55:16 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ char	**get_cmd_args(char *cmd, int i)
 	int		k;
 
 	word_count = count_words(cmd, i);
-	args = malloc(sizeof(char *) * (word_count + 1));
+	args = ft_calloc(sizeof(char *), (word_count + 1));
 	if (!args)
 		return (printf("Malloc KO.\n"), exit(0), NULL);
-	args[word_count] = NULL;
 	j = 0;
 	while (j < word_count)
 	{
