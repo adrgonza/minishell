@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 22:54:56 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/09 22:57:49 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_executerloop(t_token *token, int *it, int *id)
 				ft_builtinexec(token);
 			else
 			{
-				id[it[3]] = fork_exec(token, it[0], it[1]);
+				id[it[3]] = fork_exec(token, it);
 				it[3]++;
 			}
 		}
@@ -82,6 +82,7 @@ void	ft_executer(t_token *token)
 	int	it[7];
 	int	*id;
 
+	ft_print_tkns(token);
 	it[6] = count_commands(token);
 	id = ft_calloc(it[6], sizeof(int));
 	it[3] = 0;
