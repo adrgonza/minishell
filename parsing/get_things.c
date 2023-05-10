@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:31:28 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/09 18:34:52 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:59:17 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	next_redict(int type, char *cmd, int i)
 		i++;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 		i++;
-	while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
+	while (cmd[i] && cmd[i] != ' ' && cmd[i]
+		!= '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
 		if (cmd[i] && cmd[i] == '"' && cmd[i + 1])
 		{
@@ -68,7 +69,8 @@ int	next_arg(int type, char *cmd, int i)
 		return (i + 1);
 	if (type == T_COMMAND)
 		return (next_cmd(cmd, i));
-	if (type == T_LESS || type == T_GREAT || type == T_LESSLESS || type == T_GREATGREAT)
+	if (type == T_LESS || type == T_GREAT
+		|| type == T_LESSLESS || type == T_GREATGREAT)
 		return (next_redict(type, cmd, i));
 	return (i);
 }

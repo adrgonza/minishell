@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/09 18:31:54 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:01:28 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,7 @@ char	*check_quotes(char *cmd)
 		{
 			heredoc = 0;
 			if (cmd[++i] == '<')
-			{
 				heredoc = 1;
-				i++;
-			}
 		}
 		if (cmd[i] == '$' && s_qte % 2 == 0 && heredoc == 0)
 			if (cmd[i + 1] && (ft_isalnum(cmd[i + 1]) || cmd[i + 1] == '?'))

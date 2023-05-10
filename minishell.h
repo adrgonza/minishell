@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/09 22:54:57 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/10 12:32:34 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_token{
 
 
 /* mix */
+void sig_hnd(int sig);
 /*tkn*/
 void	ft_tknadd_back(t_token **lst, t_token *new);
 void	ft_tknadd_front(t_token **lst, t_token *new);

@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:29:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/09 16:10:58 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:06:08 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	count_letters(char *cmd, int i)
 		if (cmd[i] == '"')
 		{
 			i++;
-			while (cmd[i] != '"')
+			while (cmd [i] && cmd[i] != '"')
 			{
 				i++;
 				j++;
@@ -84,7 +84,7 @@ int	count_letters(char *cmd, int i)
 		if (cmd[i] == '\'')
 		{
 			i++;
-			while (cmd[i] != '\'')
+			while (cmd [i] && cmd[i] != '\'')
 			{
 				i++;
 				j++;
