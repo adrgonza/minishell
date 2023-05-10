@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 22:22:23 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/11 00:12:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*inter_expansion(char *cmd, int i)
 		return (NULL);
 	ft_strlcpy(expanded_cmd, cmd, ++i);
 	expanded_cmd = ft_strjoin_s(expanded_cmd, "\"");
-	rest = ft_itoa(nb);
+	rest = ft_itoa(g_state.last_return);
 	expanded_cmd = ft_strjoin_s(expanded_cmd, rest);
 	free(rest);
 	expanded_cmd = ft_strjoin_s(expanded_cmd, "\"");
