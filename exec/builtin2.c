@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/10 21:29:49 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/11 00:20:56 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ int	builtin_exit(t_token *token)
 		token = token->last;
 	ft_tknclear(&token);
 	ft_envclear(&g_state.envp);
-	exit (0);
+	exit (g_state.last_return);
 	return (0);
 }
