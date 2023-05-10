@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/10 14:36:10 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:29:49 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	builtin_unset(t_token *token)
 	while (token->args[ct] != NULL)
 	{
 		localsplit = ft_split(token->args[ct], '=');
+		if (localsplit == NULL || *localsplit == NULL)
+			return (builtin_error());
 		env = ft_envnew(localsplit[0], localsplit[1]);
 		if (env == NULL)
 			return (builtin_error());

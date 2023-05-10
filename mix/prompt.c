@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/10 16:07:01 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:16:51 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	prompt_debug(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = ft_strdup("cot");
+		command = ft_strdup("export X=\"\"");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);

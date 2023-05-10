@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 22:28:37 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/10 21:23:14 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	builtin_export(t_token *token)
 	while (token->args[ct] != NULL)
 	{
 		localsplit = ft_split(token->args[ct], '=');
+		if (localsplit == NULL || *localsplit == NULL)
+			return (builtin_error());
 		env = ft_envnew(localsplit[0], localsplit[1]);
 		if (env == NULL)
 			return (builtin_error());
