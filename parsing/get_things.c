@@ -6,13 +6,13 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:31:28 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/08 15:19:40 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:34:52 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int next_redict(int type, char *cmd, int i)
+int	next_redict(int type, char *cmd, int i)
 {
 	if (type == T_GREATGREAT || type == T_LESSLESS)
 		i += 2;
@@ -25,7 +25,7 @@ int next_redict(int type, char *cmd, int i)
 		if (cmd[i] && cmd[i] == '"' && cmd[i + 1])
 		{
 			i++;
-			while (cmd[i] && cmd[i]!= '"')
+			while (cmd[i] && cmd[i] != '"')
 				i++;
 		}
 		if (cmd[i] && cmd[i] == '\'' && cmd[i + 1])
@@ -40,17 +40,17 @@ int next_redict(int type, char *cmd, int i)
 	return (i);
 }
 
-int next_cmd(char *cmd, int i)
+int	next_cmd(char *cmd, int i)
 {
 	while (cmd[i] && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
-		if (cmd[i] && cmd[i] == '"' && cmd[i + 1]) /* checks commands between double quotes */
+		if (cmd[i] && cmd[i] == '"' && cmd[i + 1])
 		{
 			i++;
-			while (cmd[i] && cmd[i]!= '"')
+			while (cmd[i] && cmd[i] != '"')
 				i++;
 		}
-		if (cmd[i] && cmd[i] == '\'' && cmd[i + 1]) /* checks commands between simple quotes */
+		if (cmd[i] && cmd[i] == '\'' && cmd[i + 1])
 		{
 			i++;
 			while (cmd[i] && cmd[i] == '\'')
@@ -62,7 +62,7 @@ int next_cmd(char *cmd, int i)
 	return (i);
 }
 
-int next_arg(int type, char *cmd, int i)
+int	next_arg(int type, char *cmd, int i)
 {
 	if (type == T_PIPE)
 		return (i + 1);
@@ -73,9 +73,9 @@ int next_arg(int type, char *cmd, int i)
 	return (i);
 }
 
-char **get_args(int	type, char *command, int i)
+char	**get_args(int type, char *command, int i)
 {
-	char **args;
+	char	**args;
 
 	if (type == T_PIPE)
 		return (NULL);
@@ -91,7 +91,7 @@ char **get_args(int	type, char *command, int i)
 int	get_type(char *command, int i)
 {
 	if (command[i] == '|')
-		return(T_PIPE);
+		return (T_PIPE);
 	if (command[i] == '<')
 	{
 		if (command[++i] == '<')

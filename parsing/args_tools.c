@@ -6,13 +6,13 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:29:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/08 15:27:21 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:10:58 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free_args(char **args) //finish
+void	ft_free_args(char **args)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ int	redict_word_count(char *cmd, int i)
 	return (word_count);
 }
 
-int	count_words(char *cmd, int i) //finish
+int	count_words(char *cmd, int i)
 {
 	int	command_count;
 
@@ -43,13 +43,13 @@ int	count_words(char *cmd, int i) //finish
 	{
 		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 		{
-			if (cmd[i] == '"') /* checking quotes */
+			if (cmd[i] == '"')
 			{
 				i++;
 				while (cmd[i] != '"')
 					i++;
 			}
-			if (cmd[i] == '\'') /* checking quotes */
+			if (cmd[i] == '\'')
 			{
 				i++;
 				while (cmd[i] != '\'')
@@ -71,7 +71,7 @@ int	count_letters(char *cmd, int i)
 	j = 0;
 	while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
-		if (cmd[i] == '"') /* checking quotes */
+		if (cmd[i] == '"')
 		{
 			i++;
 			while (cmd[i] != '"')
@@ -81,7 +81,7 @@ int	count_letters(char *cmd, int i)
 			}
 			j -= 1;
 		}
-		if (cmd[i] == '\'') /* checking quotes */
+		if (cmd[i] == '\'')
 		{
 			i++;
 			while (cmd[i] != '\'')

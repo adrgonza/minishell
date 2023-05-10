@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:36:09 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/08 15:27:49 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:18:07 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_stdin(t_token *token)
 {
 	while (token)
 	{
-		if (token->type == T_LESS)
+		if (token->type == T_LESS || token->type == T_LESSLESS)
 			return (0);
 		token = token->next;
 	}
@@ -27,7 +27,7 @@ int	check_stdout(t_token *token)
 {
 	while (token)
 	{
-		if (token->type == T_GREAT)
+		if (token->type == T_GREAT || token->type == T_GREATGREAT)
 			return (0);
 		token = token->next;
 	}

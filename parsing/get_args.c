@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/08 15:29:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:11:19 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**get_cmd_args(char *cmd, int i)
 	int		j;
 	int		k;
 
-	word_count = count_words(cmd, i); /* counts how many argumments command have */
+	word_count = count_words(cmd, i);
 	args = malloc(sizeof(char *) * (word_count + 1));
 	if (!args)
 		return (printf("Malloc KO.\n"), exit(0), NULL);
@@ -73,9 +73,9 @@ char	**get_cmd_args(char *cmd, int i)
 			else if (cmd[i] == '\'')
 				command_simple_quotes(cmd, &i, args[j], &k);
 			else
-				args[j][k++] = cmd[i++]; /* copy the command to the arg array */
+				args[j][k++] = cmd[i++];
 		}
-		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t')) /* skip spaces */
+		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
 		j++;
 	}

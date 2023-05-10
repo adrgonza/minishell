@@ -6,13 +6,13 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 03:33:02 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/08 15:14:17 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:35:12 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void command_double_quotes(char *cmd, int *i, char *arg, int *k)
+void	command_double_quotes(char *cmd, int *i, char *arg, int *k)
 {
 	(*i)++;
 	while (cmd[*i] != '"')
@@ -27,7 +27,7 @@ void command_double_quotes(char *cmd, int *i, char *arg, int *k)
 		(*i)++;
 }
 
-void command_simple_quotes(char *cmd, int *i, char *arg, int *k)
+void	command_simple_quotes(char *cmd, int *i, char *arg, int *k)
 {
 	(*i)++;
 	while (cmd[*i] != '\'')
