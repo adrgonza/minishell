@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 17:49:13 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/11 23:24:45 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,17 @@ int	builtin_echo(t_token *token)
 	ct = 1;
 	if (builtin_echosetfd(token, &fd) == 1)
 		return (1);
-	if (token->args != NULL && ft_strncmp(token->args[0], "-n", -1) == 0)
+	if (token->args != NULL && token->args[1] && ft_strncmp(token->args[1], "-n", 2) == 0)
 	{
+		ft_delete_char(token->args[1]);
+		while (token->args[1][0] == 'n')
+			ft_delete_char(token->args[1]);
+		if (ft_strlen(token->args[1]) > 0)
+		{
+			write(fd, token->args[1], ft_strlen(token->args[1]));
+			if (token->args[2] != NULL)
+				write(fd, " ", 1);
+		}	
 		ct++;
 		mode = 1;
 	}
@@ -104,10 +113,15 @@ int	builtin_echo(t_token *token)
 
 int	builtin_exit(t_token *token)
 {
+	int a;
+	
+	a = 0;
+	if (token->args[1] != NULL)
+		a = ft_atoi(token->args[1]);
 	while (token->last != NULL)
 		token = token->last;
 	ft_tknclear(&token);
 	ft_envclear(&g_state.envp);
-	exit (g_state.last_return);
-	return (0);
+	exit (a);
+	return (a);
 }

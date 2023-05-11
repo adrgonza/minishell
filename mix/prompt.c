@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 17:40:32 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/12 00:06:29 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,22 @@
 
 char	*prompt_chooser(void)
 {
+	static int mode;
+	
 	if (g_state.last_return == 0)
-		return ("\033[0;35m(>^.^)> \033[0;37m");
+	{
+		mode++;
+		if (mode % 5 == 1)
+			return ("\033[0;35m(>^.^)> \033[0;37m");
+		if (mode % 5 == 2)
+			return ("\033[0;35m<(^.^<) \033[0;37m");
+		if (mode % 5 == 3)
+			return ("\033[0;35m<(^.^)> \033[0;37m");
+		if (mode % 5 == 4)
+			return ("\033[0;35m^(^.^)^ \033[0;37m");
+		if (mode % 5 == 0)
+			return ("\033[0;35mv(^.^)v \033[0;37m");
+	}
 	return ("\033[0;31m(>x.x)> \033[0;37m");
 }
 
@@ -39,6 +53,7 @@ void	prompt(void)
 		tokens = parsing(command);
 		if (tokens)
 		{
+			//ft_print_tkns(tokens);
 			ft_executer(tokens);
 			ft_tknclear(&tokens);
 		}
@@ -58,10 +73,7 @@ void	prompt_debug(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		if (w % 2 == 0)
-			command = ft_strdup("/");
-		else
-			command = ft_strdup("echo $?");
+		command = ft_strdup("./ls");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
