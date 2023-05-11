@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exectkn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 15:13:06 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/02 17:39:58 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:10:47 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char	*find_path(char *command, char **envp)
 		return (0);
 	if (!access(command, X_OK))
 		return (command);
+	if (ft_strchr(command,'/') > 0)
+		return (NULL);
 	path = ft_strjoin("./", command);
 	if (path != 0 && !access(path, X_OK))
 		return (free(command), path);

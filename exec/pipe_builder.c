@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 13:24:22 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/11 21:13:59 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int here_doc_prompt(t_token *token)
 	pipe(pip);
 	while (1)
 	{
-		command = readline("(>^.^)> Here_doc $");
+		command = readline("heredoc (>^.^)>");
 		if (command == NULL)
 			break;
 		if (ft_strncmp(command, token->args[0], -1) == 0)
