@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 20:55:16 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:05:18 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	**get_cmd_args(char *cmd, int i)
 		k = 0;
 		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 		{
-			if (cmd[i] == '$' && cmd[i + 1] == '"')
+			if (cmd[i] == '$' && (cmd[i + 1] == '"' || cmd[i + 1] == '\''))
 				i++;
 			if (cmd[i] == '"')
 				command_double_quotes(cmd, &i, args[j], &k);
