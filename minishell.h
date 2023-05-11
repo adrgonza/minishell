@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/10 12:32:34 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:02:27 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include "libft/libft.h"
+# include <sys/errno.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>

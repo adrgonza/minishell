@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/11 00:12:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:47:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 
 	ft_strlcpy(xp_cmd, cmd, i++);
 	xp_cmd = ft_strjoin_s(xp_cmd, "\"");
-	if (data)
+	if (data && data->args)
 		xp_cmd = ft_strjoin_s(xp_cmd, data->args);
 	xp_cmd = ft_strjoin_s(xp_cmd, "\"");
 	while (cmd[i] && ft_isalnum(cmd[i]))

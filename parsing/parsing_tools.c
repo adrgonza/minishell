@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 21:54:03 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:24:42 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,47 @@ char	**arrayjoin(char **array1, char **array2)
 	return (aux);
 }
 
+int	check_pipes_cmd(t_token *token)
+{
+	int cmd;
+	int pipe;
+
+	pipe = 1;
+	cmd = 0;
+	while (token->next)
+	{
+		if (token->type == T_COMMAND)
+		{
+			cmd = 1;
+			pipe = 1;
+		}
+		if (token->type == T_PIPE)
+		{
+			if (cmd == 0)
+				return (0);
+			cmd = 0;
+			pipe = 0;
+		}
+		token = token->next;
+	}
+	if (pipe == 0)
+		return (0);
+	return (1);
+}
+
 void	reordenate_tokens(t_token	**token)
 {
 	t_token	*first;
 	t_token *aux;
 
 	first = *token;
+	if (!check_pipes_cmd(*token))
+	{
+		ft_tknclear(token);
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+		g_state.last_return = 258;
+		return ;
+	}
 	while ((*token)->next)
 	{
 		if ((*token)->next && (*token)->type == T_COMMAND)
@@ -78,9 +113,9 @@ void	reordenate_tokens(t_token	**token)
 int	check_parsing_errors(char cmd, int s_qte, int d_qte)
 {
 	if (cmd == ';' && s_qte % 2 == 0 && d_qte % 2 == 0)
-		return (perror("syntax error near unexpected token `;'\n"), 0);
+		return (ft_putstr_fd("syntax error near unexpected token `;'\n", 2), g_state.last_return = 0, 0);
 	if (cmd == '\\' && s_qte % 2 == 0 && d_qte % 2 == 0)
-		return (write(STDERR_FILENO, "syntax error near unexpected token `\\'\n", 40), 0);
+		return (ft_putstr_fd("syntax error near unexpected token `\\'\n", 2), g_state.last_return = 0, 0);
 	return (1);
 }
 
