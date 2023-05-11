@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 00:20:56 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:49:13 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,11 @@ int	builtin_pwd(t_token *token)
 int	builtin_echosetfd(t_token *token, int *fd)
 {
 	if (g_state.am_child == 0)
+	{
 		*fd = set_pipeoutput(token, NULL);
-	if (*fd == -1)
-		return (1);
+		if (*fd == -1)
+			return (1);
+	}
 	else
 		*fd = STDOUT_FILENO;
 	return (0);
