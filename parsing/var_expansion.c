@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/12 00:53:38 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:51:14 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strjoin_s(char *s1, char const *s2)
 	return (str);
 }
 
-char	*inter_expansion(char *cmd, int i)
+char	*inter_expansion(char *cmd, int i, int first)
 {
 	char	*expanded_cmd;
 	char	*rest;
@@ -64,6 +64,8 @@ char	*inter_expansion(char *cmd, int i)
 	rest = ft_substr(cmd, i + 1, ft_strlen(cmd) - i);
 	expanded_cmd = ft_strjoin_s(expanded_cmd, rest);
 	free(rest);
+	if (first)
+		free(cmd);
 	return (expanded_cmd);
 }
 
@@ -76,8 +78,10 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 	if (data && data->args)
 		xp_cmd = ft_strjoin_s(xp_cmd, data->args);
 	xp_cmd = ft_strjoin_s(xp_cmd, "\"");
-	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_'))
+	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_' || cmd[i] == '/') && cmd[i - 2] != '~')
 		i++;
+	if (cmd[i - 2] == '~')
+		i--;
 	var = ft_substr(cmd, i, ft_strlen(cmd) - i + 1);
 	xp_cmd = ft_strjoin_s(xp_cmd, var);
 	free(var);
@@ -93,9 +97,9 @@ char	*variable_expansion(char *cmd, int i, int first)
 	int		args_len;
 
 	if (cmd[i + 1] == '?')
-		return (inter_expansion(cmd, i));
+		return (inter_expansion(cmd, i, first));
 	len = ++i;
-	while (cmd[len] && (ft_isalnum(cmd[len]) || cmd[len] == '_'))
+	while (cmd[len] && (ft_isalnum(cmd[len]) || cmd[len] == '_') )
 		len++;
 	var = ft_substr(cmd, i, len - i);
 	data = ft_envfind(var);

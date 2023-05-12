@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 23:36:50 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/12 15:03:50 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,10 @@ char	**get_redict_args(char *cmd, int i, int type);
 void	ft_free_args(char **args);
 void	command_double_quotes(char *cmd, int *i, char *arg, int *k);
 void	command_simple_quotes(char *cmd, int *i, char *arg, int *k);
-char	*inter_expansion(char *cmd, int i);
+char	*inter_expansion(char *cmd, int i, int first);
 char	*variable_expansion(char *cmd, int i, int first);
 void	reordenate_tokens(t_token	**token);
+char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data);
 
 
 /* executing*/

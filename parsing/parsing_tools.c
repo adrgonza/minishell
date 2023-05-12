@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/12 02:12:49 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:55:52 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,25 @@ int	check_parsing_errors(char cmd, int s_qte, int d_qte)
 	return (1);
 }
 
+char	*expand_tilde(char *cmd, int i, int first)
+{
+	char	*expanded_cmd;
+	t_env	*data;
+	int		args_len;
+
+	data = ft_envfind("HOME");
+		args_len = 0;
+	if (data || data->args)
+		args_len = ft_strlen(data->args);
+	expanded_cmd = ft_calloc(1, (ft_strlen(cmd) + args_len) + 3);
+	if (!expanded_cmd)
+		return (NULL);
+	expanded_cmd = expansion_tools(cmd, expanded_cmd, ++i, data);
+	if (first)
+		free(cmd);
+	return (expanded_cmd);
+}
+
 char	*check_quotes(char *cmd)
 {
 	int	first;
@@ -150,6 +169,8 @@ char	*check_quotes(char *cmd)
 				d_qte++;
 		if (cmd[i] == '\'' && (d_qte % 2 == 0))
 				s_qte++;
+		if (cmd[i] && cmd[i] == '~' && cmd[i - 1] && cmd[i - 1] == ' ' && d_qte % 2 == 0 && s_qte % 2 == 0 && (cmd[i + 1] == ' ' || !cmd[i + 1]))
+			cmd = expand_tilde(cmd, i--, first++);
 		if (cmd[i] == '|' && cmd[i] == '>' && cmd[i] == '<' && d_qte % 2 == 0 && s_qte % 2 == 0)
 			heredoc = 0;
 		if (cmd[i] == '<' && cmd[i + 1] == '<' && (d_qte % 2 == 0) && (s_qte % 2 == 0))
