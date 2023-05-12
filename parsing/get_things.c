@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:31:28 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 11:59:17 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/12 01:37:54 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,19 @@ int	next_cmd(char *cmd, int i)
 {
 	while (cmd[i] && cmd[i] != '|' && cmd[i] != '<' && cmd[i] != '>')
 	{
-		if (cmd[i] && cmd[i] == '"' && cmd[i + 1])
+		if (cmd[i] && cmd[i] == '"')
 		{
 			i++;
 			while (cmd[i] && cmd[i] != '"')
 				i++;
 		}
-		if (cmd[i] && cmd[i] == '\'' && cmd[i + 1])
+		if (cmd[i] && cmd[i] == '\'')
 		{
 			i++;
-			while (cmd[i] && cmd[i] == '\'')
+			while (cmd[i] && cmd[i] != '\'')
 				i++;
 		}
-		else
-			i++;
+		i++;
 	}
 	return (i);
 }

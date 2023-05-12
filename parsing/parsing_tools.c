@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/11 15:04:40 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:12:49 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,6 @@ int	check_pipes_cmd(t_token *token)
 
 void	reordenate_tokens(t_token	**token)
 {
-	t_token	*first;
-	t_token *aux;
-
-	first = *token;
 	if (!check_pipes_cmd(*token))
 	{
 		ft_tknclear(token);
@@ -84,30 +80,44 @@ void	reordenate_tokens(t_token	**token)
 	while ((*token)->next)
 	{
 		if ((*token)->next && (*token)->type == T_COMMAND)
-			if ((*token)->next->next && ((*token)->next->type == T_LESS || (*token)->next->type == T_LESSLESS))
-				ft_tknswap_next(*token);
-		if ((*token)->next && ((*token)->type == T_GREAT || (*token)->type == T_GREATGREAT))
-			if ((*token)->next->next && (*token)->next->type == T_COMMAND)
-				ft_tknswap_next(*token);
-		if ((*token)->next && (*token)->type == T_COMMAND)
 		{
-			*token = (*token)->next;
-			if ((*token)->next && ((*token)->type == T_GREAT || (*token)->type == T_GREATGREAT))
+			if ((*token)->next->next && ((*token)->next->type == T_GREAT || (*token)->next->type == T_GREATGREAT || (*token)->next->type == T_LESS || (*token)->next->type == T_LESSLESS))
 			{
-				*token = (*token)->next;
-				if ((*token)->type == T_COMMAND)
+				if ((*token)->next->next->type == T_COMMAND)
 				{
+					*token = (*token)->next->next;
 					if ((*token)->next)
 						(*token)->last->next = (*token)->next;
 					(*token)->last->last->args
 						= arrayjoin((*token)->last->last->args, (*token)->args);
+					while ((*token)->last != NULL)
+						*token = (*token)->last;
 				}
 			}
 		}
-		else if ((*token)->next)
+		if ((*token)->next && (*token)->type == T_COMMAND)
+		{
+			if ((*token)->next->next && ((*token)->next->type == T_LESS || (*token)->next->type == T_LESSLESS))
+			{
+				ft_tknswap_next(*token);
+				while ((*token)->last != NULL)
+					*token = (*token)->last;
+			}
+		}
+		if ((*token)->next && ((*token)->type == T_GREAT || (*token)->type == T_GREATGREAT))
+		{
+			if ((*token)->next->next && (*token)->next->type == T_COMMAND)
+			{
+				ft_tknswap_next(*token);
+				while ((*token)->last != NULL)
+					*token = (*token)->last;
+			}
+		}
+		if ((*token)->next)
 			*token = (*token)->next;
 	}
-	*token = first;
+	while ((*token)->last != NULL)
+		*token = (*token)->last;
 }
 
 int	check_parsing_errors(char cmd, int s_qte, int d_qte)
@@ -140,14 +150,10 @@ char	*check_quotes(char *cmd)
 				d_qte++;
 		if (cmd[i] == '\'' && (d_qte % 2 == 0))
 				s_qte++;
-		if (cmd[i] == '|' && cmd[i] == '>' && d_qte % 2 == 0 && s_qte % 2 == 0)
+		if (cmd[i] == '|' && cmd[i] == '>' && cmd[i] == '<' && d_qte % 2 == 0 && s_qte % 2 == 0)
 			heredoc = 0;
-		if (cmd[i] == '<' && (d_qte % 2 == 0) && (s_qte % 2 == 0))
-		{
-			heredoc = 0;
-			if (cmd[++i] == '<')
+		if (cmd[i] == '<' && cmd[i + 1] == '<' && (d_qte % 2 == 0) && (s_qte % 2 == 0))
 				heredoc = 1;
-		}
 		if (cmd[i] == '$' && s_qte % 2 == 0 && heredoc == 0)
 			if (cmd[i + 1] && (ft_isalnum(cmd[i + 1]) || cmd[i + 1] == '?'))
 				cmd = variable_expansion(cmd, i--, first++);
