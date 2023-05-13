@@ -96,6 +96,7 @@ char	**env_list_to_split(t_env *token);
 /*prompt*/
 void	prompt(void);
 void	prompt_debug(void);
+void    prompt_linux(void);
 int		here_doc_prompt(t_token *token);
 int		ft_init(int argc, char **argv, char **envp);
 

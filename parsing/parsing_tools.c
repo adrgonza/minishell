@@ -169,7 +169,7 @@ char	*check_quotes(char *cmd)
 				d_qte++;
 		if (cmd[i] == '\'' && (d_qte % 2 == 0))
 				s_qte++;
-		if (cmd[i] && cmd[i] == '~' && cmd[i - 1] && cmd[i - 1] == ' ' && d_qte % 2 == 0 && s_qte % 2 == 0 && (cmd[i + 1] == ' ' || !cmd[i + 1]))
+		if (cmd[i] && cmd[i] == '~' && cmd[i - 1] && cmd[i - 1] == ' ' && d_qte % 2 == 0 && s_qte % 2 == 0 && (cmd[i + 1] == ' ' || !cmd[i + 1] || cmd[i + 1] == '/'))
 			cmd = expand_tilde(cmd, i--, first++);
 		if (cmd[i] == '|' && cmd[i] == '>' && cmd[i] == '<' && d_qte % 2 == 0 && s_qte % 2 == 0)
 			heredoc = 0;

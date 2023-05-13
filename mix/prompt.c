@@ -45,7 +45,6 @@ void	prompt(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		//ft_printf("%d\n",g_state.last_return);
 		command = readline(prompt_chooser());
 		if (command == NULL)
 			break ;
@@ -53,7 +52,6 @@ void	prompt(void)
 		tokens = parsing(command);
 		if (tokens)
 		{
-			//ft_print_tkns(tokens);
 			ft_executer(tokens);
 			ft_tknclear(&tokens);
 		}
@@ -87,4 +85,43 @@ void	prompt_debug(void)
 		//command = NULL;
 		w++;
 	}
+}
+
+void    prompt_linux(void)
+{
+    char    *command;
+    t_token *tokens;
+    t_token *last;
+    char    *prompt;
+    //signal(SIGINT, sig_hnd);
+    //signal(SIGQUIT, sig_hnd);
+    command = (char *)1;
+    while (command != NULL)
+    {
+        //ft_printf("%d\n",g_state.last_return);
+        command = get_next_line(STDIN_FILENO);
+        if(command == NULL)
+            break ;
+        if (ft_strlen(command) == 0)
+            continue ;
+        if (ft_strchr(command, '\n') > 0)
+            ft_delete_char(ft_strchr(command, '\n'));
+        if (!command)
+        {
+            if (isatty(STDIN_FILENO))
+            write(2, "exit\n", 6);
+            exit (g_state.last_return);
+        }
+        if (command == NULL)
+            break ;
+        add_history(command);
+        tokens = parsing(command);
+        if (tokens)
+        {
+            //ft_print_tkns(tokens);
+            ft_executer(tokens);
+            ft_tknclear(&tokens);
+        }
+        free(command);
+    }
 }
