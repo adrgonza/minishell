@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:01 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 23:39:11 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/13 17:28:46 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_token	*ft_tknnew(int type, char **args)
 		to_return->args = NULL;
 	to_return->next = NULL;
 	to_return->last = NULL;
+	to_return->processed = 0;
 	return (to_return);
 }
 

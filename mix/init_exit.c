@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 23:39:51 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/13 22:04:28 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	ft_exit(t_token *token)
 	else
 		a = 0;
 	ft_envclear(&g_state.envp);
+	free(g_state.home_dir);
+	free(g_state.last_dir);
 	exit(a);
 }
 

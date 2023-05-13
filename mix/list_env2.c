@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:31:01 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/25 16:34:03 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/13 22:02:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_env	*env_split_to_list(char **env)
 			return (NULL);
 		}
 		middle = ft_envnew(str[0], str[1]);
-		free(str);
+		ft_free_split(str);
 		if (middle == NULL)
 			return (ft_envclear(&to_return), NULL);
 		ft_envadd_back(&to_return, middle);

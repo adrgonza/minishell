@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/13 17:18:06 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/13 17:36:18 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	ft_executerloop(t_token *token, int *it, int *id)
 				it[3]++;
 			}
 		}
+		if ((token->type == T_GREATGREAT || token->type == T_GREAT)  && !token->processed)
+			set_pipeoutput2(token, &it[2]);
 		if (token->type == T_PIPE)
 		{
 			if (it[2] != -1)
