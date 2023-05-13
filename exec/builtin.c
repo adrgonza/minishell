@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 23:45:00 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/13 16:47:46 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 void	ft_builtinexec(t_token *token)
 {
-	int	status;
+	int		status;
+	char	*lower;
 
-	if (ft_strncmp(token->args[0], "cd", -1) == 0)
+	lower = ft_strtolower(token->args[0]);
+	if (ft_strncmp(lower, "cd", -1) == 0)
 		status = builtin_cd(token);
-	if (ft_strncmp(token->args[0], "export", -1) == 0)
+	if (ft_strncmp(lower, "export", -1) == 0)
 		status = builtin_export(token);
-	if (ft_strncmp(token->args[0], "unset", -1) == 0)
+	if (ft_strncmp(lower, "unset", -1) == 0)
 		status = builtin_unset(token);
-	if (ft_strncmp(token->args[0], "env", -1) == 0)
+	if (ft_strncmp(lower, "env", -1) == 0)
 		status = ft_envprint();
-	if (ft_strncmp(token->args[0], "pwd", -1) == 0)
+	if (ft_strncmp(lower, "pwd", -1) == 0)
 		status = builtin_pwd(token);
-	if (ft_strncmp(token->args[0], "exit", -1) == 0)
+	if (ft_strncmp(lower, "exit", -1) == 0)
 		status = builtin_exit(token);
-	if (ft_strncmp(token->args[0], "echo", -1) == 0)
+	if (ft_strncmp(lower, "echo", -1) == 0)
 		status = builtin_echo(token);
+	free (lower);
 	g_state.last_return = status;
 }
 

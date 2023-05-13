@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 20:13:48 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/13 17:18:06 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,14 @@ int	ft_executerloop(t_token *token, int *it, int *id)
 		if (token->type == 6 || token->type == 7 || token->type == T_STDIN)
 			it[0] = set_pipeinput(token, &it[2]);
 		if (it[0] == -1)
-			return (-1);
+		{
+			while (token && token->type != T_COMMAND)
+				token = token->next;
+			if (token && token->next)
+				token = token->next;
+			it[0] = STDIN_FILENO;
+			continue ;
+		}
 		if (token->type == T_COMMAND)
 		{
 			it[1] = set_pipeoutput(token, &it[2]);

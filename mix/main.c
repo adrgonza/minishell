@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 00:16:06 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:50:47 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	main(int argc, char **argv, char **envp)
 	if (!ft_init(argc, argv, envp)) /* inicializate args */
 		return (0);
 	if (DEBUG != 1)
-		prompt(); /* execute prompt */
+		prompt_linux(); /* execute prompt */
 	else
-		prompt_debug();
+		prompt_linux();
 	return (g_state.last_return);
 }
