@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/13 17:38:34 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/14 19:35:47 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,9 @@ int	set_pipeoutput2(t_token *token, int *nextinput)
 		*nextinput = pip[0];
 	}	
 	if (fdfile == -1)
+	{
 		perror("Minishell");
+		g_state.last_return = 1;
+	}
 	return (fdfile);
 }

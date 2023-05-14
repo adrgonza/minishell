@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/13 21:40:11 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/14 23:30:18 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	args_options(char **original_args)
 	int	ct;
 
 	mode = 0;
-	ct = 0;
+	ct = 1;
 	while (original_args[ct] != NULL)
 	{
 		if (original_args[ct][0] == '-')
@@ -146,8 +146,14 @@ int	builtin_exit(t_token *token)
 	int a;
 	
 	a = 0;
+	ft_printf("exit\n");
 	if (token->args[1] != NULL)
 		a = ft_atoi(token->args[1]);
+	if (token->args[1]!= NULL && token->args[2] != NULL)
+	{
+		write(STDERR_FILENO, "Minishell: Exit: too many arguments\n", 30);
+		return (1);
+	}
 	while (token->last != NULL)
 		token = token->last;
 	ft_tknclear(&token);

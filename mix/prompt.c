@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/13 17:40:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 00:03:43 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	prompt(void)
 		add_history(command);
 		tokens = parsing(command);
 		if (tokens)
-		{
+		{			
+			//ft_print_tkns(tokens);
 			ft_executer(tokens);
 			ft_tknclear(&tokens);
 		}
@@ -71,7 +72,7 @@ void	prompt_debug(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = ft_strdup("./ls");
+		command = ft_strdup("\"ECho\" -n -nnn\"\" \"-\"nnnnn");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
@@ -82,7 +83,7 @@ void	prompt_debug(void)
 			ft_tknclear(&tokens);
 		}
 		free(command);
-		//command = NULL;
+		command = NULL;
 		w++;
 	}
 }

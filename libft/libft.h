@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:36:50 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/14 20:33:37 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:23:29 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void	ft_free_split(char **split);
 char	**ft_split_esc(char *s, char c);
 void	ft_delete_char(char *str);
 char	*ft_min_str(char *s1, char *s2);
+char	*ft_strtolower(char *str);
 
 #endif

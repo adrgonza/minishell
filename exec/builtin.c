@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/13 16:47:46 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 00:01:44 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_builtinexec(t_token *token)
 	if (ft_strncmp(lower, "unset", -1) == 0)
 		status = builtin_unset(token);
 	if (ft_strncmp(lower, "env", -1) == 0)
-		status = ft_envprint();
+		status = builtin_env(token);
 	if (ft_strncmp(lower, "pwd", -1) == 0)
 		status = builtin_pwd(token);
 	if (ft_strncmp(lower, "exit", -1) == 0)
@@ -59,22 +59,33 @@ int	builtin_cd(t_token *token)
 		else
 			error = chdir(direnv->args);
 	}
+	else if (ft_strncmp(token->args[1],"--",-1) == 0)
+		;
 	else if (ft_strncmp(token->args[1],"-",-1) == 0)
 	{
-		error = chdir(g_state.last_dir);
-		printf("%s\n",g_state.last_dir);
+		direnv = ft_envfind("OLDPWD");
+		if (direnv == NULL)
+		{
+			write(STDERR_FILENO, "Minishell: cd: OLDPWD not set\n",31);
+			return (1);
+		}
+		else 
+			error = chdir(direnv->args);
+		printf("%s\n",direnv->args);
 	}
 	else
 		error = chdir(token->args[1]);
 	if (error == -1)
 		return (builtin_error());
-	free(g_state.last_dir);
-	g_state.last_dir = ft_strdup(last_dir);
-	direnv = ft_envnew("PWD", token->args[0]);
+	direnv = ft_envnew("OLDPWD", last_dir);
 	if (direnv == NULL)
 		return (builtin_error());
 	ft_envset(direnv);
-	
+	getcwd(last_dir, PATH_MAX +1);
+	direnv = ft_envnew("PWD", last_dir);
+	if (direnv == NULL)
+		return (builtin_error());
+	ft_envset(direnv);
 	return (0);
 }
 

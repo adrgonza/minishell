@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 15:13:06 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 23:10:47 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/14 19:59:31 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_exectkn(t_token *token)
 			env_list_to_split(g_state.envp)) == -1)
 	{
 		perror("execve");
-		exit (126);
+		exit (127);
 	}
 	return (0);
 }

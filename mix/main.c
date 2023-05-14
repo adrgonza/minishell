@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/13 21:56:58 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/14 19:19:09 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	main(int argc, char **argv, char **envp)
 	if (DEBUG != 1)
 		prompt(); /* execute prompt */
 	else
-		prompt();
+		prompt_debug();
 	return (g_state.last_return);
 }
