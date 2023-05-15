@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/12 18:51:14 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:25:41 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 	if (data && data->args)
 		xp_cmd = ft_strjoin_s(xp_cmd, data->args);
 	xp_cmd = ft_strjoin_s(xp_cmd, "\"");
-	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_' || cmd[i] == '/') && cmd[i - 2] != '~')
+	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_') && cmd[i - 2] != '~')
 		i++;
 	if (cmd[i - 2] == '~')
 		i--;
