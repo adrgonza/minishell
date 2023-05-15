@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:58:11 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/13 16:49:27 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 22:34:40 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strtolower(char *str)
 	ct = 0;
 	while (ct < ft_strlen(to_return))
 	{
-		to_return[ct]=ft_tolower(to_return[ct]);
+		to_return[ct] = ft_tolower(to_return[ct]);
 		ct++;
 	}
 	return (to_return);

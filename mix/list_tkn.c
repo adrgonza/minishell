@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:25:18 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/17 19:21:41 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 23:05:10 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_tkndelone(t_token *lst)
 	if (lst == 0)
 		return ;
 	if (lst->args != NULL)
-		ft_free_split(lst->args);
+		;//ft_free_split(lst->args);
 	free(lst);
 }
 

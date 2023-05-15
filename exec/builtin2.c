@@ -6,59 +6,11 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/14 23:30:18 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 23:24:07 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	builtin_unset(t_token *token)
-{
-	t_env	*env;
-	char	**localsplit;
-	int		ct;
-
-	ct = 1;
-	while (token->args[ct] != NULL)
-	{
-		localsplit = ft_split(token->args[ct], '=');
-		if (localsplit == NULL || *localsplit == NULL)
-			return (builtin_error());
-		env = ft_envnew(localsplit[0], localsplit[1]);
-		if (env == NULL)
-			return (builtin_error());
-		ft_envunset(env);
-		ft_free_split(localsplit);
-		ft_envdelone(env);
-		ct++;
-	}
-	return (0);
-}
-
-int	builtin_pwd(t_token *token)
-{
-	t_env	*env;
-	char	cwd[PATH_MAX + 1];
-	int		fd;
-
-	ft_bzero(cwd, PATH_MAX +1);
-	getcwd(cwd, PATH_MAX);
-	if (g_state.am_child == 1)
-		ft_printf("%s\n", cwd);
-	else
-	{
-		fd = set_pipeoutput(token, NULL);
-		if (fd == -1)
-			return (1);
-		write(fd, cwd, strlen(cwd));
-		write(fd, "\n", 1);
-	}
-	env = ft_envnew("PWD", cwd);
-	if (env == NULL)
-		return (builtin_error());
-	ft_envset(env);
-	return (0);
-}
 
 int	builtin_echosetfd(t_token *token, int *fd)
 {
@@ -73,12 +25,11 @@ int	builtin_echosetfd(t_token *token, int *fd)
 	return (0);
 }
 
-
 int	option_checker(char **original_args, int ct)
 {
-	int	ct2;
-	char *old;
-	
+	int		ct2;
+	char	*old;
+
 	ct2 = 1;
 	while (original_args[ct][ct2] == 'n')
 		ct2++;
@@ -87,7 +38,7 @@ int	option_checker(char **original_args, int ct)
 	old = original_args[ct];
 	ct2 = -1;
 	while (original_args[ct + ++ct2] != 0)
-		original_args[ct + ct2] = original_args[ct + ct2 + 1];	
+		original_args[ct + ct2] = original_args[ct + ct2 + 1];
 	free(old);
 	return (1);
 }
@@ -95,7 +46,7 @@ int	option_checker(char **original_args, int ct)
 int	args_options(char **original_args)
 {
 	int	mode;
-	int modeb;
+	int	modeb;
 	int	ct;
 
 	mode = 0;
@@ -143,13 +94,20 @@ int	builtin_echo(t_token *token)
 
 int	builtin_exit(t_token *token)
 {
-	int a;
-	
+	int	a;
+	int	b;
+
 	a = 0;
-	ft_printf("exit\n");
-	if (token->args[1] != NULL)
+	write(STDERR_FILENO, "exit\n", 5);
+	b = 1;
+	if (token->args[1] != NULL && !check_valid(1, token->args + 1))
+	{
+		a = 255;
+		write(STDERR_FILENO, "Minishell: exit: numeric argument needed\n", 42);
+	}
+	else if (token->args[1] != NULL)
 		a = ft_atoi(token->args[1]);
-	if (token->args[1]!= NULL && token->args[2] != NULL)
+	if (token->args[1] != NULL && token->args[2] != NULL && a != 255)
 	{
 		write(STDERR_FILENO, "Minishell: Exit: too many arguments\n", 30);
 		return (1);

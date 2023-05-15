@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 00:03:43 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 23:50:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	prompt_debug(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = ft_strdup("\"ECho\" -n -nnn\"\" \"-\"nnnnn");
+		command = ft_strdup("<<bu cat");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
