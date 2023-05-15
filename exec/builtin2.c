@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/11 23:24:45 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/14 23:30:18 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,49 @@ int	builtin_echosetfd(t_token *token, int *fd)
 	return (0);
 }
 
+
+int	option_checker(char **original_args, int ct)
+{
+	int	ct2;
+	char *old;
+	
+	ct2 = 1;
+	while (original_args[ct][ct2] == 'n')
+		ct2++;
+	if (original_args[ct][ct2] != '\0')
+		return (0);
+	old = original_args[ct];
+	ct2 = -1;
+	while (original_args[ct + ++ct2] != 0)
+		original_args[ct + ct2] = original_args[ct + ct2 + 1];	
+	free(old);
+	return (1);
+}
+
+int	args_options(char **original_args)
+{
+	int	mode;
+	int modeb;
+	int	ct;
+
+	mode = 0;
+	ct = 1;
+	while (original_args[ct] != NULL)
+	{
+		if (original_args[ct][0] == '-')
+		{
+			modeb = option_checker(original_args, ct);
+			if (modeb == 1)
+				mode = ft_max(modeb, mode);
+			else
+				ct++;
+		}
+		else
+			break ;
+	}
+	return (mode);
+}
+
 int	builtin_echo(t_token *token)
 {
 	int	ct;
@@ -83,22 +126,9 @@ int	builtin_echo(t_token *token)
 	ct = 1;
 	if (builtin_echosetfd(token, &fd) == 1)
 		return (1);
-	if (token->args != NULL && token->args[1] && ft_strncmp(token->args[1], "-n", 2) == 0)
-	{
-		ft_delete_char(token->args[1]);
-		while (token->args[1][0] == 'n')
-			ft_delete_char(token->args[1]);
-		if (ft_strlen(token->args[1]) > 0)
-		{
-			write(fd, token->args[1], ft_strlen(token->args[1]));
-			if (token->args[2] != NULL)
-				write(fd, " ", 1);
-		}	
-		ct++;
-		mode = 1;
-	}
 	if (token->args != NULL)
 	{
+		mode = args_options(token->args);
 		while (token->args[ct] != NULL)
 		{
 			write(fd, token->args[ct], ft_strlen(token->args[ct]));
@@ -116,8 +146,14 @@ int	builtin_exit(t_token *token)
 	int a;
 	
 	a = 0;
+	ft_printf("exit\n");
 	if (token->args[1] != NULL)
 		a = ft_atoi(token->args[1]);
+	if (token->args[1]!= NULL && token->args[2] != NULL)
+	{
+		write(STDERR_FILENO, "Minishell: Exit: too many arguments\n", 30);
+		return (1);
+	}
 	while (token->last != NULL)
 		token = token->last;
 	ft_tknclear(&token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/12 15:03:50 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/15 00:01:15 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_token{
 	char			**args;
 	struct s_token	*last;
 	struct s_token	*next;
+	int				processed;
 }	t_token;
 
 
@@ -143,6 +144,8 @@ int		builtin_error();
 int 	builtin_exit(t_token *token);
 void 	malloc_fail_proc(void);
 t_token *redirect_check(t_token *token);
+int	set_pipeoutput2(t_token *token, int *nextinput);
+int	builtin_env(t_token *token);
 
 
 /* declare global var*/

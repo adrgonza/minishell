@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/09 22:55:42 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/14 19:35:47 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	set_pipeoutput(t_token *token, int *nextinput)
 	int	fdfile;
 	int	pip[2];
 
+	token->next->processed = 1;
 	if (token->next->type == T_STDOUT)
 		fdfile = STDOUT_FILENO;
 	if (token->next->type == T_GREATGREAT)
@@ -125,5 +126,33 @@ int	set_pipeoutput(t_token *token, int *nextinput)
 	}	
 	if (fdfile == -1)
 		perror("Minishell");
+	return (fdfile);
+}
+
+int	set_pipeoutput2(t_token *token, int *nextinput)
+{
+	int	fdfile;
+	int	pip[2];
+
+	token->processed = 1;
+	if (token->type == T_STDOUT)
+		fdfile = STDOUT_FILENO;
+	if (token->type == T_GREATGREAT)
+		fdfile = open(token->args[0], \
+			O_WRONLY | O_APPEND | O_CREAT, 0644);
+	if (token->type == T_GREAT)
+		fdfile = open(token->args[0], \
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (token->type == T_PIPE)
+	{
+		pipe(pip);
+		fdfile = pip[1];
+		*nextinput = pip[0];
+	}	
+	if (fdfile == -1)
+	{
+		perror("Minishell");
+		g_state.last_return = 1;
+	}
 	return (fdfile);
 }
