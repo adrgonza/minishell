@@ -6,13 +6,13 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:37:57 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 13:55:01 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	kid_stuff(t_token *token, int *it)
+int	kid_stuff(t_token *token, int *it, int *id)
 {
 	int	error;
 
@@ -30,21 +30,22 @@ int	kid_stuff(t_token *token, int *it)
 	close(it[2]);
 	if (check_builtin(token) == 0)
 	{
-		ft_builtinexec(token);
+		ft_builtinexec(token, id);
+		free(id);
 		exit(g_state.last_return);
 	}
 	ft_exectkn(token);
 	return (error);
 }
 
-int	fork_exec(t_token *token, int *it)
+int	fork_exec(t_token *token, int *it, int *prev_id)
 {
 	int	id;
 	int	error;
 
 	id = fork();
 	if (id == 0)
-		error = kid_stuff(token, it);
+		error = kid_stuff(token, it, prev_id);
 	else
 	{
 		if (it[0] != STDIN_FILENO)

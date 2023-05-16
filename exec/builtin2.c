@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:24:07 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 14:40:13 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	builtin_echo(t_token *token)
 	return (0);
 }
 
-int	builtin_exit(t_token *token)
+int	builtin_exit(t_token *token, int *id)
 {
 	int	a;
 	int	b;
@@ -116,6 +116,8 @@ int	builtin_exit(t_token *token)
 		token = token->last;
 	ft_tknclear(&token);
 	ft_envclear(&g_state.envp);
+	free(g_state.home_dir);
+	//free (id);
 	exit (a);
 	return (a);
 }

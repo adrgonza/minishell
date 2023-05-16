@@ -6,13 +6,13 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:16:25 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 13:58:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_builtinexec(t_token *token)
+void	ft_builtinexec(t_token *token, int *id)
 {
 	int		status;
 	char	*lower;
@@ -29,10 +29,9 @@ void	ft_builtinexec(t_token *token)
 	if (ft_strncmp(lower, "pwd", -1) == 0)
 		status = builtin_pwd(token);
 	if (ft_strncmp(lower, "exit", -1) == 0)
-		status = builtin_exit(token);
+		status = builtin_exit(token, id);
 	if (ft_strncmp(lower, "echo", -1) == 0)
 		status = builtin_echo(token);
-	free (lower);
 	g_state.last_return = status;
 }
 

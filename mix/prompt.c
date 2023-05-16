@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:50:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 13:46:10 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*prompt_chooser(void)
 {
-	static int mode;
-	
+	static int	mode;
+
 	if (g_state.last_return == 0)
 	{
 		mode++;
@@ -48,11 +48,9 @@ void	prompt(void)
 		command = readline(prompt_chooser());
 		if (command == NULL)
 			break ;
-		add_history(command);
 		tokens = parsing(command);
 		if (tokens)
 		{			
-			//ft_print_tkns(tokens);
 			ft_executer(tokens);
 			ft_tknclear(&tokens);
 		}
@@ -72,7 +70,7 @@ void	prompt_debug(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = ft_strdup("<<bu cat");
+		command = ft_strdup("/bin/echo \"\"$?\"\"");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
@@ -88,41 +86,39 @@ void	prompt_debug(void)
 	}
 }
 
-void    prompt_linux(void)
+void	prompt_linux(void)
 {
-    char    *command;
-    t_token *tokens;
-    t_token *last;
-    char    *prompt;
+	char	*command;
+	t_token	*tokens;
+	t_token	*last;
+	char	*prompt;
+
     //signal(SIGINT, sig_hnd);
     //signal(SIGQUIT, sig_hnd);
-    command = (char *)1;
-    while (command != NULL)
-    {
-        //ft_printf("%d\n",g_state.last_return);
-        command = get_next_line(STDIN_FILENO);
-        if(command == NULL)
-            break ;
-        if (ft_strlen(command) == 0)
-            continue ;
-        if (ft_strchr(command, '\n') > 0)
-            ft_delete_char(ft_strchr(command, '\n'));
-        if (!command)
-        {
-            if (isatty(STDIN_FILENO))
-            write(2, "exit\n", 6);
-            exit (g_state.last_return);
-        }
-        if (command == NULL)
-            break ;
-        add_history(command);
-        tokens = parsing(command);
-        if (tokens)
-        {
-            //ft_print_tkns(tokens);
-            ft_executer(tokens);
-            ft_tknclear(&tokens);
-        }
-        free(command);
-    }
+	command = (char *)1;
+	while (command != NULL)
+	{
+		command = get_next_line(STDIN_FILENO);
+		if (command == NULL)
+			break ;
+		if (ft_strlen(command) == 0)
+			continue ;
+		if (ft_strchr(command, '\n') > 0)
+			ft_delete_char(ft_strchr(command, '\n'));
+		if (!command)
+		{
+			if (isatty(STDIN_FILENO))
+				write(2, "exit\n", 6);
+			exit (g_state.last_return);
+		}
+		if (command == NULL)
+			break ;
+		tokens = parsing(command);
+		if (tokens)
+		{
+			ft_executer(tokens);
+			ft_tknclear(&tokens);
+		}
+		free(command);
+	}
 }

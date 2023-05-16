@@ -6,13 +6,13 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:53:09 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 12:49:42 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int here_doc_loop(char *command, t_token *token, int *pip)
+int	here_doc_loop(char *command, t_token *token, int *pip)
 {
 	while (1)
 	{
@@ -32,7 +32,6 @@ int here_doc_loop(char *command, t_token *token, int *pip)
 			}
 			write(pip[1], command, ft_strlen(command));
 			write(pip[1], "\n", 1);
-			
 		}
 		free(command);
 		command = NULL;
