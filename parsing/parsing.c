@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/15 23:10:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 15:57:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ t_token	*parsing(char *cmd)
 	if (check_stdin(token))
 		ft_tknadd_front(&token, ft_tknnew(T_STDIN, NULL));
 	reordenate_tokens(&token);
-	//ft_print_tkns(token);
+	ft_print_tkns(token);
 	return (token);
 }
