@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 03:33:02 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 20:52:42 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:48:27 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	command_double_quotes(char *cmd, int *i, char *arg, int *k)
 
 void	command_simple_quotes(char *cmd, int *i, char *arg, int *k)
 {
+	g_state.here_quote = 1;
 	(*i)++;
 	while (cmd[*i] && cmd[*i] != '\'')
 	{

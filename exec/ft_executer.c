@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 13:50:09 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 22:43:19 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_executerloop(t_token *token, int *it, int *id)
 				continue ;
 			}
 			if (it[6] == 1 && check_builtin(token) == 0)
-				ft_builtinexec(token);
+				ft_builtinexec(token, id);
 			else
 			{
 				id[it[3]] = fork_exec(token, it, id);

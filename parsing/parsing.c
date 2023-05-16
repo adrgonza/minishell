@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 20:44:02 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:46:45 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_token	*parsing(char *cmd)
 	int		type;
 	int		i;
 
+	g_state.here_quote  = 0;
 	cmd = check_quotes(cmd, 0);
 	if (!cmd)
 		return (NULL);

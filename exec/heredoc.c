@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 22:35:35 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 22:49:23 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	here_doc_loop(char *command, t_token *token, int *pip)
 			break ;
 		else
 		{
-			command = check_quotes(command, 1); 
+			if (g_state.here_quote == 0)
+				command = check_quotes(command, 1);
 			if (command == NULL)
 			{
 				close(pip[1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 22:36:07 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 22:42:43 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //arreglar /bin/echo 42 > /dev/null > /dev/null > /dev/null > /dev/null > tmp_redir_out
 
-void	ft_builtinexec(t_token *token)
+void	ft_builtinexec(t_token *token, int *id)
 {
 	int		status;
 	char	*lower;
