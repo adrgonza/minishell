@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:16:25 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 17:04:21 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//arreglar /bin/echo 42 > /dev/null > /dev/null > /dev/null > /dev/null > tmp_redir_out
 
 void	ft_builtinexec(t_token *token)
 {
@@ -64,8 +66,10 @@ int	builtin_cd_errorset(t_token *token, t_env **direnv)
 			return (2);
 		}
 		else
+		{
+			ft_printf("%s\n", (*direnv)->args);
 			return (chdir((*direnv)->args));
-		ft_printf("%s\n", (*direnv)->args);
+		}
 	}
 	else
 		return (chdir(token->args[1]));

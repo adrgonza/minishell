@@ -6,11 +6,17 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 15:57:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:25:23 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//heredoc comillas
+// syntax erorres
+
+// export X="A  B  "
+///bin/echo "1"$X'2'
 
 t_token	*parsing(char *cmd)
 {
@@ -40,6 +46,6 @@ t_token	*parsing(char *cmd)
 	if (check_stdin(token))
 		ft_tknadd_front(&token, ft_tknnew(T_STDIN, NULL));
 	reordenate_tokens(&token);
-	ft_print_tkns(token);
+	//ft_print_tkns(token);
 	return (token);
 }
