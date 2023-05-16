@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 17:16:08 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 21:24:57 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,19 @@ char	*expand_tilde(char *cmd, int i, int first)
 	return (expanded_cmd);
 }
 
-char	*check_quotes(char *cmd)
+char	*remove_quotes(char *cmd, int first)
+{
+	char *str;
+
+	if (!cmd || ft_strlen(cmd) < 4)
+		return(cmd);
+	str = ft_strtrim(cmd, "\"");
+	if (first == 1)
+		free(cmd);
+	return (str);
+}
+
+char	*check_quotes(char *cmd, int here)
 {
 	int	first;
 	int	i;
@@ -163,7 +175,7 @@ char	*check_quotes(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (!check_parsing_errors(cmd[i], s_qte, d_qte))
+		if (!check_parsing_errors(cmd[i], s_qte, d_qte) && here == 0)
 			return (NULL);
 		if (cmd[i] == '"' && (s_qte % 2 == 0))
 				d_qte++;
@@ -176,8 +188,14 @@ char	*check_quotes(char *cmd)
 		if (cmd[i] == '<' && cmd[i + 1] == '<' && (d_qte % 2 == 0) && (s_qte % 2 == 0))
 				heredoc = 1;
 		if (cmd[i] == '$' && s_qte % 2 == 0 && heredoc == 0)
+		{
 			if (cmd[i + 1] && (ft_isalnum(cmd[i + 1]) || cmd[i + 1] == '?'))
+			{
 				cmd = variable_expansion(cmd, i--, first++);
+				if (here == 1  && cmd)
+					cmd = remove_quotes(cmd, first);
+			}
+		}
 	}
 	if (d_qte % 2 != 0 || s_qte % 2 != 0)
 		return (perror("syntax error near close quotes\n"), NULL);

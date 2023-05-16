@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 18:57:21 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:44:02 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 //heredoc comillas
 // syntax erorres
 
-// export X="A  B  "
-///bin/echo "1"$X'2'
-
 t_token	*parsing(char *cmd)
 {
 	t_token	*token = NULL;
@@ -25,7 +22,7 @@ t_token	*parsing(char *cmd)
 	int		type;
 	int		i;
 
-	cmd = check_quotes(cmd);
+	cmd = check_quotes(cmd, 0);
 	if (!cmd)
 		return (NULL);
 	i = 0;

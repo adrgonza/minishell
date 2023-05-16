@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 18:32:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:05:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,8 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 				xp_cmd = ft_strjoin_s(xp_cmd, " ");
 			xp_cmd = ft_strjoin_s(xp_cmd, "\"");
 			xp_cmd = ft_strjoin_s(xp_cmd, splitted[j]);
-			//printf("%d", ft_strlen(data->args));
 			if (!splitted[j + 1] && (data->args[ft_strlen(data->args) - 1] == ' ' ))
-			{
-				//printf("hola\n");
 				xp_cmd = ft_strjoin_s(xp_cmd, " ");
-			}
 			xp_cmd = ft_strjoin_s(xp_cmd, "\"");
 		}
 	}
