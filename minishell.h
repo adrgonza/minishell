@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 20:43:49 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:33:17 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ typedef struct s_env{
 typedef struct s_state{
 	t_env	*envp;
 	int		last_return;
-	int		exit;
 	int		am_child;
 	char	*home_dir;
-	char	*last_dir;
 }	t_state;
 
 typedef struct s_token{
@@ -128,20 +126,20 @@ void	ft_executer(t_token *token);
 int		ft_exectkn(t_token *token);
 int		pipe_counter(t_token *token);
 t_token	*redirect_order_sort(t_token *token);
-int	fork_exec(t_token *token, int *it);
-int	set_pipeoutput(t_token *token, int *nextinput);
-int	set_pipeinput(t_token *token, int *nextfdin);
+int		fork_exec(t_token *token, int *it, int *prev_id);
+int		set_pipeoutput(t_token *token, int *nextinput);
+int		set_pipeinput(t_token *token, int *nextfdin);
 
 /* built ins*/
 int		check_builtin(t_token *token);
-void	ft_builtinexec(t_token *token);
+void	ft_builtinexec(t_token *token, int *id);
 int		builtin_cd(t_token *token);
 int		builtin_export(t_token *token);
 int		builtin_unset(t_token *token);
 int		builtin_pwd(t_token *token);
 int		builtin_echo(t_token *token);
 int		builtin_error();
-int 	builtin_exit(t_token *token);
+int 	builtin_exit(t_token *token, int *id);
 void 	malloc_fail_proc(void);
 t_token *redirect_check(t_token *token);
 int		set_pipeoutput2(t_token *token, int *nextinput);

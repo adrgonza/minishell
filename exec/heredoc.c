@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 21:36:20 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:35:35 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int here_doc_loop(char *command, t_token *token, int *pip)
+int	here_doc_loop(char *command, t_token *token, int *pip)
 {
 	while (1)
 	{
