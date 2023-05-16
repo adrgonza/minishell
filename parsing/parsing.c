@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/15 23:10:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 20:44:02 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//heredoc comillas
+// syntax erorres
 
 t_token	*parsing(char *cmd)
 {
@@ -19,7 +22,7 @@ t_token	*parsing(char *cmd)
 	int		type;
 	int		i;
 
-	cmd = check_quotes(cmd);
+	cmd = check_quotes(cmd, 0);
 	if (!cmd)
 		return (NULL);
 	i = 0;

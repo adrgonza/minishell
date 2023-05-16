@@ -6,13 +6,15 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 13:58:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 22:36:07 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_builtinexec(t_token *token, int *id)
+//arreglar /bin/echo 42 > /dev/null > /dev/null > /dev/null > /dev/null > tmp_redir_out
+
+void	ft_builtinexec(t_token *token)
 {
 	int		status;
 	char	*lower;
@@ -63,8 +65,10 @@ int	builtin_cd_errorset(t_token *token, t_env **direnv)
 			return (2);
 		}
 		else
+		{
+			ft_printf("%s\n", (*direnv)->args);
 			return (chdir((*direnv)->args));
-		ft_printf("%s\n", (*direnv)->args);
+		}
 	}
 	else
 		return (chdir(token->args[1]));

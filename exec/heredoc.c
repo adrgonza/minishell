@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 12:49:42 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/16 22:35:35 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	here_doc_loop(char *command, t_token *token, int *pip)
 			break ;
 		else
 		{
-			command = check_quotes(command);
+			command = check_quotes(command, 1); 
 			if (command == NULL)
 			{
 				close(pip[1]);
@@ -32,6 +32,7 @@ int	here_doc_loop(char *command, t_token *token, int *pip)
 			}
 			write(pip[1], command, ft_strlen(command));
 			write(pip[1], "\n", 1);
+
 		}
 		free(command);
 		command = NULL;

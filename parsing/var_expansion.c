@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/15 14:25:41 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:05:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,28 @@ char	*inter_expansion(char *cmd, int i, int first)
 char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 {
 	char	*var;
+	char	**splitted;
+	int j;
 
 	ft_strlcpy(xp_cmd, cmd, i++);
-	xp_cmd = ft_strjoin_s(xp_cmd, "\"");
 	if (data && data->args)
-		xp_cmd = ft_strjoin_s(xp_cmd, data->args);
-	xp_cmd = ft_strjoin_s(xp_cmd, "\"");
+	{
+		splitted = ft_split(data->args, ' ');
+		if (!splitted[0])
+			if (data->args[0] == ' ')
+				xp_cmd = ft_strjoin_s(xp_cmd, " ");
+		j = -1;
+		while (splitted[++j])
+		{
+			if (j != 0 || data->args[0] == ' ')
+				xp_cmd = ft_strjoin_s(xp_cmd, " ");
+			xp_cmd = ft_strjoin_s(xp_cmd, "\"");
+			xp_cmd = ft_strjoin_s(xp_cmd, splitted[j]);
+			if (!splitted[j + 1] && (data->args[ft_strlen(data->args) - 1] == ' ' ))
+				xp_cmd = ft_strjoin_s(xp_cmd, " ");
+			xp_cmd = ft_strjoin_s(xp_cmd, "\"");
+		}
+	}
 	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_') && cmd[i - 2] != '~')
 		i++;
 	if (cmd[i - 2] == '~')
