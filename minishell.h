@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 00:01:15 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 23:34:21 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data);
 
 
 /* executing*/
-void	ft_executer(t_token *ẗoken);
+void	ft_executer(t_token *token);
 int		ft_exectkn(t_token *token);
 int		pipe_counter(t_token *token);
 t_token	*redirect_order_sort(t_token *token);
@@ -144,8 +144,10 @@ int		builtin_error();
 int 	builtin_exit(t_token *token);
 void 	malloc_fail_proc(void);
 t_token *redirect_check(t_token *token);
-int	set_pipeoutput2(t_token *token, int *nextinput);
-int	builtin_env(t_token *token);
+int		set_pipeoutput2(t_token *token, int *nextinput);
+int		builtin_env(t_token *token);
+int		check_valid(int argc, char **argv);
+void	export_if(t_token *token, char **str, int ct);
 
 
 /* declare global var*/

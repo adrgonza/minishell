@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_esc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:55:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/03/15 00:23:47 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:34:16 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static int	count_lines_esc(char *text, char find)
 	}
 	return (counter);
 }
-
-
 
 static int	ft_split_loop_esc(char **matrix, char *s, int n_lines, char c)
 {

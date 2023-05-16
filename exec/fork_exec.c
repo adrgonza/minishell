@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/14 19:35:47 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/15 23:37:57 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	kid_stuff(t_token *token, int *it)
 {
-	int error;
-	
+	int	error;
+
 	g_state.am_child = 1;
 	if (it[0] != STDIN_FILENO)
 	{
@@ -55,31 +55,6 @@ int	fork_exec(t_token *token, int *it)
 	return (id);
 }
 
-int	here_doc_prompt(t_token *token)
-{
-	char	*command;
-	int		pip[2];
-
-	pipe(pip);
-	while (1)
-	{
-		command = readline("(>^.^)> Here_doc $");
-		if (command == NULL)
-			break ;
-		if (ft_strncmp(command, token->args[0], -1) == 0)
-			break ;
-		else
-		{
-			write(pip[1], command, ft_strlen(command));
-			write(pip[1], "\n", 1);
-		}
-		free(command);
-		command = NULL;
-	}
-	close(pip[1]);
-	return (pip[0]);
-}
-
 int	set_pipeinput(t_token *token, int *nextfdin)
 {
 	int	fdtemp;
@@ -99,6 +74,7 @@ int	set_pipeinput(t_token *token, int *nextfdin)
 	if (fdtemp == -1)
 	{
 		perror("Minishell");
+		g_state.last_return = 1;
 		return (-1);
 	}
 	return (fdtemp);
@@ -125,7 +101,10 @@ int	set_pipeoutput(t_token *token, int *nextinput)
 		*nextinput = pip[0];
 	}	
 	if (fdfile == -1)
+	{
 		perror("Minishell");
+		g_state.last_return = 1;
+	}
 	return (fdfile);
 }
 

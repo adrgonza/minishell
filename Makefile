@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
+#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/10 21:04:09 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/05/15 23:38:46 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ parsing/parsing.c parsing/get_args.c parsing/args_tools.c parsing/check_std.c\
 parsing/parsing_tools.c parsing/manage_quotes.c parsing/get_things.c \
 parsing/var_expansion.c \
 exec/ft_executer.c  exec/fork_exec.c exec/ft_exectkn.c exec/builtin.c \
-exec/builtin2.c exec/builtin3.c
+exec/builtin2.c exec/builtin3.c exec/builtin4.c exec/builtin5.c exec/heredoc.c
 
 CC = cc
 
