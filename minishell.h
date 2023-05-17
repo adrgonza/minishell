@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/17 01:11:14 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:31:41 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		ft_init(int argc, char **argv, char **envp);
 t_token	*parsing(char *command);
 char	**get_cmd_args(char *command, int i);
 int		get_type(char *command, int i);
-int		next_arg(int type, char *cmd, int i);
+int		next_arg(int type, char *cmd, int i, char **args);
 int		count_letters(char *cmd, int i);
 int		check_stdout(t_token *token);
 int		check_stdin(t_token *token);

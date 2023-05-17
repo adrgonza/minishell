@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/17 12:53:03 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:44:29 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ char	*remove_quotes(char *cmd, int first)
 {
 	char *str;
 
+	g_state.here_quote = 0;
 	if (!cmd || ft_strlen(cmd) < 4)
 		return(cmd);
 	str = ft_strtrim(cmd, "\"");
@@ -193,10 +194,7 @@ char	*check_quotes(char *cmd)
 			{
 				cmd = variable_expansion(cmd, i--, first++);
 				if (g_state.here_quote == 1)
-				{
 					cmd = remove_quotes(cmd, first);
-					g_state.here_quote = 0;
-				}
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:31:28 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/12 01:37:54 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:31:14 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ int	next_cmd(char *cmd, int i)
 	return (i);
 }
 
-int	next_arg(int type, char *cmd, int i)
+int	next_arg(int type, char *cmd, int i, char **args)
 {
+	ft_free_args(args);
 	if (type == T_PIPE)
 		return (i + 1);
 	if (type == T_COMMAND)
