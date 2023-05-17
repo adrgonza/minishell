@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 21:24:57 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/17 01:54:18 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ char	*remove_quotes(char *cmd, int first)
 	return (str);
 }
 
-char	*check_quotes(char *cmd, int here)
+char	*check_quotes(char *cmd)
 {
 	int	first;
 	int	i;
@@ -175,24 +175,24 @@ char	*check_quotes(char *cmd, int here)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (!check_parsing_errors(cmd[i], s_qte, d_qte) && here == 0)
+		if (!check_parsing_errors(cmd[i], s_qte, d_qte) && g_state.here_quote == 0)
 			return (NULL);
 		if (cmd[i] == '"' && (s_qte % 2 == 0))
 				d_qte++;
 		if (cmd[i] == '\'' && (d_qte % 2 == 0))
 				s_qte++;
-		if (cmd[i] && cmd[i] == '~' && cmd[i - 1] && cmd[i - 1] == ' ' && d_qte % 2 == 0 && s_qte % 2 == 0 && (cmd[i + 1] == ' ' || !cmd[i + 1] || cmd[i + 1] == '/'))
+		if (cmd[i] && cmd[i] == '~' && d_qte % 2 == 0 && s_qte % 2 == 0 && ((i - 1) < 0 || cmd[i - 1] == ' ') && (!cmd[i + 1] ||cmd[i + 1] == ' ' || cmd[i + 1] == '/'))
 			cmd = expand_tilde(cmd, i--, first++);
-		if (cmd[i] == '|' && cmd[i] == '>' && cmd[i] == '<' && d_qte % 2 == 0 && s_qte % 2 == 0)
+		if (i > 0 && cmd[i] && (cmd[i] == '|' || cmd[i] == '>' || cmd[i] == '<') && d_qte % 2 == 0 && s_qte % 2 == 0)
 			heredoc = 0;
-		if (cmd[i] == '<' && cmd[i + 1] == '<' && (d_qte % 2 == 0) && (s_qte % 2 == 0))
+		if (i > 0 && cmd[i] && cmd[i] == '<' && cmd[i + 1] && cmd[i + 1] == '<' && (d_qte % 2 == 0) && (s_qte % 2 == 0))
 				heredoc = 1;
-		if (cmd[i] == '$' && s_qte % 2 == 0 && heredoc == 0)
+		if (i > 0 && cmd[i] && cmd[i] == '$' && s_qte % 2 == 0 && heredoc == 0)
 		{
 			if (cmd[i + 1] && (ft_isalnum(cmd[i + 1]) || cmd[i + 1] == '?'))
 			{
 				cmd = variable_expansion(cmd, i--, first++);
-				if (here == 1  && cmd)
+				if (g_state.here_quote == 1  && cmd)
 					cmd = remove_quotes(cmd, first);
 			}
 		}

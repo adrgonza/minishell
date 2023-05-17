@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 22:45:57 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/17 01:11:14 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		check_stdin(t_token *token);
 int		count_words(char *cmd, int i);
 int		redict_word_count(char *cmd, int j);
 char	**get_args(int	type, char *command, int i);
-char	*check_quotes(char *cmd, int here);
+char	*check_quotes(char *cmd);
 char	**get_redict_args(char *cmd, int i, int type);
 void	ft_free_args(char **args);
 void	command_double_quotes(char *cmd, int *i, char *arg, int *k);

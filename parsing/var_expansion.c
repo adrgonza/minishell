@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 19:05:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/17 01:31:02 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ char	*variable_expansion(char *cmd, int i, int first)
 	if (!expanded_cmd)
 		return (NULL);
 	expanded_cmd = expansion_tools(cmd, expanded_cmd, i, data);
-	if (first)
+	if (first || g_state.here_quote == 1)
 		free(cmd);
 	return (expanded_cmd);
 }

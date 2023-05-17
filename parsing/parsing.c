@@ -6,14 +6,18 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/16 22:46:45 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/17 01:23:54 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//heredoc comillas
 // syntax erorres
+
+void	leaks()
+{
+	system("leaks -q minishell");
+}
 
 t_token	*parsing(char *cmd)
 {
@@ -23,7 +27,7 @@ t_token	*parsing(char *cmd)
 	int		i;
 
 	g_state.here_quote  = 0;
-	cmd = check_quotes(cmd, 0);
+	cmd = check_quotes(cmd);
 	if (!cmd)
 		return (NULL);
 	i = 0;
@@ -44,6 +48,5 @@ t_token	*parsing(char *cmd)
 	if (check_stdin(token))
 		ft_tknadd_front(&token, ft_tknnew(T_STDIN, NULL));
 	reordenate_tokens(&token);
-	//ft_print_tkns(token);
 	return (token);
 }
