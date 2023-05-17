@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/17 01:15:07 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:51:52 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	here_doc_loop(char *command, t_token *token, int *pip)
 		else
 		{
 			if (g_state.here_quote == 0)
+			{
+				g_state.here_quote = 1;
 				command = check_quotes(command);
+			}
 			if (command == NULL)
 			{
 				close(pip[1]);

@@ -6,7 +6,7 @@
 #    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/17 01:37:19 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/05/17 02:47:59 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJS = ${SRCS:.c=.o}
 
 MAINOBJ = ${MAIN:.c=.o}
 
-CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
+CFLAGS = #-fsanitize=address -g #-Wall -Werror -Wextra
 READLINE_FLAGS = -lreadline  #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
 
 all: $(NAME)
