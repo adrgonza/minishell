@@ -6,13 +6,11 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 22:42:43 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:14:53 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//arreglar /bin/echo 42 > /dev/null > /dev/null > /dev/null > /dev/null > tmp_redir_out
 
 void	ft_builtinexec(t_token *token, int *id)
 {
@@ -70,8 +68,7 @@ int	builtin_cd_errorset(t_token *token, t_env **direnv)
 			return (chdir((*direnv)->args));
 		}
 	}
-	else
-		return (chdir(token->args[1]));
+	return (chdir(token->args[1]));
 }
 
 int	builtin_cd(t_token *token)

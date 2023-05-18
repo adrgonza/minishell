@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:30:48 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 18:50:23 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:20:18 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	sig_hnd(int sig)
 {
-	//ft_printf("\n");
-	rl_on_new_line();
+	(void)sig;
 }

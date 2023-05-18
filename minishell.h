@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 18:45:50 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:13:37 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,15 @@
 # include <readline/history.h>
 # include <limits.h> //change to mac on campus
 
-
-# define	T_STDOUT		1
-# define	T_STDIN			2
-# define	T_COMMAND		3
-# define	T_PIPE			4
-# define	T_SEMICOLON		5
-# define	T_LESS 			6
-# define	T_LESSLESS		7
-# define	T_GREAT			8
-# define	T_GREATGREAT	9
+# define T_STDOUT		1
+# define T_STDIN		2
+# define T_COMMAND		3
+# define T_PIPE			4
+# define T_SEMICOLON	5
+# define T_LESS 		6
+# define T_LESSLESS		7
+# define T_GREAT		8
+# define T_GREATGREAT	9
 
 typedef struct s_env{
 	char			*name;
@@ -61,9 +60,8 @@ typedef struct s_token{
 	int				processed;
 }	t_token;
 
-
 /* mix */
-void sig_hnd(int sig);
+void	sig_hnd(int sig);
 /*tkn*/
 void	ft_tknadd_back(t_token **lst, t_token *new);
 void	ft_tknadd_front(t_token **lst, t_token *new);
@@ -73,7 +71,6 @@ t_token	*ft_tknlast(t_token *lst);
 t_token	*ft_tknnew(int type, char **args);
 int		ft_tknsize(t_token *lst);
 void	split_cpy(char ***dst, char **src);
-//void 	ft_print_tkn(char *cmd, int type, char **args);
 void	ft_tknswap_last(t_token *token);
 void	ft_tknswap_next(t_token *token);
 void	ft_print_tkn(t_token *token);
@@ -86,11 +83,11 @@ void	ft_envadd_front(t_env **lst, t_env *new);
 void	ft_envclear(t_env **lst);
 void	ft_envdelone(t_env *lst);
 t_env	*ft_envlast(t_env *lst);
-t_env 	*ft_envfind(char *name);
-void 	ft_envunset(t_env *token);
-void 	ft_envset(t_env *token);
+t_env	*ft_envfind(char *name);
+void	ft_envunset(t_env *token);
+void	ft_envset(t_env *token);
 t_env	*ft_envnew(char *name, char *args);
-int 	ft_envprint(void);
+int		ft_envprint(void);
 int		ft_envsize(t_env *lst);
 t_env	*env_split_to_list(char **env);
 char	**env_list_to_split(t_env *token);
@@ -98,7 +95,7 @@ char	**env_list_to_split(t_env *token);
 /*prompt*/
 void	prompt(void);
 void	prompt_debug(void);
-void    prompt_linux(void);
+void	prompt_linux(void);
 int		here_doc_prompt(t_token *token);
 int		ft_init(int argc, char **argv, char **envp);
 
@@ -112,7 +109,7 @@ int		check_stdout(t_token *token);
 int		check_stdin(t_token *token);
 int		count_words(char *cmd, int i);
 int		redict_word_count(char *cmd, int j);
-char	**get_args(int	type, char *command, int i);
+char	**get_args(int type, char *command, int i);
 char	*check_quotes(char *cmd);
 char	**get_redict_args(char *cmd, int i, int type);
 void	ft_free_args(char **args);
@@ -122,12 +119,11 @@ char	*inter_expansion(char *cmd, int i, int first);
 char	*variable_expansion(char *cmd, int i, int first);
 void	reordenate_tokens(t_token	**token);
 char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data);
-int	check_pipes_cmd(t_token *token);
+int		check_pipes_cmd(t_token *token);
 char	**arrayjoin(char **array1, char **array2);
-int	check_parsing_errors(char cmd, int s_qte, int d_qte);
+int		check_parsing_errors(char cmd, int s_qte, int d_qte);
 char	*expand_tilde(char *cmd, int i, int first);
 char	*remove_quotes(char *cmd, int first);
-
 
 /* executing*/
 void	ft_executer(t_token *token);
@@ -146,17 +142,16 @@ int		builtin_export(t_token *token);
 int		builtin_unset(t_token *token);
 int		builtin_pwd(t_token *token);
 int		builtin_echo(t_token *token);
-int		builtin_error();
-int 	builtin_exit(t_token *token, int *id);
-void 	malloc_fail_proc(void);
-t_token *redirect_check(t_token *token);
+int		builtin_error(void);
+int		builtin_exit(t_token *token, int *id);
+void	malloc_fail_proc(void);
+t_token	*redirect_check(t_token *token);
 int		set_pipeoutput2(t_token *token, int *nextinput);
 int		builtin_env(t_token *token);
 int		check_valid(int argc, char **argv);
 void	export_if(t_token *token, char **str, int ct);
 
-
 /* declare global var*/
-extern t_state g_state;
+extern t_state	g_state;
 
 #endif

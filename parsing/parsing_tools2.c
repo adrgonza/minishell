@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 18:35:38 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:07:55 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,17 @@ void	check_quotes_if(char **cmd, int *i, int *multi)
 	if ((*cmd)[(*i)] == '\'' && (multi[1] % 2 == 0))
 		multi[2]++;
 	if ((*cmd)[(*i)] && (*cmd)[(*i)] == '~' && multi[1] % 2 == 0 && multi[2] % 2
-		== 0 && (((*i) - 1) < 0 || (*cmd)[(*i) - 1] == ' ') && (!(*cmd)[(*i) + 1]
+		== 0 && (((*i) - 1) < 0 || (*cmd)[(*i) - 1] == ' ') && (!(*cmd)[*i + 1]
 		|| (*cmd)[(*i) + 1] == ' ' || (*cmd)[(*i) + 1] == '/'))
 		(*cmd) = expand_tilde((*cmd), (*i)--, multi[0]++);
-	if ((*i) >= 0 && (*cmd)[(*i)] && ((*cmd)[(*i)] == '|' || (*cmd)[(*i)] == '>')
+	if ((*i) >= 0 && (*cmd)[*i] && ((*cmd)[*i] == '|' || (*cmd)[(*i)] == '>')
 		&& multi[1] % 2 == 0 && multi[2] % 2 == 0)
 		multi[3] = 0;
-	if ((*i) >= 0 && (*cmd)[(*i)] && (*cmd)[(*i)] == '<' && (*cmd)[(*i) + 1]
-		&& (*cmd)[(*i) + 1] == '<'  && (multi[1] % 2 == 0) && (multi[2] % 2
+	if ((*i) >= 0 && (*cmd)[(*i)] && (*cmd)[*i] == '<' && (*cmd)[*i + 1]
+		&& (*cmd)[*i + 1] == '<' && (multi[1] % 2 == 0) && (multi[2] % 2
 		== 0))
 		multi[3] = 1;
-	if ((*i) >= 0 && (*cmd)[(*i)] && (*cmd)[(*i)] == '$' && multi[2] % 2 == 0 &&
+	if (*i >= 0 && (*cmd)[(*i)] && (*cmd)[(*i)] == '$' && multi[2] % 2 == 0 &&
 		multi[3] == 0 && (*cmd)[(*i) + 1]
 		&& (ft_isalnum((*cmd)[(*i) + 1]) || (*cmd)[(*i) + 1] == '?'))
 	{
@@ -93,14 +93,12 @@ void	check_quotes_if(char **cmd, int *i, int *multi)
 			(*cmd) = remove_quotes((*cmd), multi[0]);
 	}
 }
-// multi[0] -> first
-// multi[1]-> d_qte
-// multi[2] -> s_qte
-// multi[3] -> heredoc
-char    *check_quotes(char *cmd)
+
+char	*check_quotes(char *cmd)
 {
-	int i;
-	int multi[4];
+	int	i;
+	int	multi[4];
+
 	ft_bzero(multi, 4 * sizeof(int));
 	i = -1;
 	while (cmd[++i])

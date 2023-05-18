@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 18:51:36 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:20:55 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ int	ft_init(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (0);
-	//signal(SIGINT, sig_hnd);
-	//signal(SIGQUIT, sig_hnd);
+	signal(SIGINT, sig_hnd);
+	signal(SIGQUIT, sig_hnd);
 	g_state.envp = env_split_to_list(envp);
 	g_state.here_quote = 0;
 	g_state.am_child = 0;
-	g_state.signal = 0;
 	envt = ft_envfind("HOME");
 	if (envt != NULL && envt->args != NULL)
 	{
