@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 13:55:01 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/18 23:04:27 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	set_pipeoutput(t_token *token, int *nextinput)
 		pipe(pip);
 		fdfile = pip[1];
 		*nextinput = pip[0];
-	}	
+	}
 	if (fdfile == -1)
 	{
 		perror("Minishell");
@@ -128,7 +128,7 @@ int	set_pipeoutput2(t_token *token, int *nextinput)
 		pipe(pip);
 		fdfile = pip[1];
 		*nextinput = pip[0];
-	}	
+	}
 	if (fdfile == -1)
 	{
 		perror("Minishell");

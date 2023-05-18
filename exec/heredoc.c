@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 21:04:55 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:04:14 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	here_doc_loop(char *command, t_token *token, int *pip)
 		free(command);
 		command = NULL;
 	}
+	free(command);
 	return (0);
 }
 

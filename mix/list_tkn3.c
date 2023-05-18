@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 23:12:27 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 12:00:54 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:18:56 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,17 @@ void	ft_print_tkns(t_token *token)
 		token = token->next;
 		i++;
 	}
+}
+
+void	ft_tkndelone2(t_token *lst)
+{
+	if (lst == 0)
+		return ;
+	if (lst->args != NULL)
+		free (lst->args);
+	if (lst->next != NULL)
+		lst->next->last = lst->last;
+	if (lst->last != NULL)
+		lst->last->next = lst->next;
+	free(lst);
 }

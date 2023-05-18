@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 21:42:00 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:42:01 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*ft_strjoin_s(char *s1, char const *s2)
 	return (str);
 }
 
+//es en esta funcion, si tratas de liberar *tkn despues del arrayjoin
+
 void	reordenate_tools(t_token **tkn)
 {
 	if ((*tkn)->next && (*tkn)->type == T_COMMAND)
@@ -45,13 +47,14 @@ void	reordenate_tools(t_token **tkn)
 		if ((*tkn)->next->next && ((*tkn)->next->type <= 9
 				&& (*tkn)->next->type >= 6))
 		{
-			if ((*tkn)->next->next->type == T_COMMAND)
+			if ((*tkn)->next->next && (*tkn)->next->next->type == T_COMMAND)
 			{
 				*tkn = (*tkn)->next->next;
 				if ((*tkn)->next)
 					(*tkn)->last->next = (*tkn)->next;
 				(*tkn)->last->last->args
 					= arrayjoin((*tkn)->last->last->args, (*tkn)->args);
+				//aqui el problema 
 				ft_first_tkn(tkn);
 			}
 		}
