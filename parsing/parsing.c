@@ -6,11 +6,16 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 00:49:36 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:02:27 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//parsing errors
+//mallocs protections
+//leaks
+//norminette
 
 char	*parsing_tools(char **cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 00:31:41 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:45:50 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_state{
 	int		am_child;
 	char	*home_dir;
 	int		here_quote;
+	int		signal;
 }	t_state;
 
 typedef struct s_token{
@@ -77,6 +78,7 @@ void	ft_tknswap_last(t_token *token);
 void	ft_tknswap_next(t_token *token);
 void	ft_print_tkn(t_token *token);
 void	ft_print_tkns(t_token *token);
+void	ft_first_tkn(t_token **token);
 
 /*env*/
 void	ft_envadd_back(t_env **lst, t_env *new);
@@ -120,6 +122,11 @@ char	*inter_expansion(char *cmd, int i, int first);
 char	*variable_expansion(char *cmd, int i, int first);
 void	reordenate_tokens(t_token	**token);
 char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data);
+int	check_pipes_cmd(t_token *token);
+char	**arrayjoin(char **array1, char **array2);
+int	check_parsing_errors(char cmd, int s_qte, int d_qte);
+char	*expand_tilde(char *cmd, int i, int first);
+char	*remove_quotes(char *cmd, int first);
 
 
 /* executing*/

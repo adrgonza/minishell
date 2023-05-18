@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 13:46:10 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/18 18:48:49 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,20 @@ void	prompt(void)
 	t_token	*last;
 	char	*prompt;
 
-	//signal(SIGINT, sig_hnd);
-	//signal(SIGQUIT, sig_hnd);
 	command = (char *)1;
 	while (command != NULL)
 	{
+		if (g_state.signal == 1)
+		{
+			g_state.signal = 0;
+			continue;
+		}
 		command = readline(prompt_chooser());
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
 		if (tokens)
-		{			
+		{
 			ft_executer(tokens);
 			ft_tknclear(&tokens);
 		}

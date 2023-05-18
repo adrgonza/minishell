@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 00:26:01 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:29:29 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char	**get_redict_args(char *cmd, int i, int type)
 	j = redict_args_tool(i, j, type, cmd);
 	args = malloc(sizeof(char *) * redict_word_count(cmd, j));
 	if (!args)
-		return (NULL);
+		return (malloc_fail_proc(), NULL);
 	if (redict_word_count(cmd, j) == 1)
 		return (args[0] = NULL, args);
 	args[0] = malloc(sizeof(char) * (count_letters(cmd, j) + 1));
 	if (!args[0])
-		return (NULL);
+		return (free(args), malloc_fail_proc(), NULL);
 	i = 0;
 	while (cmd[j] && cmd[j] != ' ' && cmd[j] != '\t'
 		&& cmd[j] != '|' && cmd[j] != '<' && cmd[j] != '>')

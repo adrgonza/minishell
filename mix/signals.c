@@ -6,14 +6,14 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:30:48 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 14:21:39 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:50:23 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void sig_hnd(int sig)
+void	sig_hnd(int sig)
 {
-	//if (sig)
-	(void)sig;
+	//ft_printf("\n");
+	rl_on_new_line();
 }

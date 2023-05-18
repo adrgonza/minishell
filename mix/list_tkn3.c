@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   list_tkn3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 23:12:27 by amejia            #+#    #+#             */
-/*   Updated: 2023/04/29 23:40:09 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/18 12:00:54 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_first_tkn(t_token **token)
+{
+	while ((*token)->last != NULL)
+		(*token) = (*token)->last;
+}
 
 void	ft_print_tkn(t_token *token)
 {
