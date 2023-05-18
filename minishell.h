@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 20:13:37 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:27:17 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	malloc_fail_proc(void);
 t_token	*redirect_check(t_token *token);
 int		set_pipeoutput2(t_token *token, int *nextinput);
 int		builtin_env(t_token *token);
-int		check_valid(int argc, char **argv);
+int		check_valid(char *enter);
 void	export_if(t_token *token, char **str, int ct);
 
 /* declare global var*/

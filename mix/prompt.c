@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 20:20:40 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:53:51 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,39 @@ void	prompt(void)
 			ft_tknclear(&tokens);
 		}
 		free(command);
+	}
+}
+
+
+void	prompt_debug(void)
+{
+	char	*command;
+	t_token	*tokens;
+	t_token	*last;
+	char	*prompt;
+	int		w;
+
+	w = 0;
+	signal(SIGINT, sig_hnd);
+	signal(SIGQUIT, sig_hnd);
+	command = (char *)1;
+	while (command != NULL)
+	{
+		if (w % 2 == 0)
+			command = ft_strdup("exit 5");
+		else
+			command = ft_strdup("");
+		if (command == NULL)
+			break ;
+		tokens = parsing(command);
+		if (tokens)
+		{
+			ft_print_tkns(tokens);
+			ft_executer(tokens);
+			ft_tknclear(&tokens);
+		}
+		free(command);
+		command = NULL;
+		w++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 20:20:55 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:51:15 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	ft_init(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (0);
-	signal(SIGINT, sig_hnd);
-	signal(SIGQUIT, sig_hnd);
 	g_state.envp = env_split_to_list(envp);
 	g_state.here_quote = 0;
 	g_state.am_child = 0;

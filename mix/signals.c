@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:30:48 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 20:20:18 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:50:45 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 void	sig_hnd(int sig)
 {
-	(void)sig;
+	printf("%d\n", sig);
+	rl_on_new_line();
+	rl_redisplay();
+	prompt();
 }

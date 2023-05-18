@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:14:56 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:36:17 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/18 21:46:05 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	checkarg_export2(char *arg)
 	find = (long)ft_strchr(arg, '-') + (long)ft_strchr(arg, '?')
 		+ (long)ft_strchr(arg, '{') + + (long)ft_strchr(arg, '}')
 		+ (long)ft_strchr(arg, '.');
+	if (ft_isdigit(arg[0]))
+		find++;
 	if (find != 0)
 		return (-1);
 	if (find != 0)
