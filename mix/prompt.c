@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 20:20:40 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:46:13 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	prompt(void)
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
+		free(command);
 		if (tokens)
 		{
 			ft_executer(tokens);
 			ft_tknclear(&tokens);
 		}
-		free(command);
 	}
 }

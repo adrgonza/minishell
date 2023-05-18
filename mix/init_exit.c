@@ -6,11 +6,18 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 20:20:55 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:49:12 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	global_init(void)
+{
+	g_state.here_quote = 0;
+	g_state.am_child = 0;
+	g_state.expand = 0;
+}
 
 int	ft_init(int argc, char **argv, char **envp)
 {
@@ -21,9 +28,8 @@ int	ft_init(int argc, char **argv, char **envp)
 		return (0);
 	signal(SIGINT, sig_hnd);
 	signal(SIGQUIT, sig_hnd);
+	global_init();
 	g_state.envp = env_split_to_list(envp);
-	g_state.here_quote = 0;
-	g_state.am_child = 0;
 	envt = ft_envfind("HOME");
 	if (envt != NULL && envt->args != NULL)
 	{

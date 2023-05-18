@@ -6,11 +6,37 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 19:07:55 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:42:00 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*ft_strjoin_s(char *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	if (!s1)
+		return (0);
+	str = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	if (s1)
+	{
+		free(s1);
+		s1 = NULL;
+	}
+	return (str);
+}
 
 void	reordenate_tools(t_token **tkn)
 {
@@ -92,6 +118,7 @@ void	check_quotes_if(char **cmd, int *i, int *multi)
 		if (g_state.here_quote == 1)
 			(*cmd) = remove_quotes((*cmd), multi[0]);
 	}
+	g_state.expand = multi[0];
 }
 
 char	*check_quotes(char *cmd)
