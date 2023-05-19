@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 17:37:06 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 23:44:07 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 01:43:52 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_token	*parsing(char *cmd)
 		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
 		if (i == ft_strlen(cmd))
-			return (NULL);
+			break;
 		type = get_type(cmd, i);
 		args = get_args(type, cmd, i);
 		ft_tknadd_back(&token, ft_tknnew(type, args));
