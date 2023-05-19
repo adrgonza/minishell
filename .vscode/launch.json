@@ -11,10 +11,10 @@
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            "MIMode": "lldb",
-            "preLaunchTask": "C/C++: gcc build active file"//,
-            //"setupCommands": [
-            //    {"text": "-gdb-set follow-fork-mode child"}
+            "MIMode": "gdb",
+            "preLaunchTask": "C/C++: gcc build active file",
+            "setupCommands": [
+                {"text": "-gdb-set follow-fork-mode child"}
             ]
         }
     ]
