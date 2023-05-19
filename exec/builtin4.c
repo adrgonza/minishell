@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:14:56 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:36:17 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/19 19:55:35 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ int	checkarg_export2(char *arg)
 		+ (long)ft_strchr(arg, '.');
 	if (find != 0)
 		return (-1);
-	if (find != 0)
-		return (-1);
 	return (0);
 }
 
@@ -74,7 +72,7 @@ int	builtin_export(t_token *token)
 		if (str[0] == NULL || str[1] == NULL)
 			return (builtin_error());
 		if (checkarg_export2(str[0]))
-			return (not_vallid_id(token->args[ct]));
+			return (free(str[0]), free(str[1]), not_vallid_id(token->args[ct]));
 		env = ft_envnew(str[0], str[1]);
 		if (env == NULL)
 			return (builtin_error());

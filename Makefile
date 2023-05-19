@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
+#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/19 12:23:29 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/05/19 20:26:54 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,19 +30,19 @@ OBJS = ${SRCS:.c=.o}
 
 MAINOBJ = ${MAIN:.c=.o}
 
-CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
-READLINE_FLAGS = -lreadline  #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
+CFLAGS = -I/Users/amejia/minishell/homebrew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
+LDFLAGS = -L/Users/amejia/minishell/homebrew/opt/readline/lib -lreadline
 
 all: $(NAME)
 
- $(NAME): $(OBJS) $(MAINOBJ) libft/libft.a
-	$(CC) $(CFLAGS) $(OBJS) $(MAINOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
+$(NAME): $(OBJS) $(MAINOBJ) libft/libft.a
+	$(CC) $(CFLAGS) $(OBJS) $(MAINOBJ) libft/libft.a $(LDFLAGS) -o $@
 
 $(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
-	$(CC) $(CFLAGS)  $(OBJS) $(TESTOBJ) libft/libft.a $(READLINE_FLAGS) -o $@
+	$(CC) $(CFLAGS)  $(OBJS) $(TESTOBJ) libft/libft.a $(LDFLAGS) -o $@
 
 $(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
-	$(CC) $(CFLAGS) -D DEBUG=1 -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(READLINE_FLAGS) libft/libft.a -o $@
+	$(CC) $(CFLAGS) -D DEBUG=1 -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(LDFLAGS) libft/libft.a -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
