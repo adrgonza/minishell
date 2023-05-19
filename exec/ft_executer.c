@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 01:50:48 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:41:17 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	ft_executer(t_token *token)
 
 	it[6] = count_commands(token);
 	id = ft_calloc(it[6], sizeof(int));
+	g_state.id = id;
 	it[3] = 0;
 	it[2] = -1;
 	if (ft_executerloop(token, it, id) == -1)

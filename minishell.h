@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 20:27:37 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/19 20:40:53 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_state{
 	char	*home_dir;
 	int		here_quote;
 	int		expand;
+	int		*id;
 }	t_state;
 
 typedef struct s_token{

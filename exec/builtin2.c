@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 20:15:48 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:42:03 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	builtin_exit(t_token *token, int *id)
 		token = token->last;
 	ft_tknclear(&token);
 	ft_envclear(&g_state.envp);
+	free(g_state.id);
 	free(g_state.home_dir);
-	exit (a);
-	return (a);
+	return (exit (a), a);
 }
