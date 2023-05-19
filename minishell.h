@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 20:40:53 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/20 00:02:37 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define T_GREAT		8
 # define T_GREATGREAT	9
 
+
 typedef struct s_env{
 	char			*name;
 	char			*args;
@@ -53,6 +54,7 @@ typedef struct s_state{
 	int		here_quote;
 	int		expand;
 	int		*id;
+	int		status;
 }	t_state;
 
 typedef struct s_token{
