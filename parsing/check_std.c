@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:36:09 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/10 16:50:54 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:52:24 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int	check_stdin(t_token *token)
 	return (1);
 }
 
-int	check_stdout(t_token *token)
+int	check_stdout(t_token *token, char *cmd)
 {
+	if (g_state.expand)
+		free(cmd);
 	while (token && token->next)
 		token = token->next;
 	if (token && (token->type == T_GREAT || token->type == T_GREATGREAT))

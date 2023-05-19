@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 22:53:51 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/19 14:12:36 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	prompt(void)
 			ft_executer(tokens);
 			ft_tknclear(&tokens);
 		}
+		if (command[0] != '\n')
+			add_history(command);
 		free(command);
 	}
 }
@@ -72,7 +74,7 @@ void	prompt_debug(void)
 	while (command != NULL)
 	{
 		if (w % 2 == 0)
-			command = ft_strdup("exit 5");
+			command = ft_strdup("/bin/echo \"'$USER'\"");
 		else
 			command = ft_strdup("");
 		if (command == NULL)

@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/16 22:39:57 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 13:54:21 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_state	g_state;
+
+void leaks()
+{
+	system("leaks -q minishell");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -22,5 +27,8 @@ int	main(int argc, char **argv, char **envp)
 		prompt();
 	else
 		prompt_debug();
+	ft_envclear(&g_state.envp);
+	free(g_state.home_dir);
+	rl_clear_history();
 	return (g_state.last_return);
 }

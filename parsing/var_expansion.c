@@ -6,37 +6,11 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 20:52:40 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:20:54 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*ft_strjoin_s(char *s1, char const *s2)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	if (!s1)
-		return (0);
-	str = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (s1[++i])
-		str[i] = s1[i];
-	while (s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	if (s1)
-	{
-		free(s1);
-		s1 = NULL;
-	}
-	return (str);
-}
 
 char	*inter_expansion(char *cmd, int i, int first)
 {
@@ -65,6 +39,24 @@ char	*inter_expansion(char *cmd, int i, int first)
 	return (free(rest), expanded_cmd);
 }
 
+char	*expansion_tools2(char **splitted, t_env *data, char *xp_cmd)
+{
+	int	j;
+
+	j = -1;
+	while (splitted[++j])
+	{
+		if (j != 0 || data->args[0] == ' ')
+			xp_cmd = ft_strjoin_s(xp_cmd, " ");
+		xp_cmd = ft_strjoin_s(xp_cmd, "\"");
+		xp_cmd = ft_strjoin_s(xp_cmd, splitted[j]);
+		if (!splitted[j + 1] && (data->args[ft_strlen(data->args) - 1] == ' ' ))
+			xp_cmd = ft_strjoin_s(xp_cmd, " ");
+		xp_cmd = ft_strjoin_s(xp_cmd, "\"");
+	}
+	return (xp_cmd);
+}
+
 char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 {
 	char	*var;
@@ -89,6 +81,8 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 				xp_cmd = ft_strjoin_s(xp_cmd, " ");
 			xp_cmd = ft_strjoin_s(xp_cmd, "\"");
 		}
+		ft_free_split(splitted);
+		xp_cmd = expansion_tools2(splitted, data, xp_cmd);
 		ft_free_split(splitted);
 	}
 	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_') && cmd[i - 2] != '~')

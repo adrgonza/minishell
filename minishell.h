@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 21:27:17 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:18:46 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include "libft/libft.h"
+# include <signal.h>
 # include <sys/errno.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <limits.h> //change to mac on campus
+# include <linux/limits.h> //change to mac on campus
 
 # define T_STDOUT		1
 # define T_STDIN		2
@@ -49,7 +50,7 @@ typedef struct s_state{
 	int		am_child;
 	char	*home_dir;
 	int		here_quote;
-	int		signal;
+	int		expand;
 }	t_state;
 
 typedef struct s_token{
@@ -62,6 +63,7 @@ typedef struct s_token{
 
 /* mix */
 void	sig_hnd(int sig);
+void	leaks(void);
 /*tkn*/
 void	ft_tknadd_back(t_token **lst, t_token *new);
 void	ft_tknadd_front(t_token **lst, t_token *new);
@@ -76,6 +78,7 @@ void	ft_tknswap_next(t_token *token);
 void	ft_print_tkn(t_token *token);
 void	ft_print_tkns(t_token *token);
 void	ft_first_tkn(t_token **token);
+void	ft_tkndelone2(t_token *lst);
 
 /*env*/
 void	ft_envadd_back(t_env **lst, t_env *new);
@@ -105,7 +108,7 @@ char	**get_cmd_args(char *command, int i);
 int		get_type(char *command, int i);
 int		next_arg(int type, char *cmd, int i, char **args);
 int		count_letters(char *cmd, int i);
-int		check_stdout(t_token *token);
+int		check_stdout(t_token *token, char *cmd);
 int		check_stdin(t_token *token);
 int		count_words(char *cmd, int i);
 int		redict_word_count(char *cmd, int j);
@@ -124,6 +127,7 @@ char	**arrayjoin(char **array1, char **array2);
 int		check_parsing_errors(char cmd, int s_qte, int d_qte);
 char	*expand_tilde(char *cmd, int i, int first);
 char	*remove_quotes(char *cmd, int first);
+char	*ft_strjoin_s(char *s1, char const *s2);
 
 /* executing*/
 void	ft_executer(t_token *token);

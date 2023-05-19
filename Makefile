@@ -6,7 +6,7 @@
 #    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/18 21:58:27 by amejia           ###   ########.fr        #
+#    Updated: 2023/05/19 13:41:33 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ OBJS = ${SRCS:.c=.o}
 MAINOBJ = ${MAIN:.c=.o}
 
 CFLAGS = #-fsanitize=address -g #-Wall -Werror -Wextra
-READLINE_FLAGS = -lreadline  #-lrea #
+READLINE_FLAGS = -lreadline  #"-L/Users/adrgonza/.brew/opt/readline/lib/" #
 
 all: $(NAME)
 

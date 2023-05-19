@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 12:15:48 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 01:07:09 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ char	**arrayjoin(char **array1, char **array2)
 	while (array2[j])
 		aux[i++] = ft_strdup(array2[j++]);
 	i = -1;
-	while (array1[++i])
-		free(array1[i]);
-	free(array1);
+	ft_free_split(array1);
 	return (aux);
 }
 
