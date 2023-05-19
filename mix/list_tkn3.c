@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 23:12:27 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 00:44:37 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:14:14 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_first_tkn(t_token **token)
 {
-	while ((*token)->last != NULL)
+	while ((*token) && (*token)->last)
 		(*token) = (*token)->last;
 }
 

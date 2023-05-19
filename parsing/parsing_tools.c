@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/19 01:07:09 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:19:26 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int	check_pipes_cmd(t_token *token)
 int	check_parsing_errors(char cmd, int s_qte, int d_qte)
 {
 	if (cmd == ';' && s_qte % 2 == 0 && d_qte % 2 == 0)
-		return (ft_putstr_fd("syntax error near unexpected token `;'\n", 2),
+		return (ft_putstr_fd("Syntax error near unexpected token `;'\n", 2),
 			g_state.last_return = 0, 0);
 	if (cmd == '\\' && s_qte % 2 == 0 && d_qte % 2 == 0)
-		return (ft_putstr_fd("syntax error near unexpected token `\\'\n", 2),
+		return (ft_putstr_fd("Syntax error near unexpected token `\\'\n", 2),
 			g_state.last_return = 0, 0);
 	return (1);
 }

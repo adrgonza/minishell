@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/19 13:18:51 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:20:04 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	reordenate_tools(t_token **tkn)
 					(*tkn)->last->next = (*tkn)->next;
 				ft_first_tkn(tkn);
 				ft_tkndelone(tk);
+				return ;
 			}
 		}
 	}
@@ -67,6 +68,7 @@ void	reordenate_tools(t_token **tkn)
 		{
 			ft_tknswap_next(*tkn);
 			ft_first_tkn(tkn);
+			return ;
 		}
 	}
 }
@@ -92,7 +94,7 @@ void	reordenate_tokens(t_token	**tkn)
 			}
 		}
 		if ((*tkn)->next && (*tkn)->next->type == 1)
-			break;
+			return (ft_first_tkn(tkn));
 		if ((*tkn)->next)
 			*tkn = (*tkn)->next;
 	}
@@ -141,6 +143,9 @@ char	*check_quotes(char *cmd)
 		check_quotes_if(&cmd, &i, multi);
 	}
 	if (multi[1] % 2 != 0 || multi[2] % 2 != 0)
-		return (perror("syntax error near close quotes\n"), NULL);
+	{
+		g_state.last_return = 0;
+		return (ft_putstr_fd("Syntax error near close quotes.\n", 2), NULL);
+	}
 	return (cmd);
 }
