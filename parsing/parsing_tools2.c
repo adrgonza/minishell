@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/19 01:06:51 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 13:18:51 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	reordenate_tools(t_token **tkn)
 			if ((*tkn)->next->next && (*tkn)->next->next->type == T_COMMAND)
 			{
 				*tkn = (*tkn)->next->next;
-				if ((*tkn)->next)
-					(*tkn)->last->next = (*tkn)->next;
 				(*tkn)->last->last->args
 					= arrayjoin((*tkn)->last->last->args, (*tkn)->args);
 				tk = *tkn;
+				if ((*tkn)->next)
+					(*tkn)->last->next = (*tkn)->next;
 				ft_first_tkn(tkn);
 				ft_tkndelone(tk);
 			}
@@ -91,6 +91,8 @@ void	reordenate_tokens(t_token	**tkn)
 				ft_first_tkn(tkn);
 			}
 		}
+		if ((*tkn)->next && (*tkn)->next->type == 1)
+			break;
 		if ((*tkn)->next)
 			*tkn = (*tkn)->next;
 	}
@@ -103,8 +105,8 @@ void	check_quotes_if(char **cmd, int *i, int *multi)
 		multi[1]++;
 	if ((*cmd)[(*i)] == '\'' && (multi[1] % 2 == 0))
 		multi[2]++;
-	if ((*cmd)[(*i)] && (*cmd)[(*i)] == '~' && multi[1] % 2 == 0 && multi[2] % 2
-		== 0 && (((*i) - 1) < 0 || (*cmd)[(*i) - 1] == ' ') && (!(*cmd)[*i + 1]
+	if ((*cmd)[(*i)] && (*cmd)[*i] == '~' && multi[1] % 2 == 0 && multi[2] % 2
+		== 0 && (((*i) - 1) < 0 || (*cmd)[*i - 1] == ' ') && (!(*cmd)[*i + 1]
 		|| (*cmd)[(*i) + 1] == ' ' || (*cmd)[(*i) + 1] == '/'))
 		(*cmd) = expand_tilde((*cmd), (*i)--, multi[0]++);
 	if ((*i) >= 0 && (*cmd)[*i] && ((*cmd)[*i] == '|' || (*cmd)[(*i)] == '>')

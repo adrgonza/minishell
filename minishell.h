@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 13:18:46 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/18 23:19:10 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include "libft/libft.h"
-# include <signal.h>
 # include <sys/errno.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <linux/limits.h> //change to mac on campus
+# include <limits.h> //change to mac on campus
 
 # define T_STDOUT		1
 # define T_STDIN		2
@@ -152,7 +151,7 @@ void	malloc_fail_proc(void);
 t_token	*redirect_check(t_token *token);
 int		set_pipeoutput2(t_token *token, int *nextinput);
 int		builtin_env(t_token *token);
-int		check_valid(char *enter);
+int		check_valid(int argc, char **argv);
 void	export_if(t_token *token, char **str, int ct);
 
 /* declare global var*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/19 13:20:54 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/18 20:53:16 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 {
 	char	*var;
 	char	**splitted;
-	int		j;
 
 	ft_strlcpy(xp_cmd, cmd, i++);
 	if (data && data->args)
@@ -70,18 +69,6 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 		if (!splitted[0])
 			if (data->args[0] == ' ')
 				xp_cmd = ft_strjoin_s(xp_cmd, " ");
-		j = -1;
-		while (splitted[++j])
-		{
-			if (j != 0 || data->args[0] == ' ')
-				xp_cmd = ft_strjoin_s(xp_cmd, " ");
-			xp_cmd = ft_strjoin_s(xp_cmd, "\"");
-			xp_cmd = ft_strjoin_s(xp_cmd, splitted[j]);
-			if (!splitted[j + 1] && (data->args[ft_strlen(data->args) - 1] == ' ' ))
-				xp_cmd = ft_strjoin_s(xp_cmd, " ");
-			xp_cmd = ft_strjoin_s(xp_cmd, "\"");
-		}
-		ft_free_split(splitted);
 		xp_cmd = expansion_tools2(splitted, data, xp_cmd);
 		ft_free_split(splitted);
 	}
