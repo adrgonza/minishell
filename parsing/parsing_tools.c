@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/19 15:19:26 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:02:08 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**arrayjoin(char **array1, char **array2)
 		;
 	aux = ft_calloc(sizeof(char *), (j + i + 1));
 	if (!aux)
-		return (NULL);
+		return (malloc_fail_proc(), NULL);
 	i = -1;
 	while (array1[++i])
 		aux[i] = ft_strdup(array1[i]);
@@ -89,7 +89,7 @@ char	*expand_tilde(char *cmd, int i, int first)
 		args_len = ft_strlen(data->args);
 	expanded_cmd = ft_calloc(1, (ft_strlen(cmd) + args_len) + 3);
 	if (!expanded_cmd)
-		return (NULL);
+		return (malloc_fail_proc(), NULL);
 	expanded_cmd = expansion_tools(cmd, expanded_cmd, ++i, data);
 	if (first)
 		free(cmd);

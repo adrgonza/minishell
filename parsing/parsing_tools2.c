@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/19 17:20:04 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:03:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*ft_strjoin_s(char *s1, char const *s2)
 
 	if (!s1)
 		return (0);
-	str = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	str = (char *)ft_calloc(sizeof(*s1), (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
-		return (NULL);
+		return (malloc_fail_proc(), NULL);
 	i = -1;
 	j = 0;
 	while (s1[++i])

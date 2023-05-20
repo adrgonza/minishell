@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 20:53:16 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:05:55 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*inter_expansion(char *cmd, int i, int first)
 		nb /= 10;
 	expanded_cmd = ft_calloc(sizeof(char), ft_strlen(cmd) - 2 + j + 1);
 	if (!expanded_cmd)
-		return (NULL);
+		return (malloc_fail_proc(), NULL);
 	ft_strlcpy(expanded_cmd, cmd, ++i);
 	expanded_cmd = ft_strjoin_s(expanded_cmd, "\"");
 	rest = ft_itoa(g_state.last_return);
@@ -111,7 +111,7 @@ char	*variable_expansion(char *cmd, int i, int first)
 		args_len = ft_strlen(data->args);
 	expanded_cmd = ft_calloc(1, (ft_strlen(cmd) + args_len - (len - i) + 3));
 	if (!expanded_cmd)
-		return (NULL);
+		return (malloc_fail_proc(), NULL);
 	expanded_cmd = expansion_tools(cmd, expanded_cmd, i, data);
 	if (first || g_state.here_quote == 1)
 		free(cmd);

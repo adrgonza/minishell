@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 18:29:29 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:00:47 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ char	**get_redict_args(char *cmd, int i, int type)
 	int		j;
 
 	j = redict_args_tool(i, j, type, cmd);
-	args = malloc(sizeof(char *) * redict_word_count(cmd, j));
+	args = ft_calloc(sizeof(char *), redict_word_count(cmd, j));
 	if (!args)
 		return (malloc_fail_proc(), NULL);
 	if (redict_word_count(cmd, j) == 1)
-		return (args[0] = NULL, args);
-	args[0] = malloc(sizeof(char) * (count_letters(cmd, j) + 1));
+		return (args);
+	args[0] = ft_calloc(sizeof(char), (count_letters(cmd, j) + 1));
 	if (!args[0])
 		return (free(args), malloc_fail_proc(), NULL);
 	i = 0;
@@ -48,7 +48,7 @@ char	**get_redict_args(char *cmd, int i, int type)
 		else
 			args[0][i++] = cmd[j++];
 	}
-	return (args[0][i] = 0, args[1] = NULL, args);
+	return (args);
 }
 
 char	**cmd_args_tools(char **args, char *cmd, int *i, int j)
@@ -57,7 +57,7 @@ char	**cmd_args_tools(char **args, char *cmd, int *i, int j)
 
 	args[j] = ft_calloc(sizeof(char), (count_letters(cmd, *i) + 1));
 	if (!args[j])
-		exit(0);
+		return (malloc_fail_proc(), NULL);
 	k = 0;
 	while (cmd[*i] && cmd[*i] != ' ' && cmd[*i] != '\t'
 		&& cmd[*i] != '|' && cmd[*i] != '<' && cmd[*i] != '>')
@@ -84,7 +84,7 @@ char	**get_cmd_args(char *cmd, int i)
 	word_count = count_words(cmd, i);
 	args = ft_calloc(sizeof(char *), (word_count + 1));
 	if (!args)
-		return (printf("Malloc KO.\n"), exit(0), NULL);
+		return (malloc_fail_proc(), NULL);
 	j = 0;
 	while (j < word_count)
 	{
