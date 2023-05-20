@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
+#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/19 20:26:54 by amejia           ###   ########.fr        #
+#    Updated: 2023/05/20 16:20:42 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,10 @@ OBJS = ${SRCS:.c=.o}
 
 MAINOBJ = ${MAIN:.c=.o}
 
-CFLAGS = -I/Users/amejia/minishell/homebrew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
-LDFLAGS = -L/Users/amejia/minishell/homebrew/opt/readline/lib -lreadline
+#CFLAGS = -I/Users/amejia/minishell/homebrew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
+#LDFLAGS = -L/Users/amejia/minishell/homebrew/opt/readline/lib -lreadline
+CFLAGS = -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
+LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
 all: $(NAME)
 
