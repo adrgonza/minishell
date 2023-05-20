@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 23:19:10 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:02:37 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@
 #  define DEBUG 0
 # endif
 
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
-# include "libft/libft.h"
 # include <sys/errno.h>
 # include <string.h>
+# include <limits.h> //change to mac on campus
+
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <limits.h> //change to mac on campus
+# include "libft/libft.h"
 
 # define T_STDOUT		1
 # define T_STDIN		2
@@ -35,6 +37,7 @@
 # define T_LESSLESS		7
 # define T_GREAT		8
 # define T_GREATGREAT	9
+
 
 typedef struct s_env{
 	char			*name;
@@ -50,6 +53,8 @@ typedef struct s_state{
 	char	*home_dir;
 	int		here_quote;
 	int		expand;
+	int		*id;
+	int		status;
 }	t_state;
 
 typedef struct s_token{

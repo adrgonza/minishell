@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/15 23:35:43 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/19 19:56:26 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	builtin_env(t_token *token)
 		return (ft_envprint());
 }
 
+
 int	builtin_unset(t_token *token)
 {
 	t_env	*env;
@@ -58,8 +59,13 @@ int	builtin_unset(t_token *token)
 	while (token->args[ct] != NULL)
 	{
 		localsplit = ft_split(token->args[ct], '=');
-		if (localsplit == NULL || *localsplit == NULL)
+		if (localsplit == NULL)
 			return (builtin_error());
+		if (*localsplit == NULL)
+		{
+			ft_free_split(localsplit);
+			return (builtin_error());
+		}
 		env = ft_envnew(localsplit[0], localsplit[1]);
 		if (env == NULL)
 			return (builtin_error());

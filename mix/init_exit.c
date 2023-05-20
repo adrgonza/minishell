@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 21:49:12 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:46:34 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	global_init(void)
 	g_state.here_quote = 0;
 	g_state.am_child = 0;
 	g_state.expand = 0;
+	g_state.id = NULL;
 }
 
 int	ft_init(int argc, char **argv, char **envp)
