@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tools2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/21 15:58:45 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/21 17:51:52 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,18 @@ void	reordenate_tokens(t_token	**tkn)
 
 void	check_quotes_if(char **cmd, int *i, int *multi)
 {
-	if ((*cmd)[(*i)] == '"' && (multi[2] % 2 == 0))
-		multi[1]++;
-	if ((*cmd)[(*i)] == '\'' && (multi[1] % 2 == 0))
-		multi[2]++;
 	if ((*cmd)[(*i)] && (*cmd)[*i] == '~' && multi[1] % 2 == 0 && multi[2] % 2
 		== 0 && (((*i) - 1) < 0 || (*cmd)[*i - 1] == ' ') && (!(*cmd)[*i + 1]
 		|| (*cmd)[(*i) + 1] == ' ' || (*cmd)[(*i) + 1] == '/'))
-		(*cmd) = expand_tilde((*cmd), (*i)--, multi[0]++);
+		{
+			(*cmd) = expand_tilde((*cmd), (*i), multi[0]++);
+			if (g_state.here_quote == 1)
+				(*cmd) = remove_quotes((*cmd), multi[0]);
+		}
+	if ((*cmd)[(*i)] && (*cmd)[(*i)] == '"' && (multi[2] % 2 == 0))
+		multi[1]++;
+	if ((*cmd)[(*i)] && (*cmd)[(*i)] == '\'' && (multi[1] % 2 == 0))
+		multi[2]++;
 	if ((*i) >= 0 && (*cmd)[*i] && ((*cmd)[*i] == '|' || (*cmd)[(*i)] == '>')
 		&& multi[1] % 2 == 0 && multi[2] % 2 == 0)
 		multi[3] = 0;

@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/20 18:02:08 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:40:00 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,33 @@ int	check_parsing_errors(char cmd, int s_qte, int d_qte)
 	return (1);
 }
 
+char	*expansion_tools_tilde(char *cmd, char *xp_cmd, int i, t_env *data)
+{
+	char	*var;
+	char	**splitted;
+
+	if (cmd[i] && cmd[i] == '~' && i > 0)
+		i--;
+	ft_strlcpy(xp_cmd, cmd, ++i);
+	xp_cmd = ft_strjoin_s(xp_cmd, " ");
+	if (data && data->args)
+	{
+		splitted = ft_split(data->args, ' ');
+		if (!splitted[0])
+			if (data->args[0] == ' ')
+				xp_cmd = ft_strjoin_s(xp_cmd, " ");
+		xp_cmd = expansion_tools2(splitted, data, xp_cmd);
+		ft_free_split(splitted);
+	}
+	while (cmd[i] && (ft_isalnum(cmd[i])
+		|| cmd[i] == '_') && cmd[i - 2] && cmd[i - 2] != '~')
+		i++;
+	var = ft_substr(cmd, i + 1, ft_strlen(cmd) - i + 1);
+	xp_cmd = ft_strjoin_s(xp_cmd, var);
+	free(var);
+	return (xp_cmd);
+}
+
 char	*expand_tilde(char *cmd, int i, int first)
 {
 	char	*expanded_cmd;
@@ -90,7 +117,7 @@ char	*expand_tilde(char *cmd, int i, int first)
 	expanded_cmd = ft_calloc(1, (ft_strlen(cmd) + args_len) + 3);
 	if (!expanded_cmd)
 		return (malloc_fail_proc(), NULL);
-	expanded_cmd = expansion_tools(cmd, expanded_cmd, ++i, data);
+	expanded_cmd = expansion_tools_tilde(cmd, expanded_cmd, i, data);
 	if (first)
 		free(cmd);
 	return (expanded_cmd);

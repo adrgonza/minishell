@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/20 20:22:56 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/21 17:41:19 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ int		check_parsing_errors(char cmd, int s_qte, int d_qte);
 char	*expand_tilde(char *cmd, int i, int first);
 char	*remove_quotes(char *cmd, int first);
 char	*ft_strjoin_s(char *s1, char const *s2);
+char	*expansion_tools2(char **splitted, t_env *data, char *xp_cmd);
+char	*expansion_tools_tilde(char *cmd, char *xp_cmd, int i, t_env *data);
 
 /* executing*/
 void	ft_executer(t_token *token);

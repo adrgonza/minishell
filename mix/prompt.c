@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/21 15:48:14 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/21 16:34:25 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	prompt(void)
 {
 	char	*command;
 	t_token	*tokens;
-	
+
 	command = (char *)1;
 	while (command != NULL)
 	{
@@ -62,7 +62,7 @@ void	prompt_debug(void)
 	char	*command;
 	t_token	*tokens;
 	t_token	*last;
-	char	*prompt;
+	//char	*prompt;
 	int		w;
 
 	w = 0;
