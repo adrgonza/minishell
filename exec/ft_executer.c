@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 20:41:17 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/21 13:39:38 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_executerloop(t_token *token, int *it, int *id)
 				continue ;
 			}
 			if (it[6] == 1 && check_builtin(token) == 0)
-				ft_builtinexec(token, id);
+				ft_builtinexec(token);
 			else
 			{
 				id[it[3]] = fork_exec(token, it, id);

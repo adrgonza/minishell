@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 20:46:34 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/20 20:00:29 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	global_init(void)
 	g_state.am_child = 0;
 	g_state.expand = 0;
 	g_state.id = NULL;
+	g_state.status = 0;
 }
 
 int	ft_init(int argc, char **argv, char **envp)

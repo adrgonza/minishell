@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/20 18:05:55 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:00:29 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 		xp_cmd = expansion_tools2(splitted, data, xp_cmd);
 		ft_free_split(splitted);
 	}
-	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_') && cmd[i - 2] != '~')
+	while (cmd[i] && cmd[i - 2] != '~' && (ft_isalnum(cmd[i]) || cmd[i] == '_') )
 		i++;
 	if (cmd[i - 2] == '~')
 		i--;

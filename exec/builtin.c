@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:54:03 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 20:14:53 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/20 20:12:31 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_builtinexec(t_token *token, int *id)
+void	ft_builtinexec(t_token *token)
 {
 	int		status;
 	char	*lower;
 
 	lower = token->args[0];
+	g_state.status = S_EXECBUILTIN;
 	if (ft_strncmp(lower, "cd", -1) == 0)
 		status = builtin_cd(token);
 	if (ft_strncmp(lower, "export", -1) == 0)
@@ -29,7 +30,7 @@ void	ft_builtinexec(t_token *token, int *id)
 	if (ft_strncmp(lower, "pwd", -1) == 0)
 		status = builtin_pwd(token);
 	if (ft_strncmp(lower, "exit", -1) == 0)
-		status = builtin_exit(token, id);
+		status = builtin_exit(token);
 	if (ft_strncmp(lower, "echo", -1) == 0)
 		status = builtin_echo(token);
 	g_state.last_return = status;

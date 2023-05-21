@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 23:04:14 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/20 20:02:24 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	here_doc_prompt(t_token *token)
 	int		pip[2];
 	char	*command;
 
+	g_state.status = S_HEREDOC;
+	command = NULL;
 	if (token->args[0] == NULL)
 	{
 		write(STDERR_FILENO, \

@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 20:42:03 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/20 19:49:59 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	builtin_echo(t_token *token)
 	return (0);
 }
 
-int	builtin_exit(t_token *token, int *id)
+int	builtin_exit(t_token *token)
 {
 	int	a;
 	int	b;

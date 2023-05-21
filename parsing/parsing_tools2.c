@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tools2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/20 18:03:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:58:45 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	reordenate_tools(t_token **tkn)
 					= arrayjoin((*tkn)->last->last->args, (*tkn)->args);
 				tk = *tkn;
 				if ((*tkn)->next)
+				{
 					(*tkn)->last->next = (*tkn)->next;
+					(*tkn)->next->last = (*tkn)->last;
+				}
 				ft_first_tkn(tkn);
 				ft_tkndelone(tk);
 				return ;

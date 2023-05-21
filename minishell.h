@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/20 00:02:37 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/20 20:22:56 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/errno.h>
 # include <string.h>
 # include <limits.h> //change to mac on campus
-
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -37,7 +36,11 @@
 # define T_LESSLESS		7
 # define T_GREAT		8
 # define T_GREATGREAT	9
-
+# define S_PROMPT		1
+# define S_HEREDOC		2
+# define S_EXECUTINGCH	3
+# define S_EXECBUILTIN	4
+# define S_STOP			5
 
 typedef struct s_env{
 	char			*name;
@@ -66,7 +69,7 @@ typedef struct s_token{
 }	t_token;
 
 /* mix */
-void	sig_hnd(int sig);
+void	sig_hnd(int nbr);
 void	leaks(void);
 /*tkn*/
 void	ft_tknadd_back(t_token **lst, t_token *new);
@@ -144,14 +147,14 @@ int		set_pipeinput(t_token *token, int *nextfdin);
 
 /* built ins*/
 int		check_builtin(t_token *token);
-void	ft_builtinexec(t_token *token, int *id);
+void	ft_builtinexec(t_token *token);
 int		builtin_cd(t_token *token);
 int		builtin_export(t_token *token);
 int		builtin_unset(t_token *token);
 int		builtin_pwd(t_token *token);
 int		builtin_echo(t_token *token);
 int		builtin_error(void);
-int		builtin_exit(t_token *token, int *id);
+int		builtin_exit(t_token *token);
 void	malloc_fail_proc(void);
 t_token	*redirect_check(t_token *token);
 int		set_pipeoutput2(t_token *token, int *nextinput);
