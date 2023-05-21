@@ -6,7 +6,7 @@
 /*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/19 19:56:26 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/20 19:50:48 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_builtin(t_token *token)
 {
-	int		status;
 	char	*lower;
 	int		ret_val;
 

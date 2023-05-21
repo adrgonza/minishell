@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/18 23:04:27 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/21 13:41:10 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	kid_stuff(t_token *token, int *it, int *id)
 	close(it[2]);
 	if (check_builtin(token) == 0)
 	{
-		ft_builtinexec(token, id);
+		ft_builtinexec(token);
 		free(id);
 		exit(g_state.last_return);
 	}
@@ -48,6 +48,7 @@ int	fork_exec(t_token *token, int *it, int *prev_id)
 		error = kid_stuff(token, it, prev_id);
 	else
 	{
+		g_state.status = S_EXECUTINGCH;
 		if (it[0] != STDIN_FILENO)
 			close(it[0]);
 		if (it[1] != STDOUT_FILENO)
