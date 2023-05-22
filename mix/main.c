@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 13:52:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/21 17:46:37 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:20:54 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,11 @@
 
 t_state	g_state;
 
-void	leaks(void)
-{
-	system("leaks -q minishell");
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	if (!ft_init(argc, argv, envp))
 		return (0);
-	if (DEBUG != 1)
-		prompt();
-	else
-		prompt_debug();
+	prompt_linux();
 	ft_envclear(&g_state.envp);
 	free(g_state.home_dir);
 	return (g_state.last_return);

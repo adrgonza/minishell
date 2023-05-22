@@ -6,41 +6,29 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/21 17:51:52 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:18:00 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strjoin_s(char *s1, char const *s2)
+void	reordenate_tools2(t_token **tkn)
 {
-	int		i;
-	int		j;
-	char	*str;
-
-	if (!s1)
-		return (0);
-	str = (char *)ft_calloc(sizeof(*s1), (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (malloc_fail_proc(), NULL);
-	i = -1;
-	j = 0;
-	while (s1[++i])
-		str[i] = s1[i];
-	while (s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	if (s1)
+	if ((*tkn)->next && (*tkn)->type == T_COMMAND)
 	{
-		free(s1);
-		s1 = NULL;
+		if ((*tkn)->next->next && ((*tkn)->next->type == 6
+				|| (*tkn)->next->type == 7))
+		{
+			ft_tknswap_next(*tkn);
+			ft_first_tkn(tkn);
+			return ;
+		}
 	}
-	return (str);
 }
 
 void	reordenate_tools(t_token **tkn)
 {
-	t_token *tk;
+	t_token	*tk;
 
 	if ((*tkn)->next && (*tkn)->type == T_COMMAND)
 	{
@@ -64,30 +52,20 @@ void	reordenate_tools(t_token **tkn)
 			}
 		}
 	}
-	if ((*tkn)->next && (*tkn)->type == T_COMMAND)
-	{
-		if ((*tkn)->next->next && ((*tkn)->next->type == 6
-				|| (*tkn)->next->type == 7))
-		{
-			ft_tknswap_next(*tkn);
-			ft_first_tkn(tkn);
-			return ;
-		}
-	}
 }
 
 void	reordenate_tokens(t_token	**tkn)
 {
-	if (!check_pipes_cmd(*tkn))
+	if (!check_pipes_cmd(*tkn) || !check_redict_arg(*tkn))
 	{
 		ft_tknclear(tkn);
-		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 		g_state.last_return = 258;
 		return ;
 	}
 	while ((*tkn)->next)
 	{
 		reordenate_tools(tkn);
+		reordenate_tools2(tkn);
 		if ((*tkn)->next && ((*tkn)->type == 8 || (*tkn)->type == 9))
 		{
 			if ((*tkn)->next->next && (*tkn)->next->type == T_COMMAND)
@@ -109,11 +87,7 @@ void	check_quotes_if(char **cmd, int *i, int *multi)
 	if ((*cmd)[(*i)] && (*cmd)[*i] == '~' && multi[1] % 2 == 0 && multi[2] % 2
 		== 0 && (((*i) - 1) < 0 || (*cmd)[*i - 1] == ' ') && (!(*cmd)[*i + 1]
 		|| (*cmd)[(*i) + 1] == ' ' || (*cmd)[(*i) + 1] == '/'))
-		{
 			(*cmd) = expand_tilde((*cmd), (*i), multi[0]++);
-			if (g_state.here_quote == 1)
-				(*cmd) = remove_quotes((*cmd), multi[0]);
-		}
 	if ((*cmd)[(*i)] && (*cmd)[(*i)] == '"' && (multi[2] % 2 == 0))
 		multi[1]++;
 	if ((*cmd)[(*i)] && (*cmd)[(*i)] == '\'' && (multi[1] % 2 == 0))

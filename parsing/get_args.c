@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:18:44 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/20 18:00:47 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:19:29 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**get_redict_args(char *cmd, int i, int type)
 	char	**args;
 	int		j;
 
+	j = 0;
 	j = redict_args_tool(i, j, type, cmd);
 	args = ft_calloc(sizeof(char *), redict_word_count(cmd, j));
 	if (!args)
@@ -79,7 +80,6 @@ char	**get_cmd_args(char *cmd, int i)
 	char	**args;
 	int		word_count;
 	int		j;
-	int		k;
 
 	word_count = count_words(cmd, i);
 	args = ft_calloc(sizeof(char *), (word_count + 1));

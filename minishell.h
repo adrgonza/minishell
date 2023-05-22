@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/21 17:41:19 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:05:08 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
-
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -137,6 +136,7 @@ char	*remove_quotes(char *cmd, int first);
 char	*ft_strjoin_s(char *s1, char const *s2);
 char	*expansion_tools2(char **splitted, t_env *data, char *xp_cmd);
 char	*expansion_tools_tilde(char *cmd, char *xp_cmd, int i, t_env *data);
+int		check_redict_arg(t_token *token);
 
 /* executing*/
 void	ft_executer(t_token *token);

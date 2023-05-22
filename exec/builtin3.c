@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/20 19:50:48 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/22 15:04:58 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	builtin_env(t_token *token)
 	else
 		return (ft_envprint());
 }
-
 
 int	builtin_unset(t_token *token)
 {

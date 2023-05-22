@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:31:16 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/21 17:36:45 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:20:19 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data)
 		xp_cmd = expansion_tools2(splitted, data, xp_cmd);
 		ft_free_split(splitted);
 	}
-	while (cmd[i] && cmd[i - 2] != '~' && (ft_isalnum(cmd[i]) || cmd[i] == '_') )
+	while (cmd[i] && cmd[i - 2] != '~' && (ft_isalnum(cmd[i]) || cmd[i] == '_'))
 		i++;
 	if (cmd[i - 2] == '~')
 		i--;
@@ -99,6 +99,7 @@ char	*variable_expansion(char *cmd, int i, int first)
 	int		len;
 	int		args_len;
 
+	var = NULL;
 	if (cmd[i + 1] == '?')
 		return (inter_expansion(cmd, i, first));
 	var = variable_expansion_tools(cmd, &len, i++, var);

@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:31:28 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/18 21:52:00 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:19:53 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	**get_args(int type, char *command, int i)
 {
 	char	**args;
 
+	args = NULL;
 	if (type == T_PIPE)
 		return (NULL);
 	if (type == T_COMMAND)

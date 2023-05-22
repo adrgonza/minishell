@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/21 17:40:00 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:16:22 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,45 +38,6 @@ char	**arrayjoin(char **array1, char **array2)
 	return (aux);
 }
 
-int	check_pipes_cmd(t_token *token)
-{
-	int	cmd;
-	int	pipe;
-
-	pipe = 1;
-	cmd = 0;
-	while (token->next)
-	{
-		if (token->type == T_COMMAND)
-		{
-			cmd = 1;
-			pipe = 1;
-		}
-		if (token->type == T_PIPE)
-		{
-			if (cmd == 0)
-				return (0);
-			cmd = 0;
-			pipe = 0;
-		}
-		token = token->next;
-	}
-	if (pipe == 0)
-		return (0);
-	return (1);
-}
-
-int	check_parsing_errors(char cmd, int s_qte, int d_qte)
-{
-	if (cmd == ';' && s_qte % 2 == 0 && d_qte % 2 == 0)
-		return (ft_putstr_fd("Syntax error near unexpected token `;'\n", 2),
-			g_state.last_return = 0, 0);
-	if (cmd == '\\' && s_qte % 2 == 0 && d_qte % 2 == 0)
-		return (ft_putstr_fd("Syntax error near unexpected token `\\'\n", 2),
-			g_state.last_return = 0, 0);
-	return (1);
-}
-
 char	*expansion_tools_tilde(char *cmd, char *xp_cmd, int i, t_env *data)
 {
 	char	*var;
@@ -96,7 +57,7 @@ char	*expansion_tools_tilde(char *cmd, char *xp_cmd, int i, t_env *data)
 		ft_free_split(splitted);
 	}
 	while (cmd[i] && (ft_isalnum(cmd[i])
-		|| cmd[i] == '_') && cmd[i - 2] && cmd[i - 2] != '~')
+			|| cmd[i] == '_') && cmd[i - 2] && cmd[i - 2] != '~')
 		i++;
 	var = ft_substr(cmd, i + 1, ft_strlen(cmd) - i + 1);
 	xp_cmd = ft_strjoin_s(xp_cmd, var);
@@ -133,5 +94,31 @@ char	*remove_quotes(char *cmd, int first)
 	str = ft_strtrim(cmd, "\"");
 	if (first == 1)
 		free(cmd);
+	return (str);
+}
+
+char	*ft_strjoin_s(char *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	if (!s1)
+		return (0);
+	str = (char *)ft_calloc(sizeof(*s1), (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (malloc_fail_proc(), NULL);
+	i = -1;
+	j = 0;
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	if (s1)
+	{
+		free(s1);
+		s1 = NULL;
+	}
 	return (str);
 }

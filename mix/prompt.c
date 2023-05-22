@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/21 16:34:25 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:23:15 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	prompt(void)
 		free(command);
 	}
 }
-
+/*
 void	prompt_debug(void)
 {
 	char	*command;
@@ -84,7 +84,6 @@ void	prompt_debug(void)
 		w++;
 	}
 }
-
 void    prompt_linux(void)
 {
     char    *command;
@@ -123,3 +122,4 @@ void    prompt_linux(void)
         free(command);
     }
 }
+*/

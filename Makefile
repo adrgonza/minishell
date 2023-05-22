@@ -6,7 +6,7 @@
 #    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/21 16:37:44 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/05/22 15:21:13 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ exec/builtin2.c exec/builtin3.c exec/builtin4.c exec/builtin5.c exec/heredoc.c \
 parsing/parsing.c parsing/get_args.c parsing/args_tools.c parsing/check_std.c\
 parsing/parsing_tools.c parsing/manage_quotes.c parsing/get_things.c \
 parsing/var_expansion.c parsing/args_tools2.c parsing/parsing_tools2.c \
+parsing/parse_errors.c \
 
 CC = cc
 
@@ -32,7 +33,7 @@ MAINOBJ = ${MAIN:.c=.o}
 
 #CFLAGS = -I/Users/amejia/minishell/homebrew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
 #LDFLAGS = -L/Users/amejia/minishell/homebrew/opt/readline/lib -lreadline
-CFLAGS = -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
+CFLAGS = -I/Users/$(USER)/.brew/opt/readline/include #-Wall -Werror -Wextra
 LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
 all: $(NAME)
