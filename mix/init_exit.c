@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/20 20:00:29 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/23 18:49:12 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_init(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (0);
 	signal(SIGINT, sig_hnd);
-	signal(SIGQUIT, sig_hnd);
+	signal(SIGQUIT, SIG_IGN);
 	global_init();
 	g_state.envp = env_split_to_list(envp);
 	envt = ft_envfind("HOME");

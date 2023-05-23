@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:02:09 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/21 13:39:38 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/23 22:05:17 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_executer(t_token *token)
 	g_state.id = id;
 	it[3] = 0;
 	it[2] = -1;
+	signal(SIGQUIT, sig_hnd);
 	if (ft_executerloop(token, it, id) == -1)
 	{
 		g_state.last_return = 1;
@@ -114,4 +115,5 @@ void	ft_executer(t_token *token)
 	if (it[3] > 0)
 		g_state.last_return = WEXITSTATUS(it[5]);
 	free(id);
+	signal(SIGQUIT, SIG_IGN);
 }
