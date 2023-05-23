@@ -6,14 +6,13 @@
 #    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/22 15:21:13 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/05/23 14:40:45 by adrgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 MAIN = mix/main.c
-NAME_DEBUG = minishell_debug
 
 SRCS = mix/prompt.c mix/list_tkn.c mix/list_tkn2.c mix/init_exit.c \
 mix/list_tkn3.c mix/list_env.c mix/list_env2.c mix/list_env3.c \
@@ -31,8 +30,6 @@ OBJS = ${SRCS:.c=.o}
 
 MAINOBJ = ${MAIN:.c=.o}
 
-#CFLAGS = -I/Users/amejia/minishell/homebrew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
-#LDFLAGS = -L/Users/amejia/minishell/homebrew/opt/readline/lib -lreadline
 CFLAGS = -I/Users/$(USER)/.brew/opt/readline/include #-Wall -Werror -Wextra
 LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
@@ -40,12 +37,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(MAINOBJ) libft/libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(MAINOBJ) libft/libft.a $(LDFLAGS) -o $@
-
-$(NAMETEST): $(OBJS) $(TESTOBJ) libft/libft.a
-	$(CC) $(CFLAGS)  $(OBJS) $(TESTOBJ) libft/libft.a $(LDFLAGS) -o $@
-
-$(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
-	$(CC) $(CFLAGS) -D DEBUG=1 -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(LDFLAGS) libft/libft.a -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -61,10 +52,6 @@ fclean: clean
 	rm -f $(NAME) $(TEST) $(NAME_DEBUG)
 	make -C libft fclean
 
-test: $(NAMETEST)
-
-VS_debug: $(NAME_DEBUG)
-
 re: fclean all
 
-.PHONY: all clean fclean re bonus VS_debug
+.PHONY: all clean fclean re
