@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/22 15:38:43 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/24 00:59:32 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	reordenate_tokens(t_token	**token);
 char	*expansion_tools(char *cmd, char *xp_cmd, int i, t_env *data);
 int		check_pipes_cmd(t_token *token);
 char	**arrayjoin(char **array1, char **array2);
-int		check_parsing_errors(char cmd, int s_qte, int d_qte);
+int		check_parsing_errors(char *cmd, int s_qte, int d_qte, int i);
 char	*expand_tilde(char *cmd, int i, int first);
 char	*remove_quotes(char *cmd, int first);
 char	*ft_strjoin_s(char *s1, char const *s2);
