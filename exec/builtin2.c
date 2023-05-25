@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/23 16:29:05 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:56:18 by amejia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	builtin_exit(t_token *token)
 	a = 0;
 	write(STDERR_FILENO, "exit\n", 5);
 	b = 1;
-	if (token->args[1] != NULL && check_valid(1, token->args + 1))
+	if (token->args[1] != NULL && check_valid(token->args[1]))
 	{
 		a = 255;
 		write(STDERR_FILENO, "Minishell: exit: numeric argument needed\n", 42);
@@ -112,11 +112,12 @@ int	builtin_exit(t_token *token)
 		write(STDERR_FILENO, "Minishell: Exit: too many arguments\n", 30);
 		return (1);
 	}
-	while (token->last != NULL)
-		token = token->last;
+	ft_first_tkn(&token);
 	ft_tknclear(&token);
 	ft_envclear(&g_state.envp);
-	free(g_state.id);
 	free(g_state.home_dir);
-	return (exit (a), a);
+	free(g_state.id);
+	rl_clear_history();
+	exit (a);
+	return (a);
 }

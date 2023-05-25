@@ -3,14 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+         #
+#    By: amejia <amejia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 14:12:43 by amejia            #+#    #+#              #
-#    Updated: 2023/05/23 14:40:45 by adrgonza         ###   ########.fr        #
+#    Updated: 2023/05/23 23:00:49 by amejia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
+NAME_DEBUG = minishell_debug
 
 MAIN = mix/main.c
 
@@ -30,19 +31,26 @@ OBJS = ${SRCS:.c=.o}
 
 MAINOBJ = ${MAIN:.c=.o}
 
-CFLAGS = -I/Users/$(USER)/.brew/opt/readline/include #-Wall -Werror -Wextra
-LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
+CFLAGS = -I/Users/amejia/homebrew/opt/readline/include -fsanitize=address -g #-Wall -Werror -Wextra
+LDFLAGS = -L/Users/amejia/homebrew/opt/readline/lib -lreadline
+#CFLAGS = -I/Users/$(USER)/.brew/opt/readline/include #-Wall -Werror -Wextra
+#LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MAINOBJ) libft/libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(MAINOBJ) libft/libft.a $(LDFLAGS) -o $@
 
+$(NAME_DEBUG): $(SRCS) $(MAINOBJ) libft/libft.a
+	$(CC) $(CFLAGS) -D DEBUG=1 -fdiagnostics-color=always -g $(SRCS) $(MAIN) $(LDFLAGS) libft/libft.a -o $@
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 libft/libft.a:
 	make -C libft
+
+VS_debug: $(NAME_DEBUG)
 
 clean:
 	rm -f $(OBJS) $(MAINOBJ) $(TESTOBJ)
