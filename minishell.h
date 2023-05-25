@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:54:00 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/23 22:56:04 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:00:53 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ int		set_pipeoutput2(t_token *token, int *nextinput);
 int		builtin_env(t_token *token);
 int		check_valid(char *enter);
 void	export_if(t_token *token, char **str, int ct);
+int		checkarg_export2(char *arg);
+int		not_vallid_id(char *txt);
 
 /* declare global var*/
 extern t_state	g_state;

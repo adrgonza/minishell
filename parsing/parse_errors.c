@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:11:34 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/24 01:08:34 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:11:54 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_pipes_cmd(t_token *token)
 
 int	check_parsing_errors(char *cmd, int s_qte, int d_qte, int i)
 {
-	int size;
+	int	size;
 
 	size = ft_strlen(cmd);
 	if (ft_strnstr(cmd, "<<|", size) && s_qte % 2 == 0 && d_qte % 2 == 0)

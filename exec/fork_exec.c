@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/23 23:25:27 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:13:44 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	set_pipeoutput(t_token *token, int *nextinput)
 	if (token->next && token->next->type == T_STDOUT)
 		fdfile = STDOUT_FILENO;
 	if (token->next && token->next->type == T_GREATGREAT)
-		fdfile = open(token->next->args[0],	0x0001 | O_APPEND | O_CREAT, 0644);
+		fdfile = open(token->next->args[0], 0x0001 | O_APPEND | O_CREAT, 0644);
 	if (token->next && token->next->type == T_GREAT)
 		fdfile = open(token->next->args[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (token->next && token->next->type == T_PIPE && nextinput != 0)
@@ -128,7 +128,7 @@ int	set_pipeoutput2(t_token *token, int *nextinput)
 	if (token->type == T_PIPE)
 	{
 		pipe(pip);
-  		fdfile = pip[1];
+		fdfile = pip[1];
 		*nextinput = pip[0];
 	}
 	if (fdfile == -1)

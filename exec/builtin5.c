@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin5.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:21:26 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/23 22:55:44 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/25 16:44:46 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@ int	check_digit_str(char *str)
 		str++;
 	while (*str == ' ')
 		str++;
-	if (ft_strlen(str) > 10)
-		return (0);
-	else if (ft_strlen(str) < 10)
-		return (1);
-	else if (neg == 1 && (ft_strncmp(str, "2147483648", -1) > 0))
-		return (0);
-	else if (ft_strncmp(str, "2147483647", -1) > 0)
-		return (0);
 	return (1);
 }
 

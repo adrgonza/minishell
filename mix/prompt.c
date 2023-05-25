@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/23 22:58:53 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:12:16 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	prompt(void)
 		free(command);
 	}
 }
-
+/*
 void	prompt_debug(void)
 {
 	char	*command;
@@ -121,5 +121,4 @@ void    prompt_linux(void)
         }
         free(command);
     }
-}
-
+}*/
