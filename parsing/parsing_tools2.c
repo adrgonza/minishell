@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:56:25 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/22 15:18:00 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/24 00:59:23 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,13 @@ void	reordenate_tokens(t_token	**tkn)
 
 void	check_quotes_if(char **cmd, int *i, int *multi)
 {
+	if ((*i) >= 0 && (*cmd)[(*i)] && (*cmd)[*i] == '<' && (*cmd)[*i + 1]
+		&& (*cmd)[*i + 1] == '<' && (multi[1] % 2 == 0) && (multi[2] % 2
+		== 0))
+		multi[3] = 1;
 	if ((*cmd)[(*i)] && (*cmd)[*i] == '~' && multi[1] % 2 == 0 && multi[2] % 2
 		== 0 && (((*i) - 1) < 0 || (*cmd)[*i - 1] == ' ') && (!(*cmd)[*i + 1]
-		|| (*cmd)[(*i) + 1] == ' ' || (*cmd)[(*i) + 1] == '/'))
+		|| (*cmd)[(*i) + 1] == ' ' || (*cmd)[(*i) + 1] == '/') && multi[3] == 0)
 			(*cmd) = expand_tilde((*cmd), (*i), multi[0]++);
 	if ((*cmd)[(*i)] && (*cmd)[(*i)] == '"' && (multi[2] % 2 == 0))
 		multi[1]++;
@@ -95,10 +99,6 @@ void	check_quotes_if(char **cmd, int *i, int *multi)
 	if ((*i) >= 0 && (*cmd)[*i] && ((*cmd)[*i] == '|' || (*cmd)[(*i)] == '>')
 		&& multi[1] % 2 == 0 && multi[2] % 2 == 0)
 		multi[3] = 0;
-	if ((*i) >= 0 && (*cmd)[(*i)] && (*cmd)[*i] == '<' && (*cmd)[*i + 1]
-		&& (*cmd)[*i + 1] == '<' && (multi[1] % 2 == 0) && (multi[2] % 2
-		== 0))
-		multi[3] = 1;
 	if (*i >= 0 && (*cmd)[(*i)] && (*cmd)[(*i)] == '$' && multi[2] % 2 == 0 &&
 		multi[3] == 0 && (*cmd)[(*i) + 1]
 		&& (ft_isalnum((*cmd)[(*i) + 1]) || (*cmd)[(*i) + 1] == '?'))
@@ -119,7 +119,7 @@ char	*check_quotes(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (!check_parsing_errors(cmd[i], multi[2], multi[1]))
+		if (!check_parsing_errors(cmd, multi[2], multi[1], i))
 			return (NULL);
 		check_quotes_if(&cmd, &i, multi);
 	}

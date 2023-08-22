@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:12:35 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/22 15:23:15 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:12:16 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	prompt_debug(void)
 	command = (char *)1;
 	while (command != NULL)
 	{
-		command = ft_strdup("echo >>out -n | ls");
+		command = ft_strdup("echo 1 | <tm_out");
 		if (command == NULL)
 			break ;
 		tokens = parsing(command);
@@ -121,5 +121,4 @@ void    prompt_linux(void)
         }
         free(command);
     }
-}
-*/
+}*/

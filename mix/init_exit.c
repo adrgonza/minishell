@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:10:16 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/20 20:00:29 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/25 18:05:02 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,41 @@ void	global_init(void)
 	g_state.status = 0;
 }
 
+void	set_shell_lvl_aument(t_env *data)
+{
+	int		nb;
+	char	*tmp;
+
+	nb = ft_atoi(data->args);
+	tmp = ft_itoa(nb + 1);
+	if (tmp == NULL)
+		malloc_fail_proc();
+	data = ft_envnew("SHLVL", tmp);
+	if (data == NULL)
+	{
+		free(tmp);
+		malloc_fail_proc();
+	}
+	ft_envset(data);
+	free(tmp);
+}
+
+void	set_shell_lvl(void)
+{
+	t_env	*data;
+
+	data = ft_envfind("SHLVL");
+	if (data && data->args)
+		set_shell_lvl_aument(data);
+	else
+	{
+		data = ft_envnew("SHLVL", "1");
+		if (data == NULL)
+			malloc_fail_proc();
+		ft_envset(data);
+	}
+}
+
 int	ft_init(int argc, char **argv, char **envp)
 {
 	t_env	*envt;
@@ -29,7 +64,7 @@ int	ft_init(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (0);
 	signal(SIGINT, sig_hnd);
-	signal(SIGQUIT, sig_hnd);
+	signal(SIGQUIT, SIG_IGN);
 	global_init();
 	g_state.envp = env_split_to_list(envp);
 	envt = ft_envfind("HOME");
@@ -43,6 +78,7 @@ int	ft_init(int argc, char **argv, char **envp)
 		g_state.home_dir = NULL;
 	getcwd(cwd, PATH_MAX + 1);
 	envt = ft_envnew("SHELL", argv[0]);
+	set_shell_lvl();
 	if (envt == NULL)
 		malloc_fail_proc();
 	ft_envset(envt);

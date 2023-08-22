@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:04:31 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/22 15:16:22 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:44:06 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char	*expand_tilde(char *cmd, int i, int first)
 	t_env	*data;
 	int		args_len;
 
+	if (g_state.here_quote == 1)
+		return (cmd);
 	data = ft_envfind("HOME");
 		args_len = 0;
 	if (data || data->args)

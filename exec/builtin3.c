@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:08:57 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/22 15:04:58 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:00:27 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	builtin_unset(t_token *token)
 	char	**localsplit;
 	int		ct;
 
-	ct = 1;
-	while (token->args[ct] != NULL)
+	ct = 0;
+	while (token->args[++ct] != NULL)
 	{
 		localsplit = ft_split(token->args[ct], '=');
 		if (localsplit == NULL)
@@ -64,13 +64,14 @@ int	builtin_unset(t_token *token)
 			ft_free_split(localsplit);
 			return (builtin_error());
 		}
+		if (checkarg_export2(localsplit[0]) == -1)
+			return (ft_free_split(localsplit), not_vallid_id(localsplit[0]));
 		env = ft_envnew(localsplit[0], localsplit[1]);
 		if (env == NULL)
 			return (builtin_error());
 		ft_envunset(env);
 		ft_free_split(localsplit);
 		ft_envdelone(env);
-		ct++;
 	}
 	return (0);
 }

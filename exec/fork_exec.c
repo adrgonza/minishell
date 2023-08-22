@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 22:42:13 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/21 13:41:10 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:13:44 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,17 @@ int	set_pipeoutput(t_token *token, int *nextinput)
 	int	fdfile;
 	int	pip[2];
 
-	token->next->processed = 1;
-	if (token->next->type == T_STDOUT)
+	if (token->next)
+		token->next->processed = 1;
+	else
+		fdfile = -1;
+	if (token->next && token->next->type == T_STDOUT)
 		fdfile = STDOUT_FILENO;
-	if (token->next->type == T_GREATGREAT)
-		fdfile = open(token->next->args[0], \
-			O_WRONLY | O_APPEND | O_CREAT, 0644);
-	if (token->next->type == T_GREAT)
-		fdfile = open(token->next->args[0], \
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (token->next->type == T_PIPE)
+	if (token->next && token->next->type == T_GREATGREAT)
+		fdfile = open(token->next->args[0], 0x0001 | O_APPEND | O_CREAT, 0644);
+	if (token->next && token->next->type == T_GREAT)
+		fdfile = open(token->next->args[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (token->next && token->next->type == T_PIPE && nextinput != 0)
 	{
 		pipe(pip);
 		fdfile = pip[1];

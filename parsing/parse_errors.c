@@ -6,7 +6,7 @@
 /*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:11:34 by adrgonza          #+#    #+#             */
-/*   Updated: 2023/05/22 15:12:57 by adrgonza         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:11:54 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	check_pipes_cmd(t_token *token)
 
 	cmd_pipe[1] = 1;
 	cmd_pipe[0] = 0;
-	while (token->next)
+	while (token)
 	{
-		if (token->type == T_COMMAND)
+		if (token->type == T_COMMAND || (token->type <= 9 && token->type >= 6))
 		{
 			cmd_pipe[0] = 1;
 			cmd_pipe[1] = 1;
@@ -41,14 +41,29 @@ int	check_pipes_cmd(t_token *token)
 	return (1);
 }
 
-int	check_parsing_errors(char cmd, int s_qte, int d_qte)
+int	check_parsing_errors(char *cmd, int s_qte, int d_qte, int i)
 {
-	if (cmd == ';' && s_qte % 2 == 0 && d_qte % 2 == 0)
+	int	size;
+
+	size = ft_strlen(cmd);
+	if (ft_strnstr(cmd, "<<|", size) && s_qte % 2 == 0 && d_qte % 2 == 0)
+		return (ft_putstr_fd("Syntax error near unexpected token `<<|'\n", 2),
+			g_state.last_return = 1, 0);
+	if (ft_strnstr(cmd, ">>|", size) && s_qte % 2 == 0 && d_qte % 2 == 0)
+		return (ft_putstr_fd("Syntax error near unexpected token `>>|'\n", 2),
+			g_state.last_return = 1, 0);
+	if (ft_strnstr(cmd, "<|", size) && s_qte % 2 == 0 && d_qte % 2 == 0)
+		return (ft_putstr_fd("Syntax error near unexpected token `<|'\n", 2),
+			g_state.last_return = 1, 0);
+	if (ft_strnstr(cmd, ">|", size) && s_qte % 2 == 0 && d_qte % 2 == 0)
+		return (ft_putstr_fd("Syntax error near unexpected token `>|'\n", 2),
+			g_state.last_return = 1, 0);
+	if (cmd[i] == ';' && s_qte % 2 == 0 && d_qte % 2 == 0)
 		return (ft_putstr_fd("Syntax error near unexpected token `;'\n", 2),
-			g_state.last_return = 0, 0);
-	if (cmd == '\\' && s_qte % 2 == 0 && d_qte % 2 == 0)
+			g_state.last_return = 1, 0);
+	if (cmd[i] == '\\' && s_qte % 2 == 0 && d_qte % 2 == 0)
 		return (ft_putstr_fd("Syntax error near unexpected token `\\'\n", 2),
-			g_state.last_return = 0, 0);
+			g_state.last_return = 1, 0);
 	return (1);
 }
 

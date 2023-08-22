@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amejia <amejia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adrgonza <adrgonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 23:37:32 by amejia            #+#    #+#             */
-/*   Updated: 2023/05/20 20:02:24 by amejia           ###   ########.fr       */
+/*   Updated: 2023/05/23 22:05:26 by adrgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	here_doc_loop(char *command, t_token *token, int *pip)
 {
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		command = readline("heredoc(>^.^)> ");
