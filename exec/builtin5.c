@@ -14,11 +14,6 @@
 
 int	check_digit_str(char *str)
 {
-	int	neg;
-
-	neg = 0;
-	if (*str == '-')
-		neg = 1;
 	if (*str == '-')
 		str++;
 	while (*str == ' ')

@@ -41,11 +41,10 @@ int	kid_stuff(t_token *token, int *it, int *id)
 int	fork_exec(t_token *token, int *it, int *prev_id)
 {
 	int	id;
-	int	error;
 
 	id = fork();
 	if (id == 0)
-		error = kid_stuff(token, it, prev_id);
+		kid_stuff(token, it, prev_id);
 	else
 	{
 		g_state.status = S_EXECUTINGCH;

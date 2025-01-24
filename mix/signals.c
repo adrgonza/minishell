@@ -14,7 +14,7 @@
 
 void	sig_prompt(void)
 {
-	rl_replace_line("", 0);
+	// rl_replace_line("", 0);
 	rl_on_new_line();
 	write(1, "\r\n", 2);
 	rl_on_new_line();
@@ -23,7 +23,7 @@ void	sig_prompt(void)
 
 void	sig_heredoc(void)
 {
-	rl_replace_line("", 0);
+	// rl_replace_line("", 0);
 	rl_on_new_line();
 	write(1, "\r\n", 2);
 	rl_on_new_line();

@@ -95,11 +95,9 @@ int	builtin_echo(t_token *token)
 int	builtin_exit(t_token *token)
 {
 	int	a;
-	int	b;
 
 	a = 0;
 	write(STDERR_FILENO, "exit\n", 5);
-	b = 1;
 	if (token->args[1] != NULL && check_valid(token->args[1]))
 	{
 		a = 255;
@@ -117,6 +115,6 @@ int	builtin_exit(t_token *token)
 	ft_envclear(&g_state.envp);
 	free(g_state.home_dir);
 	free(g_state.id);
-	rl_clear_history();
+	clear_history();
 	return (exit (a), a);
 }
